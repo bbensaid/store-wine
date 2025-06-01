@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Wine {
+  WineID      Int     @id @default(autoincrement())
+  WineName    String? 
+  Type        String?
+  Elaborate   String?
+  Grapes      String?
+  Harmonize   String?
+  ABV         Float?
+  Body        String?
+  Acidity     String?
+  Code        String?
+  Country     String?
+  RegionID    Int?
+  RegionName  String?
+  WineryID    Int?
+  WineryName  String?
+  Website     String?
+  Vintages    String?
+  Price       Int     @default(0)
+  ratings     WineRating[]
+  images      WineImage[] 
+}
+
+
+model WineImage {
+  ImageID  Int     @id @default(autoincrement())
+  WineID   Int?
+  url      String?
+  width    Int?
+  height   Int?
+
+  Wine     Wine?   @relation(fields: [WineID], references: [WineID])
+}
+
+
+model WineRating {
+  RatingID  Int     @id @default(autoincrement())
+  UserID    Int?
+  WineID    Int?
+  Vintage   String?
+  Rating    Float?
+  Date      DateTime?
+
+  Wine     Wine?   @relation(fields: [WineID], references: [WineID])
+  // User      User?   @relation(fields: [UserID], references: [UserID])
+}
+
+

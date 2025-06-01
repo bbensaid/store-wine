@@ -1,26 +1,231 @@
+/* --------------------------------
+   Imports
+   -------------------------------- */
 @import "tailwindcss";
 
+/* --------------------------------
+      Custom Variants
+      -------------------------------- */
+@custom-variant dark (&:is(.dark *));
+
+/* --------------------------------
+      Color Palette
+      -------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base neutrals */
+  --white: oklch(1 0 0);
+  --black: oklch(0.141 0.005 285.823);
+  --gray-100: oklch(0.967 0.001 286.375);
+  --gray-200: oklch(0.92 0.004 286.32);
+  --gray-500: oklch(0.552 0.016 285.938);
+  --gray-800: oklch(0.274 0.006 286.033);
+  --gray-900: oklch(0.21 0.006 285.885);
+
+  /* Brand colors - Light mode */
+  --purple-500: #8b0015;
+  --purple-50: #ffffff; /* white for contrast */
+
+  /* Brand colors - Dark mode */
+  --purple-600: #8b0015;
+  --purple-700: #ffffff; /* white for contrast */
+
+  /* Functional colors */
+  --red-500: oklch(0.577 0.245 27.325);
+  --red-600: oklch(0.704 0.191 22.216);
+
+  /* Chart colors */
+  --chart-orange: oklch(0.646 0.222 41.116);
+  --chart-teal: oklch(0.6 0.118 184.704);
+  --chart-blue: oklch(0.398 0.07 227.392);
+  --chart-yellow: oklch(0.828 0.189 84.429);
+  --chart-amber: oklch(0.769 0.188 70.08);
+  --chart-purple: oklch(0.488 0.243 264.376);
+  --chart-green: oklch(0.696 0.17 162.48);
+  --chart-pink: oklch(0.627 0.265 303.9);
+  --chart-red: oklch(0.645 0.246 16.439);
+
+  /* Add our wine colors */
+  --wine-500: oklch(0.45 0.25 12.32); /* #CC0000 - rich red wine */
+  --wine-50: oklch(0.92 0.02 18.32); /* Light version for contrast */
+
+  /* Option 1: Deep Burgundy */
+  --wine-burgundy: oklch(
+    0.35 0.16 25.32
+  ); /* #581D24 - deep, sophisticated burgundy */
+  --wine-burgundy-light: oklch(
+    0.92 0.02 25.32
+  ); /* light version for contrast */
+
+  /* Option 2: Rich Merlot */
+  --wine-merlot: oklch(0.38 0.18 22.32); /* #7C2435 - rich merlot red */
+  --wine-merlot-light: oklch(0.93 0.02 22.32); /* light version for contrast */
+
+  /* Option 3: Classic Bordeaux */
+  --wine-bordeaux: oklch(0.33 0.15 20.32); /* #4A0F1C - deep bordeaux */
+  --wine-bordeaux-light: oklch(
+    0.91 0.02 20.32
+  ); /* light version for contrast */
+
+  /* Option 4: Ruby Port */
+  --wine-ruby: oklch(0.36 0.19 18.32); /* #8B1F2F - vibrant ruby port */
+  --wine-ruby-light: oklch(0.92 0.02 18.32); /* light version for contrast */
 }
 
+/* --------------------------------
+      Theme Variables Mapping
+      -------------------------------- */
 @theme inline {
+  /* Radius variables */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Map semantic variables to their values */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Chart colors */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar specific */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* --------------------------------
+      Light Theme (Default)
+      -------------------------------- */
+:root {
+  /* Layout */
+  --radius: 0.5rem; /* Controls border radius throughout the UI */
+
+  /* Base colors */
+  --background: var(--white); /* Page background */
+  --foreground: var(--black); /* Default text color */
+
+  /* Component colors */
+  --card: var(--white); /* Card background */
+  --card-foreground: var(--black); /* Card text color */
+  --popover: var(--white); /* Popover background */
+  --popover-foreground: var(--black); /* Popover text color */
+
+  /* Functional colors */
+  --primary: var(--purple-600); /* Primary actions, buttons, links */
+  --primary-foreground: var(--purple-50); /* Text on primary backgrounds */
+  --secondary: var(--gray-100); /* Secondary actions, buttons */
+  --secondary-foreground: var(--gray-900); /* Text on secondary backgrounds */
+  --muted: var(--gray-100); /* Muted backgrounds */
+  --muted-foreground: var(--gray-500); /* Muted text */
+  --accent: var(--gray-100); /* Accent backgrounds */
+  --accent-foreground: var(--gray-900); /* Text on accent backgrounds */
+  --destructive: var(--red-500); /* Destructive actions */
+
+  /* UI element colors */
+  --border: var(--gray-200); /* Borders and dividers */
+  --input: var(--gray-200); /* Form input borders */
+  --ring: var(--purple-500); /* Focus rings */
+
+  /* Chart colors */
+  --chart-1: var(--chart-orange);
+  --chart-2: var(--chart-teal);
+  --chart-3: var(--chart-blue);
+  --chart-4: var(--chart-yellow);
+  --chart-5: var(--chart-amber);
+
+  /* Sidebar specific */
+  --sidebar: var(--white);
+  --sidebar-foreground: var(--black);
+  --sidebar-primary: var(--purple-500);
+  --sidebar-primary-foreground: var(--purple-50);
+  --sidebar-accent: var(--gray-100);
+  --sidebar-accent-foreground: var(--gray-900);
+  --sidebar-border: var(--gray-200);
+  --sidebar-ring: var(--purple-500);
+}
+
+/* --------------------------------
+      Dark Theme
+      -------------------------------- */
+.dark {
+  /* Base colors */
+  --background: var(--black); /* Page background */
+  --foreground: var(--white); /* Default text color */
+
+  /* Component colors */
+  --card: var(--gray-900); /* Card background */
+  --card-foreground: var(--white); /* Card text color */
+  --popover: var(--gray-900); /* Popover background */
+  --popover-foreground: var(--white); /* Popover text color */
+
+  /* Functional colors */
+  --primary: var(--purple-600); /* Primary actions, buttons, links */
+  --primary-foreground: var(--purple-700); /* Text on primary backgrounds */
+  --secondary: var(--gray-800); /* Secondary actions, buttons */
+  --secondary-foreground: var(--white); /* Text on secondary backgrounds */
+  --muted: var(--gray-800); /* Muted backgrounds */
+  --muted-foreground: var(--gray-500); /* Muted text */
+  --accent: var(--gray-800); /* Accent backgrounds */
+  --accent-foreground: var(--white); /* Text on accent backgrounds */
+  --destructive: var(--red-600); /* Destructive actions */
+
+  /* UI element colors */
+  --border: oklch(1 0 0 / 10%); /* Borders and dividers */
+  --input: oklch(1 0 0 / 15%); /* Form input borders */
+  --ring: var(--purple-600); /* Focus rings */
+
+  /* Chart colors */
+  --chart-1: var(--chart-purple);
+  --chart-2: var(--chart-green);
+  --chart-3: var(--chart-amber);
+  --chart-4: var(--chart-pink);
+  --chart-5: var(--chart-red);
+
+  /* Sidebar specific */
+  --sidebar: var(--gray-900);
+  --sidebar-foreground: var(--white);
+  --sidebar-primary: var(--purple-600);
+  --sidebar-primary-foreground: var(--purple-700);
+  --sidebar-accent: var(--gray-800);
+  --sidebar-accent-foreground: var(--white);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: var(--purple-600);
+}
+
+/* --------------------------------
+      Base Layer Styles
+      -------------------------------- */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
 }

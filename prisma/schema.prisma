@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Wine {
+  abv       Float
+  acidity   String
+  body      String
+  code      String
+  elaborate String?
+  grapes    String
+  harmonize String
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int      @default(0)
+  regionId  Int
+  type      String
+  createdAt DateTime @default(now())
+  featured  Boolean  @default(false)
+  images    Image[]
+  ratings   Rating[]
+  region    Region   @relation("RegionToWine", fields: [regionId], references: [id])
+}
+
+model Region {
+  id      Int    @id @default(autoincrement())
+  name    String
+  country String
+  wines   Wine[] @relation("RegionToWine")
+}
+
+model Rating {
+  id      Int      @id @default(autoincrement())
+  wineId  Int
+  userId  Int
+  vintage String?
+  rating  Float
+  date    DateTime
+  user    User     @relation(fields: [userId], references: [id])
+  wine    Wine     @relation(fields: [wineId], references: [id])
+}
+
+model User {
+  email    String   @unique
+  id       Int      @id @default(autoincrement())
+  name     String?
+  password String
+  role     String   @default("USER")
+  ratings  Rating[]
+}
+
+model Image {
+  id     Int    @id @default(autoincrement())
+  url    String
+  wineId Int
+  wine   Wine   @relation(fields: [wineId], references: [id])
+}
