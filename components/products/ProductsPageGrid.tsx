@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
+import { Wine, Image as PrismaImage } from "@prisma/client";
 
 // Copy of ProductsGrid but with Products page specific styling
 function ProductsPageGrid({
@@ -45,7 +46,7 @@ function ProductsPageGrid({
               </Link>
               {featured && (
                 <div className="absolute top-2 right-2 z-10">
-                  <FavoriteToggleButton productId={productId.toString()} />
+                  <FavoriteToggleButton />
                 </div>
               )}
             </article>

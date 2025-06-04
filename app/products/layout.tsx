@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ProductsLayoutClient from "@/components/products/ProductsLayoutClient";
 
 export default function ProductsLayout({
@@ -5,5 +6,9 @@ export default function ProductsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ProductsLayoutClient>{children}</ProductsLayoutClient>;
+  return (
+    <Suspense>
+      <ProductsLayoutClient>{children}</ProductsLayoutClient>
+    </Suspense>
+  );
 }

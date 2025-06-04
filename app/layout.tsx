@@ -1,42 +1,10 @@
 import type { Metadata } from "next";
-import {
-  Inter,
-  Playfair_Display,
-  Cormorant_Garamond,
-  Crimson_Text,
-  Cinzel,
-} from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/navbar/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "700"],
-});
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-});
-
-const crimson = Crimson_Text({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "600"],
-  style: ["normal", "italic"],
-});
 
 export const metadata: Metadata = {
   title: "Wine Store",

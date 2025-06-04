@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import HeroCarousel from "./HeroCarousel";
 import Image from "next/image";
-import { Cinzel, Cormorant_Garamond, Lora } from "next/font/google";
+import { Cinzel, Cormorant_Garamond } from "next/font/google";
 
 // Font imports for branding and typography
 const cinzel = Cinzel({
@@ -21,12 +21,6 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
   weight: ["500", "600"],
   style: ["italic"],
-});
-
-const lora = Lora({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400"],
 });
 
 /**

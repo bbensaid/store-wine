@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 
-function AdminPage() {
-  return <div>AdminPage</div>;
+export default function AdminPage() {
+  return (
+    <Suspense>
+      <div>AdminPage</div>
+    </Suspense>
+  );
 }
-
-export default AdminPage;

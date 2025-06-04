@@ -17,19 +17,32 @@ function sanitizeQuery(query: Record<string, unknown>): Record<string, string> {
   );
 }
 
-export default async function ProductsPage({
-  searchParams,
-}: {
-  searchParams: Record<string, string>;
-}) {
-  // Extract filters and pagination from searchParams
-  const page = parseInt(searchParams.page || "0", 10) || 0;
-  const layout = searchParams.layout || "grid";
+// Utility to normalize searchParams values to strings
+function normalizeSearchParams(params: {
+  [key: string]: string | string[] | undefined;
+}): Record<string, string> {
+  const result: Record<string, string> = {};
+  for (const [key, value] of Object.entries(params)) {
+    if (typeof value === "string") {
+      result[key] = value;
+    } else if (Array.isArray(value)) {
+      result[key] = value[0] ?? "";
+    }
+  }
+  return result;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function ProductsPage({ searchParams }: any) {
+  const normalizedParams = normalizeSearchParams(searchParams || {});
+  // Extract filters and pagination from normalizedParams
+  const page = parseInt(normalizedParams.page || "0", 10) || 0;
+  const layout = normalizedParams.layout || "grid";
 
   // Fetch products and total count server-side
   const { products, totalCount } = await getProducts({
     filters: Object.fromEntries(
-      Object.entries(searchParams).filter(([key]) => key !== "page")
+      Object.entries(normalizedParams).filter(([key]) => key !== "page")
     ),
     page,
     pageSize: PAGE_SIZE,
@@ -70,7 +83,7 @@ export default async function ProductsPage({
                   href={{
                     pathname: "/products",
                     query: sanitizeQuery({
-                      ...searchParams,
+                      ...normalizedParams,
                       page: Math.max(0, page - 1),
                     }),
                   }}
@@ -92,7 +105,7 @@ export default async function ProductsPage({
                   href={{
                     pathname: "/products",
                     query: sanitizeQuery({
-                      ...searchParams,
+                      ...normalizedParams,
                       page: Math.min(totalPages - 1, page + 1),
                     }),
                   }}
@@ -114,7 +127,7 @@ export default async function ProductsPage({
               <Link
                 href={{
                   pathname: "/products",
-                  query: sanitizeQuery({ ...searchParams, layout: "grid" }),
+                  query: sanitizeQuery({ ...normalizedParams, layout: "grid" }),
                 }}
                 scroll={false}
               >
@@ -130,7 +143,7 @@ export default async function ProductsPage({
               <Link
                 href={{
                   pathname: "/products",
-                  query: sanitizeQuery({ ...searchParams, layout: "list" }),
+                  query: sanitizeQuery({ ...normalizedParams, layout: "list" }),
                 }}
                 scroll={false}
               >

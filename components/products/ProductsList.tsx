@@ -113,7 +113,7 @@ function ProductsList({
               </Card>
             </Link>
             <div className="absolute top-2 right-8 z-10">
-              <FavoriteToggleButton productId={productId.toString()} />
+              <FavoriteToggleButton />
             </div>
           </article>
         );
