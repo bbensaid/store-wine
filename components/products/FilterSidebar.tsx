@@ -12,6 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useDebouncedCallback } from "use-debounce";
 
 interface FilterSidebarProps {
   filters: Record<string, string>;
@@ -223,6 +224,7 @@ export default function FilterSidebar({
 }: FilterSidebarProps) {
   const [localFilters, setLocalFilters] =
     useState<Record<string, string>>(filters);
+  const [dynamicFiltering, setDynamicFiltering] = useState(false);
 
   useEffect(() => {
     setLocalFilters(filters);
@@ -233,6 +235,12 @@ export default function FilterSidebar({
       ...prev,
       [key]: value,
     }));
+    if (dynamicFiltering) {
+      debouncedApplyFilters({
+        ...localFilters,
+        [key]: value,
+      });
+    }
   };
 
   const handleApplyFilters = () => {
@@ -244,19 +252,26 @@ export default function FilterSidebar({
     onResetFilters();
   };
 
+  const debouncedApplyFilters = useDebouncedCallback((filters) => {
+    onFiltersChanged(filters);
+  }, 300);
+
   return (
-    <div
+    <aside
       className={`
       h-screen bg-white border-r border-gray-200 shadow-lg
       transition-all duration-300 overflow-y-auto
       ${isCollapsed ? "w-14" : "w-56"}
     `}
+      aria-label="Product filters sidebar"
     >
       <div className="p-4 sticky top-0 bg-white z-10 border-b border-gray-200">
         <Button
           variant="ghost"
           onClick={onToggleCollapse}
           className="w-full flex flex-col items-center gap-1"
+          aria-expanded={!isCollapsed}
+          aria-controls="sidebar-filters-content"
         >
           {isCollapsed ? (
             <>
@@ -270,66 +285,107 @@ export default function FilterSidebar({
             </>
           )}
         </Button>
+        {!isCollapsed && (
+          <div className="mt-4 flex items-center space-x-2">
+            <Checkbox
+              id="dynamic-filtering"
+              checked={dynamicFiltering}
+              onCheckedChange={(checked) => setDynamicFiltering(!!checked)}
+              aria-checked={dynamicFiltering}
+            />
+            <Label htmlFor="dynamic-filtering">Dynamic Filtering</Label>
+          </div>
+        )}
       </div>
 
       {!isCollapsed && (
-        <div className="p-4 space-y-6">
+        <div
+          id="sidebar-filters-content"
+          role="region"
+          aria-label="Filter options"
+          className="p-4 space-y-6"
+        >
           <Button
             onClick={handleReset}
             variant="default"
             className="mb-2 w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
             style={{ borderColor: "#8B0015" }}
+            aria-label="Reset all filters"
           >
             Reset Filter
           </Button>
-          <Button
-            onClick={handleApplyFilters}
-            variant="default"
-            className="w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
-            style={{ borderColor: "#8B0015" }}
-          >
-            Apply Filters
-          </Button>
+          {!dynamicFiltering && (
+            <Button
+              onClick={handleApplyFilters}
+              variant="default"
+              className="w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
+              style={{ borderColor: "#8B0015" }}
+              aria-label="Apply selected filters"
+            >
+              Apply Filters
+            </Button>
+          )}
 
           <div className="mt-8 space-y-6">
-            <WineTypeFilter
-              value={localFilters.type || "all"}
-              onChange={(v) => handleChange("type", v)}
-            />
+            <fieldset>
+              <legend className="sr-only">Wine Type</legend>
+              <WineTypeFilter
+                value={localFilters.type || "all"}
+                onChange={(v) => handleChange("type", v)}
+              />
+            </fieldset>
             <Separator />
-            <BodyFilter
-              value={localFilters.body || "all"}
-              onChange={(v) => handleChange("body", v)}
-            />
-            <AcidityFilter
-              value={localFilters.acidity || "all"}
-              onChange={(v) => handleChange("acidity", v)}
-            />
-            <CountryFilter
-              value={localFilters.country || "all"}
-              onChange={(v) => handleChange("country", v)}
-            />
-            <RatingRangeFilter
-              min={localFilters.ratingMin ?? ""}
-              max={localFilters.ratingMax ?? ""}
-              onMinChange={(v) => handleChange("ratingMin", v)}
-              onMaxChange={(v) => handleChange("ratingMax", v)}
-            />
-            <PriceRangeFilter
-              min={localFilters.priceMin ?? ""}
-              max={localFilters.priceMax ?? ""}
-              onMinChange={(v) => handleChange("priceMin", v)}
-              onMaxChange={(v) => handleChange("priceMax", v)}
-            />
-            <FeaturedFilter
-              checked={!!localFilters.featured}
-              onChange={(checked) =>
-                handleChange("featured", checked ? "true" : "")
-              }
-            />
+            <fieldset>
+              <legend className="sr-only">Body</legend>
+              <BodyFilter
+                value={localFilters.body || "all"}
+                onChange={(v) => handleChange("body", v)}
+              />
+            </fieldset>
+            <fieldset>
+              <legend className="sr-only">Acidity</legend>
+              <AcidityFilter
+                value={localFilters.acidity || "all"}
+                onChange={(v) => handleChange("acidity", v)}
+              />
+            </fieldset>
+            <fieldset>
+              <legend className="sr-only">Country</legend>
+              <CountryFilter
+                value={localFilters.country || "all"}
+                onChange={(v) => handleChange("country", v)}
+              />
+            </fieldset>
+            <fieldset>
+              <legend className="sr-only">Rating Range</legend>
+              <RatingRangeFilter
+                min={localFilters.ratingMin ?? ""}
+                max={localFilters.ratingMax ?? ""}
+                onMinChange={(v) => handleChange("ratingMin", v)}
+                onMaxChange={(v) => handleChange("ratingMax", v)}
+              />
+            </fieldset>
+            <fieldset>
+              <legend className="sr-only">Price Range</legend>
+              <PriceRangeFilter
+                min={localFilters.priceMin ?? ""}
+                max={localFilters.priceMax ?? ""}
+                onMinChange={(v) => handleChange("priceMin", v)}
+                onMaxChange={(v) => handleChange("priceMax", v)}
+              />
+            </fieldset>
+            <fieldset>
+              <legend className="sr-only">Featured Wines</legend>
+              <FeaturedFilter
+                checked={!!localFilters.featured}
+                onChange={(checked) =>
+                  handleChange("featured", checked ? "true" : "")
+                }
+              />
+            </fieldset>
           </div>
         </div>
       )}
-    </div>
+    </aside>
   );
 }

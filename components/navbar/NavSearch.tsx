@@ -2,7 +2,7 @@
 import { Input } from "../ui/input";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function NavSearch() {
   const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ function NavSearch() {
     <Input
       type="search"
       placeholder="Search wines..."
-      className="w-full sm:w-[32rem] dark:bg-muted"
+      className="w-full sm:w-[32rem] dark:bg-muted focus-visible:ring-accent focus-visible:border-accent"
       value={search}
       onChange={(e) => {
         const value = e.target.value;
