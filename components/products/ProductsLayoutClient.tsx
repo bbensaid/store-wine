@@ -3,6 +3,13 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterSidebar from "@/components/products/FilterSidebar";
 import { useCallback, useState } from "react";
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerClose,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 
 export default function ProductsLayoutClient({
   children,
@@ -39,8 +46,45 @@ export default function ProductsLayoutClient({
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-[15%_70%_15%] min-h-screen">
-      {/* Sidebar in left 15% */}
-      <div className="h-full">
+      {/* Mobile Filters Button and Drawer */}
+      <div className="md:hidden p-2">
+        <Drawer direction="left">
+          <DrawerTrigger asChild>
+            <button
+              className="w-full bg-[#8B0015] text-white rounded-md py-2 font-semibold shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B0015]"
+              aria-label="Open filters sidebar"
+            >
+              Filters
+            </button>
+          </DrawerTrigger>
+          <DrawerContent className="p-0 w-4/5 max-w-xs h-full">
+            <div className="flex justify-between items-center p-4 border-b">
+              <DrawerTitle>Filters</DrawerTitle>
+              <DrawerClose asChild>
+                <button
+                  aria-label="Close filters sidebar"
+                  className="text-2xl px-2 py-1 focus:outline-none"
+                >
+                  ×
+                </button>
+              </DrawerClose>
+            </div>
+            <div className="p-4">
+              <FilterSidebar
+                filters={filters}
+                onFiltersChanged={(f) => {
+                  handleFiltersChanged(f);
+                }}
+                onResetFilters={handleResetFilters}
+                isCollapsed={isCollapsed}
+                onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
+              />
+            </div>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      {/* Sidebar on desktop */}
+      <div className="hidden md:block h-full">
         <FilterSidebar
           filters={filters}
           onFiltersChanged={handleFiltersChanged}
@@ -50,7 +94,7 @@ export default function ProductsLayoutClient({
         />
       </div>
       {/* Main content in center 70% */}
-      <div className="w-full h-full">{children}</div>
+      <div className="w-full h-full col-span-1 md:col-span-1">{children}</div>
       {/* Right 15% empty for symmetry */}
       <div className="hidden md:block" />
     </div>

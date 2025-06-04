@@ -1,18 +1,17 @@
 import ProductsGrid from "./ProductsGrid";
 import ProductsList from "./ProductsList";
-import { fetchAllProducts } from "@/utils/actions";
+import { Wine, Image as PrismaImage, Region } from "@prisma/client";
 
 interface ProductsContainerProps {
   layout: string;
-  search: string;
-  products: Awaited<ReturnType<typeof fetchAllProducts>>;
+  products: (Wine & {
+    images: PrismaImage[];
+    region: Region;
+    averageRating?: number;
+  })[];
 }
 
-function ProductsContainer({
-  layout,
-  search,
-  products,
-}: ProductsContainerProps) {
+function ProductsContainer({ layout, products }: ProductsContainerProps) {
   const totalProducts = products.length;
   return (
     <>
