@@ -1,3 +1,7 @@
+// Hero: Main hero section for the homepage.
+// Displays the logo, brand name, slogan, and a call-to-action button.
+// Also includes the HeroCarousel on the right for featured images/products.
+
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -5,6 +9,7 @@ import HeroCarousel from "./HeroCarousel";
 import Image from "next/image";
 import { Cinzel, Cormorant_Garamond, Lora } from "next/font/google";
 
+// Font imports for branding and typography
 const cinzel = Cinzel({
   subsets: ["latin"],
   display: "swap",
@@ -24,32 +29,44 @@ const lora = Lora({
   weight: ["400"],
 });
 
+/**
+ * Hero section for homepage.
+ * - To change the logo, update the src in <Image>.
+ * - To change the main color, update the text color class or theme variable.
+ * - To change the slogan, edit the <h2> content.
+ * - For layout changes, adjust Tailwind classes on the container divs.
+ */
 function Hero() {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
+      {/* Left: Logo, Brand, Slogan, CTA */}
       <div className="lg:col-span-8">
         <div className="flex flex-col items-center gap-4">
+          {/* Logo */}
           <div className="flex items-center gap-4">
             <div className="relative w-[180px] h-[180px]">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.png" // Logo image path
                 alt="VineFox Logo"
                 fill
                 className="object-contain"
               />
             </div>
           </div>
+          {/* Brand Name */}
           <h1
             className={`${cinzel.className} text-4xl sm:text-5xl text-[#8B0015] tracking-[.1em] font-medium`}
           >
             VineFox
           </h1>
+          {/* Slogan */}
           <h2
             className={`${cormorant.className} text-3xl sm:text-4xl text-[#8B0015] tracking-wide`}
           >
             Discover. Share. Savor the rare.
           </h2>
         </div>
+        {/* Body text for hero section. Update for marketing or branding changes. */}
         <p
           className={`${cormorant.className} mt-8 w-full text-2xl sm:text-3xl leading-relaxed text-[#2D2D2D]`}
         >
@@ -58,10 +75,12 @@ function Hero() {
           reprehenderit aut delectus veniam cum perferendis unde sint doloremque
           non nam.
         </p>
+        {/* Call-to-action button */}
         <Button asChild size="lg" className="mt-10">
           <Link href="/products">Our Products</Link>
         </Button>
       </div>
+      {/* Right: Hero Carousel */}
       <div className="lg:col-span-4">
         <HeroCarousel />
       </div>

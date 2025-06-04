@@ -1,21 +1,19 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { DiDotnet } from "react-icons/di";
+import { AiOutlineHome } from "react-icons/ai";
 
 function Logo() {
   return (
     <Button
-      size="icon"
       asChild
-      // variant="default"
-      className="rounded-md p-3 sm:p-4 transition-colors"
-
-      // temp - wait to see what 'theme' does !
-      // className="bg-gray-300 hover:bg-gray-400 rounded-md p-5 transition-colors"
+      variant="outline"
+      size="icon"
+      className="flex justify-center items-center relative px-3 py-2 text-base"
     >
-      <Link href="/">
-        <DiDotnet className="w-12 h-6 sm:w-16 sm:h-8 text-white" />
+      <Link href="/" className="flex items-center">
+        <AiOutlineHome className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 mr-1" />
+        <span className="hidden sm:inline">Home</span>
       </Link>
     </Button>
   );

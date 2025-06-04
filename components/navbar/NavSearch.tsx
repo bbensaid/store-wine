@@ -23,7 +23,7 @@ function NavSearch() {
     <Input
       type="search"
       placeholder="Search wines..."
-      className="max-w-xs dark:bg-muted"
+      className="w-full sm:w-[32rem] dark:bg-muted"
       value={search}
       onChange={(e) => {
         const value = e.target.value;

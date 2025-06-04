@@ -3,7 +3,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { LuAlignLeft } from "react-icons/lu";
 import Link from "next/link";
@@ -14,8 +13,12 @@ function LinksDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex gap-4 max-w-[100px]">
-          <LuAlignLeft className="w-6 h-6" />
+        <Button
+          variant="outline"
+          className="flex items-center px-3 py-2 text-base"
+        >
+          <LuAlignLeft className="w-6 h-6 mr-1" />
+          <span className="hidden sm:inline">All</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start" sideOffset={10}>

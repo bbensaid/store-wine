@@ -1,55 +1,31 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    console.log(
-      "Received search params:",
-      Object.fromEntries(searchParams.entries())
-    );
+    const limit = parseInt(searchParams.get("limit") || "20");
+    const offset = parseInt(searchParams.get("offset") || "0");
+    const where: Prisma.WineWhereInput = {};
 
-    const where: any = {};
-
-    // Type filter
+    // Filtering logic
     const type = searchParams.get("type");
     if (type && type !== "all" && type !== "") {
-      where.type = {
-        equals: type,
-        mode: "insensitive",
-      };
+      where.type = { equals: type, mode: "insensitive" };
     }
-
-    // Body filter - match exact database values
     const body = searchParams.get("body");
     if (body && body !== "all" && body !== "") {
-      where.body = {
-        equals: body,
-        mode: "insensitive",
-      };
+      where.body = { equals: body, mode: "insensitive" };
     }
-
-    // Acidity filter
     const acidity = searchParams.get("acidity");
     if (acidity && acidity !== "all" && acidity !== "") {
-      where.acidity = {
-        equals: acidity,
-        mode: "insensitive",
-      };
+      where.acidity = { equals: acidity, mode: "insensitive" };
     }
-
-    // Country filter
     const country = searchParams.get("country");
     if (country && country !== "all" && country !== "") {
-      where.region = {
-        country: {
-          equals: country,
-          mode: "insensitive",
-        },
-      };
+      where.region = { country: { equals: country, mode: "insensitive" } };
     }
-
-    // Price range
     const priceMin = searchParams.get("priceMin");
     const priceMax = searchParams.get("priceMax");
     if (priceMin || priceMax) {
@@ -61,8 +37,6 @@ export async function GET(request: Request) {
         where.price.lte = parseInt(priceMax);
       }
     }
-
-    // Rating range
     const ratingMin = searchParams.get("ratingMin");
     const ratingMax = searchParams.get("ratingMax");
     if (ratingMin || ratingMax) {
@@ -75,47 +49,36 @@ export async function GET(request: Request) {
         },
       };
     }
-
-    // Featured
     if (searchParams.get("featured") === "true") {
       where.featured = true;
     }
-
-    // Region ID (Int)
     const regionId = searchParams.get("regionId");
     if (regionId) {
       where.regionId = parseInt(regionId);
     }
 
-    console.log("Final Prisma query:", where);
+    // Search by wine name (case-insensitive, contains)
+    const search = searchParams.get("search");
+    if (search && search.trim() !== "") {
+      where.name = { contains: search, mode: "insensitive" };
+    }
 
-    // First, let's get a sample of the data to see actual values
-    const sampleWine = await prisma.wine.findFirst({
-      include: {
-        region: true,
-      },
-    });
-    console.log("Sample wine from database:", sampleWine);
+    // Get total count for pagination
+    const totalCount = await prisma.wine.count({ where });
 
+    // Fetch paginated wines
     const wines = await prisma.wine.findMany({
       where,
       include: {
         region: true,
         images: true,
-        ratings: {
-          select: {
-            rating: true,
-          },
-        },
+        ratings: { select: { rating: true } },
       },
+      skip: offset,
+      take: limit,
     });
 
-    console.log(`Found ${wines.length} wines with these filters`);
-    if (wines.length > 0) {
-      console.log("First matching wine:", wines[0]);
-    }
-
-    // Calculate average rating and filter based on rating range if specified
+    // Calculate average rating for each wine
     const winesWithAvgRating = wines
       .map((wine) => {
         const ratings = wine.ratings.map((r) => r.rating);
@@ -123,7 +86,6 @@ export async function GET(request: Request) {
           ratings.length > 0
             ? ratings.reduce((a, b) => a + b, 0) / ratings.length
             : 0;
-
         return {
           ...wine,
           averageRating: avgRating,
@@ -138,7 +100,10 @@ export async function GET(request: Request) {
         return true;
       });
 
-    return NextResponse.json(winesWithAvgRating);
+    return NextResponse.json({
+      wines: winesWithAvgRating,
+      totalCount,
+    });
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(
