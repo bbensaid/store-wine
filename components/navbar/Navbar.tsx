@@ -10,7 +10,7 @@ import {
 } from "react-icons/ai";
 import { GiWineBottle } from "react-icons/gi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { LuShoppingCart, LuAlignLeft } from "react-icons/lu";
+import { LuShoppingCart, LuAlignLeft, LuMenu } from "react-icons/lu";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 import {
@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 
 function Navbar() {
   // temp cart count
@@ -29,38 +30,83 @@ function Navbar() {
       <Container>
         <div className="flex flex-col gap-4 py-4 sm:py-6">
           <div className="flex items-center w-full">
-            {/* Nav buttons row - evenly distributed */}
+            {/* Mobile: Home + Hamburger, Desktop: All buttons */}
             <div className="flex flex-1 items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-10">
+              {/* Home always visible */}
               <NavLinkButton
                 href="/"
                 label="Home"
                 icon={<AiOutlineHome className="w-6 h-6 mr-1" />}
               />
-              <NavLinkButton
-                href="/about"
-                label="About"
-                icon={<AiOutlineInfoCircle className="w-5 h-5 mr-1" />}
-              />
-              <NavLinkButton
-                href="/products"
-                label="Products"
-                icon={<GiWineBottle className="w-5 h-5 mr-1" />}
-              />
-              <NavLinkButton
-                href="/favorites"
-                label="Favorites"
-                icon={<AiFillHeart className="w-5 h-5 mr-1" color="black" />}
-              />
-              <NavLinkButton
-                href="/orders"
-                label="Orders"
-                icon={<HiOutlineShoppingBag className="w-5 h-5 mr-1" />}
-              />
-              <ModeButton />
-              <AllButton />
-              <CartNavButton count={numItemsInCart} />
+              {/* Desktop buttons */}
+              <div className="hidden sm:flex flex-1 items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-10">
+                <NavLinkButton
+                  href="/about"
+                  label="About"
+                  icon={<AiOutlineInfoCircle className="w-5 h-5 mr-1" />}
+                />
+                <NavLinkButton
+                  href="/products"
+                  label="Products"
+                  icon={<GiWineBottle className="w-5 h-5 mr-1" />}
+                />
+                <NavLinkButton
+                  href="/favorites"
+                  label="Favorites"
+                  icon={<AiFillHeart className="w-5 h-5 mr-1" color="black" />}
+                />
+                <NavLinkButton
+                  href="/orders"
+                  label="Orders"
+                  icon={<HiOutlineShoppingBag className="w-5 h-5 mr-1" />}
+                />
+                <ModeButton />
+                <AllButton />
+                <CartNavButton count={numItemsInCart} />
+              </div>
+              {/* Mobile: Hamburger menu for other buttons */}
+              <div className="sm:hidden ml-2">
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      aria-label="Open menu"
+                    >
+                      <LuMenu className="w-6 h-6" />
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent className="p-6 flex flex-col gap-4 w-full max-w-xs">
+                    <NavLinkButton
+                      href="/about"
+                      label="About"
+                      icon={<AiOutlineInfoCircle className="w-5 h-5 mr-1" />}
+                    />
+                    <NavLinkButton
+                      href="/products"
+                      label="Products"
+                      icon={<GiWineBottle className="w-5 h-5 mr-1" />}
+                    />
+                    <NavLinkButton
+                      href="/favorites"
+                      label="Favorites"
+                      icon={
+                        <AiFillHeart className="w-5 h-5 mr-1" color="black" />
+                      }
+                    />
+                    <NavLinkButton
+                      href="/orders"
+                      label="Orders"
+                      icon={<HiOutlineShoppingBag className="w-5 h-5 mr-1" />}
+                    />
+                    <ModeButton />
+                    <AllButton />
+                    <CartNavButton count={numItemsInCart} />
+                  </DrawerContent>
+                </Drawer>
+              </div>
             </div>
-            {/* Search box at far right */}
+            {/* Search box at far right (desktop only) */}
             <div className="hidden sm:block ml-4 flex-shrink-0 w-[32rem] max-w-full">
               <NavSearch />
             </div>
