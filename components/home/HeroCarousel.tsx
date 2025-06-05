@@ -22,12 +22,12 @@ function HeroCarousel() {
   // State to hold the carousel API
   const [api, setApi] = React.useState<CarouselApi | null>(null);
 
-  // Autoplay: scroll to next image every 5 seconds
+  // Autoplay: scroll to next image every 3 seconds
   React.useEffect(() => {
     if (!api) return;
     const interval = setInterval(() => {
       api.scrollNext();
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [api]);
 

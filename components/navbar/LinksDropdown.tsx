@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { links } from "@/utils/links";
 
-function LinksDropdown() {
+function MenuDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -18,7 +18,7 @@ function LinksDropdown() {
           className="flex items-center px-3 py-2 text-base"
         >
           <LuAlignLeft className="w-6 h-6 mr-1" />
-          <span className="hidden sm:inline">All</span>
+          <span className="hidden sm:inline">Menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start" sideOffset={10}>
@@ -35,4 +35,5 @@ function LinksDropdown() {
     </DropdownMenu>
   );
 }
-export default LinksDropdown;
+
+export default MenuDropdown;
