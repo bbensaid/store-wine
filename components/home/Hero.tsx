@@ -6,7 +6,6 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import HeroCarousel from "./HeroCarousel";
-import Image from "next/image";
 import { Cinzel, Cormorant_Garamond } from "next/font/google";
 
 // Font imports for branding and typography
@@ -38,14 +37,13 @@ function Hero() {
         <div className="flex flex-col items-center gap-4">
           {/* Logo */}
           <div className="flex items-center gap-4">
-            <div className="relative w-[180px] h-[180px]">
-              <Image
-                src="/images/logo.png" // Logo image path
-                alt="VineFox Logo"
-                fill
-                className="object-contain"
+            <Link href="/" className="flex items-center">
+              <img
+                src="/images/logo.png"
+                alt="Wine Store Logo"
+                className="h-40 w-auto"
               />
-            </div>
+            </Link>
           </div>
           {/* Brand Name */}
           <h1

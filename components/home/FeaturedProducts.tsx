@@ -6,7 +6,7 @@ async function FeaturedProducts() {
   const products = await fetchFeaturedProducts();
   if (products.length === 0) return <EmptyList />;
   return (
-    <section className="pt-24">
+    <section className="pt-12">
       <SectionTitle text="featured products" />
       <ProductsGrid products={products} />
     </section>

@@ -5,11 +5,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LuAlignLeft } from "react-icons/lu";
-import Link from "next/link";
 import { Button } from "../ui/button";
 import { links } from "@/utils/links";
+import { useRouter } from "next/navigation";
 
 function MenuDropdown() {
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,15 +23,15 @@ function MenuDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start" sideOffset={10}>
-        {links.map((link) => {
-          return (
-            <DropdownMenuItem key={link.href}>
-              <Link href={link.href} className="capitalize w-full">
-                {link.label}
-              </Link>
-            </DropdownMenuItem>
-          );
-        })}
+        {links.map((link) => (
+          <DropdownMenuItem
+            key={link.href}
+            onSelect={() => router.push(link.href)}
+            className="capitalize w-full"
+          >
+            {link.label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
