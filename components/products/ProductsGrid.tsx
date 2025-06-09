@@ -1,5 +1,4 @@
-import { formatCurrency } from "@/utils/format";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
@@ -11,48 +10,45 @@ function ProductsGrid({
   products: (Wine & { images: PrismaImage[] })[];
 }) {
   return (
-    <div className="pt-2 grid gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="pt-2 grid gap-y-12 gap-x-16 grid-cols-[repeat(auto-fit,minmax(20rem,1fr))]">
       {products.map((product) => {
-        const { name, price, images, featured } = product;
+        const { name, images, featured } = product;
         const productId = product.id;
         if (!images || !images.length || !images[0]?.url) return null;
         const imageUrl = images[0].url;
-
-        const dollarsAmount = formatCurrency(price);
         return (
-          <article
-            key={productId}
-            className="group relative h-[340px] md:h-[370px] lg:h-[400px]"
-          >
+          <article key={productId} className="group relative">
             <Link href={`/products/${productId}`} className="h-full">
-              <Card className="h-full transform group-hover:shadow-xl transition-shadow duration-500 overflow-hidden">
-                <CardContent className="h-full flex flex-col items-center p-0">
-                  <div className="w-36 md:w-40 lg:w-48 h-[260px] md:h-[280px] lg:h-[320px] relative -mt-6">
-                    <Image
-                      src={imageUrl}
-                      alt={name}
-                      fill
-                      sizes="(max-width: 768px) 144px, (max-width: 1024px) 160px, 192px"
-                      style={{ objectFit: "contain" }}
-                      className="transform group-hover:scale-120 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 px-2 pb-1 flex flex-col items-center">
-                    <h2 className="text-base md:text-lg capitalize line-clamp-2 min-h-[2lh] text-center">
-                      {name}
-                    </h2>
-                    <p className="text-muted-foreground text-center">
-                      {dollarsAmount}
-                    </p>
-                  </div>
-                </CardContent>
+              <Card className="h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
+                {/* Image at the top, flush with card border */}
+                <div className="relative w-full aspect-[4/5]">
+                  <Image
+                    src={imageUrl}
+                    alt={name}
+                    fill
+                    className="object-cover rounded-md rounded-b-md"
+                    priority
+                  />
+                  {featured && (
+                    <div className="absolute top-2 right-2 z-10">
+                      <FavoriteToggleButton />
+                    </div>
+                  )}
+                </div>
+                {/* Info at the bottom */}
+                <div className="flex flex-col items-center px-2 py-0 flex-1 gap-y-2">
+                  <h2 className="text-base font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0">
+                    {name}
+                  </h2>
+                  <p className="text-xs text-muted-foreground text-center mt-0 mb-0">
+                    {product.type}
+                  </p>
+                  <p className="text-sm font-bold text-center mt-0 mb-4">
+                    ${product.price}
+                  </p>
+                </div>
               </Card>
             </Link>
-            {featured && (
-              <div className="absolute top-2 right-2 z-10">
-                <FavoriteToggleButton />
-              </div>
-            )}
           </article>
         );
       })}

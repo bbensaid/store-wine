@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import hero1 from "@/public/images/wines/hero1.jpeg";
 import hero2 from "@/public/images/wines/hero2.jpeg";
@@ -52,14 +52,15 @@ function HeroCarousel() {
   return (
     <div className="hidden lg:block">
       <div className="flex flex-col items-center">
-        <Card className="w-[20rem] h-[34rem] mx-auto bg-white flex items-center justify-center">
-          <CardContent className="p-0 flex items-start justify-center">
+        <Card className="w-[20rem] h-[34rem] py-3 px-4 bg-white flex items-center justify-center relative overflow-hidden border border-gray-300">
+          <div className="relative w-full h-full">
             <Image
               src={carouselImages[current]}
               alt="hero"
-              className="w-[18rem] h-[32rem] items-center justify-center rounded-md object-cover"
+              fill
+              className="object-cover rounded-md"
             />
-          </CardContent>
+          </div>
         </Card>
         <div className="flex items-center justify-center gap-4 mt-4">
           {paused ? (

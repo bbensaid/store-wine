@@ -13,6 +13,9 @@ import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDebouncedCallback } from "use-debounce";
+import { Card } from "@/components/ui/card";
+import Image from "next/image";
+import { FavoriteToggleButton } from "@/components/FavoriteToggleButton";
 
 interface FilterSidebarProps {
   filters: Record<string, string>;

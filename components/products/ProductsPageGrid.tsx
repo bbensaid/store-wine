@@ -1,5 +1,4 @@
-import { formatCurrency } from "@/utils/format";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
@@ -13,42 +12,41 @@ function ProductsPageGrid({
 }) {
   return (
     <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className="pt-2 grid gap-y-12 gap-x-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-1">
         {products.map((product) => {
-          const { name, price, images, featured } = product;
+          const { name, images } = product;
           const productId = product.id;
           if (!images || !images.length || !images[0]?.url) return null;
           const imageUrl = images[0].url;
-
-          const dollarsAmount = formatCurrency(price);
           return (
             <article key={productId} className="relative">
-              <Link href={`/products/${productId}`}>
-                <Card className="w-full h-[260px] md:h-[280px] lg:h-[300px] xl:h-[320px]">
-                  <CardContent className="h-full flex flex-col items-center gap-[2%] px-[5%]">
-                    <div className="relative w-[100%] h-[100%]">
-                      <Image
-                        src={imageUrl}
-                        alt={name}
-                        fill
-                        style={{ objectFit: "contain" }}
-                        className="transform group-hover:scale-105 transition-transform duration-500"
-                      />
+              <Link href={`/products/${productId}`} className="h-full">
+                <Card className="w-[20rem] h-[32rem] bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
+                  <div className="relative w-full h-[28rem]">
+                    <Image
+                      src={imageUrl}
+                      alt={name}
+                      fill
+                      className="object-cover rounded-md rounded-b-md"
+                      priority
+                    />
+                    <div className="absolute top-2 right-2 z-10">
+                      <FavoriteToggleButton />
                     </div>
-                    <div className="w-full text-center">
-                      <h2 className="text-base capitalize line-clamp-2">
-                        {name}
-                      </h2>
-                      <p className="text-muted-foreground">{dollarsAmount}</p>
-                    </div>
-                  </CardContent>
+                  </div>
+                  <div className="flex flex-col items-center px-4 py-1 flex-1">
+                    <h2 className="text-base font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0">
+                      {name}
+                    </h2>
+                    <p className="text-xs text-muted-foreground text-center mt-0 mb-0">
+                      {product.type}
+                    </p>
+                    <p className="text-sm font-bold text-center mt-0 mb-0">
+                      ${product.price}
+                    </p>
+                  </div>
                 </Card>
               </Link>
-              {featured && (
-                <div className="absolute top-2 right-2 z-10">
-                  <FavoriteToggleButton />
-                </div>
-              )}
             </article>
           );
         })}

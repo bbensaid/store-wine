@@ -1,4 +1,5 @@
 import prisma from "@/utils/db";
+import { redirect } from "next/navigation";
 
 export const fetchFeaturedProducts = async () => {
   const products = await prisma.wine.findMany({
@@ -35,4 +36,17 @@ export const fetchAllProducts = async (searchTerm: string) => {
       region: true,
     },
   });
+};
+
+// single product code - added June 7
+
+export const fetchSingleProduct = async (productId: string) => {
+  const product = await prisma.wine.findUnique({
+    where: { id: Number(productId) },
+    include: { images: true },
+  });
+  if (!product) {
+    redirect("/products");
+  }
+  return product;
 };

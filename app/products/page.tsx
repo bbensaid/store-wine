@@ -50,109 +50,117 @@ export default async function ProductsPage({ searchParams }: any) {
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   return (
-    <div className="space-y-8">
-      <div className="container mx-auto">
-        {/* Header row: left = results count, center = pagination, right = grid/list toggle */}
-        <div className="flex items-center justify-between mb-2">
-          {/* Results count (left) */}
-          <span
-            className="text-sm"
-            style={{ color: "#8B0015" }}
-            role="status"
-            aria-live="polite"
-          >
-            {(() => {
-              const start = totalCount === 0 ? 0 : page * PAGE_SIZE + 1;
-              const end =
-                totalCount === 0
-                  ? 0
-                  : Math.min((page + 1) * PAGE_SIZE, totalCount);
-              return `Showing wines ${start} ... ${end} out of ${totalCount} found`;
-            })()}
-          </span>
-          {/* Pagination controls (center) */}
-          <div className="flex-1 flex justify-center">
-            <div className="flex items-center gap-4">
-              <Button
-                asChild
-                disabled={page === 0}
-                variant="default"
-                aria-label="Previous page"
-              >
-                <Link
-                  href={{
-                    pathname: "/products",
-                    query: sanitizeQuery({
-                      ...normalizedParams,
-                      page: Math.max(0, page - 1),
-                    }),
-                  }}
-                  scroll={false}
-                >
-                  Previous
-                </Link>
-              </Button>
-              <span className="text-sm" style={{ color: "#8B0015" }}>
-                Page {page + 1}/{totalPages}
-              </span>
-              <Button
-                asChild
-                disabled={page + 1 >= totalPages}
-                variant="default"
-                aria-label="Next page"
-              >
-                <Link
-                  href={{
-                    pathname: "/products",
-                    query: sanitizeQuery({
-                      ...normalizedParams,
-                      page: Math.min(totalPages - 1, page + 1),
-                    }),
-                  }}
-                  scroll={false}
-                >
-                  Next
-                </Link>
-              </Button>
-            </div>
-          </div>
-          {/* Grid/List toggle buttons (right) */}
-          <div className="flex gap-x-4">
+    <div className="w-full">
+      {/* Header area aligned with grid */}
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-x-6 items-center mb-2">
+        {/* Results count (left) */}
+        <span
+          className="text-xl font-normal"
+          style={{ color: "#8B0015" }}
+          role="status"
+          aria-live="polite"
+        >
+          {(() => {
+            const start = totalCount === 0 ? 0 : page * PAGE_SIZE + 1;
+            const end =
+              totalCount === 0
+                ? 0
+                : Math.min((page + 1) * PAGE_SIZE, totalCount);
+            return `Showing wines ${start} ... ${end} out of ${totalCount} found`;
+          })()}
+        </span>
+        {/* Pagination controls (center) */}
+        <div className="col-start-2 col-end-3 justify-self-center">
+          <div className="flex items-center gap-6">
             <Button
-              variant={layout === "grid" ? "default" : "ghost"}
-              size="icon"
               asChild
-              aria-label="Grid view"
+              disabled={page === 0}
+              variant="default"
+              size="lg"
+              aria-label="Previous page"
             >
               <Link
                 href={{
                   pathname: "/products",
-                  query: sanitizeQuery({ ...normalizedParams, layout: "grid" }),
+                  query: sanitizeQuery({
+                    ...normalizedParams,
+                    page: Math.max(0, page - 1),
+                  }),
                 }}
                 scroll={false}
               >
-                <LuLayoutGrid />
+                Previous
               </Link>
             </Button>
+            <span className="text-xl font-normal" style={{ color: "#8B0015" }}>
+              Page {page + 1}/{totalPages}
+            </span>
             <Button
-              variant={layout === "list" ? "default" : "ghost"}
-              size="icon"
               asChild
-              aria-label="List view"
+              disabled={page + 1 >= totalPages}
+              variant="default"
+              size="lg"
+              aria-label="Next page"
             >
               <Link
                 href={{
                   pathname: "/products",
-                  query: sanitizeQuery({ ...normalizedParams, layout: "list" }),
+                  query: sanitizeQuery({
+                    ...normalizedParams,
+                    page: Math.min(totalPages - 1, page + 1),
+                  }),
                 }}
                 scroll={false}
               >
-                <LuList />
+                Next
               </Link>
             </Button>
           </div>
         </div>
-        {/* Product grid or list display */}
+        {/* Grid/List toggle buttons (right) */}
+        <div className="justify-self-end flex gap-x-4">
+          <Button
+            variant={layout === "grid" ? "default" : "ghost"}
+            size="icon"
+            asChild
+            aria-label="Grid view"
+          >
+            <Link
+              href={{
+                pathname: "/products",
+                query: sanitizeQuery({
+                  ...normalizedParams,
+                  layout: "grid",
+                }),
+              }}
+              scroll={false}
+            >
+              <LuLayoutGrid />
+            </Link>
+          </Button>
+          <Button
+            variant={layout === "list" ? "default" : "ghost"}
+            size="icon"
+            asChild
+            aria-label="List view"
+          >
+            <Link
+              href={{
+                pathname: "/products",
+                query: sanitizeQuery({
+                  ...normalizedParams,
+                  layout: "list",
+                }),
+              }}
+              scroll={false}
+            >
+              <LuList />
+            </Link>
+          </Button>
+        </div>
+      </div>
+      {/* Product grid or list display */}
+      <div className="mt-10">
         <ProductsContainer layout={layout} products={products} />
       </div>
     </div>

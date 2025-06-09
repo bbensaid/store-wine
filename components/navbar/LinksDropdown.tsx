@@ -8,6 +8,7 @@ import { LuAlignLeft } from "react-icons/lu";
 import { Button } from "../ui/button";
 import { links } from "@/utils/links";
 import { useRouter } from "next/navigation";
+import { Card, Image } from "@/components/ui/card";
 
 function MenuDropdown() {
   const router = useRouter();
