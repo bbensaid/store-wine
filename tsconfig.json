@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "prisma/**/*.ts" // Added prisma directory
+    "prisma/**/*.ts", // Added prisma directory
+    "components/products/ProductsPageGrid- not usedtsx"
   ],
   "exclude": ["node_modules"],
   "ts-node": {

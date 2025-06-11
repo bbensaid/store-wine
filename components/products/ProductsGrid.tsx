@@ -10,7 +10,7 @@ function ProductsGrid({
   products: (Wine & { images: PrismaImage[] })[];
 }) {
   return (
-    <div className="pt-2 grid gap-y-12 gap-x-16 grid-cols-[repeat(auto-fit,minmax(20rem,1fr))]">
+    <div className="pt-2 grid gap-y-12 gap-x-16 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]">
       {products.map((product) => {
         const { name, images, featured } = product;
         const productId = product.id;
@@ -20,13 +20,13 @@ function ProductsGrid({
           <article key={productId} className="group relative">
             <Link href={`/products/${productId}`} className="h-full">
               <Card className="h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
-                {/* Image at the top, flush with card border */}
-                <div className="relative w-full aspect-[4/5]">
+                {/* Image at the top, with margin from top and sides */}
+                <div className="relative aspect-[2/4] mt-14 mx-14 overflow-hidden">
                   <Image
                     src={imageUrl}
                     alt={name}
                     fill
-                    className="object-cover rounded-md rounded-b-md"
+                    className="object-cover object-bottom rounded-md"
                     priority
                   />
                   {featured && (

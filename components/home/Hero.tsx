@@ -68,7 +68,10 @@ function Hero() {
           non nam.
         </p>
         {/* Call-to-action button */}
-        <Button asChild size="lg" className="mt-10">
+        <Button
+          asChild
+          className={`${cinzel.className} mt-16 px-6 py-6 text-xl sm:text-2xl text-white tracking-[.1em] font-medium rounded-xl`}
+        >
           <Link href="/products">Our Products</Link>
         </Button>
       </div>

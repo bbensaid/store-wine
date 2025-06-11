@@ -18,27 +18,29 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16 items-start">
         {/* IMAGE FIRST COL */}
         <div>
-          <Card className="max-w-[34rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
-            <div className="relative w-full aspect-[4/5]">
+          <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
+            <div className="relative aspect-[2/4] mt-20 mx-20 overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={name}
                 fill
-                className="object-cover rounded-md rounded-b-md"
+                className="object-cover object-bottom rounded-md"
                 priority
               />
-              <div className="absolute top-2 right-2 z-10">
+              <div className="absolute top-4 right-4 z-10">
                 <FavoriteToggleButton />
               </div>
             </div>
-            <div className="flex flex-col items-center px-8 py-4 flex-1 gap-y-4">
-              <h2 className="text-xl font-semibold capitalize text-center truncate w-full leading-tight">
+            <div className="flex flex-col items-center px-4 py-0 flex-1 gap-y-4">
+              <h2 className="text-2xl font-semibold capitalize text-center truncate w-full leading-tight mb-0 mt-0">
                 {name}
               </h2>
-              <p className="text-xl text-muted-foreground text-center">
+              <p className="text-lg text-muted-foreground text-center mt-0 mb-0">
                 {harmonize || grapes}
               </p>
-              <p className="text-xl font-normal text-center">{dollarsAmount}</p>
+              <p className="text-xl font-bold text-center mt-0 mb-8">
+                {dollarsAmount}
+              </p>
             </div>
           </Card>
         </div>

@@ -40,6 +40,11 @@ const PauseIcon = () => (
 function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (paused) return;
@@ -49,11 +54,13 @@ function HeroCarousel() {
     return () => clearInterval(interval);
   }, [paused]);
 
+  if (!mounted) return null; // Prevent SSR mismatch
+
   return (
     <div className="hidden lg:block">
       <div className="flex flex-col items-center">
-        <Card className="w-[20rem] h-[34rem] py-3 px-4 bg-white flex items-center justify-center relative overflow-hidden border border-gray-300">
-          <div className="relative w-full h-full">
+        <Card className="max-w-[20rem] w-full h-auto bg-white flex items-center justify-center relative overflow-hidden border border-gray-300 p-8 rounded-md">
+          <div className="relative aspect-[2/4] w-full overflow-hidden">
             <Image
               src={carouselImages[current]}
               alt="hero"
