@@ -8,7 +8,6 @@ import { LuAlignLeft } from "react-icons/lu";
 import { Button } from "../ui/button";
 import { links } from "@/utils/links";
 import { useRouter } from "next/navigation";
-import { Card, Image } from "@/components/ui/card";
 
 function MenuDropdown() {
   const router = useRouter();
@@ -17,7 +16,7 @@ function MenuDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center px-3 py-2 text-base"
+          className="flex items-center px-3 py-2 md:px-4 md:py-2 text-base md:text-lg"
         >
           <LuAlignLeft className="w-6 h-6 mr-1" />
           <span className="hidden sm:inline">Menu</span>

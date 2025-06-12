@@ -10,7 +10,7 @@ function ProductsGrid({
   products: (Wine & { images: PrismaImage[] })[];
 }) {
   return (
-    <div className="pt-2 grid gap-y-12 gap-x-16 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]">
+    <div className="pt-2 grid gap-y-12 gap-x-8 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]">
       {products.map((product) => {
         const { name, images, featured } = product;
         const productId = product.id;
@@ -21,7 +21,7 @@ function ProductsGrid({
             <Link href={`/products/${productId}`} className="h-full">
               <Card className="h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
                 {/* Image at the top, with margin from top and sides */}
-                <div className="relative aspect-[2/4] mt-14 mx-14 overflow-hidden">
+                <div className="relative aspect-[3/4] mt-8 mx-4 overflow-hidden">
                   <Image
                     src={imageUrl}
                     alt={name}
@@ -37,13 +37,13 @@ function ProductsGrid({
                 </div>
                 {/* Info at the bottom */}
                 <div className="flex flex-col items-center px-2 py-0 flex-1 gap-y-2">
-                  <h2 className="text-base font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0">
+                  <h2 className="text-base md:text-lg font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0">
                     {name}
                   </h2>
-                  <p className="text-xs text-muted-foreground text-center mt-0 mb-0">
+                  <p className="text-xs md:text-sm text-muted-foreground text-center mt-0 mb-0">
                     {product.type}
                   </p>
-                  <p className="text-sm font-bold text-center mt-0 mb-4">
+                  <p className="text-sm md:text-base font-bold text-center mt-0 mb-4">
                     ${product.price}
                   </p>
                 </div>

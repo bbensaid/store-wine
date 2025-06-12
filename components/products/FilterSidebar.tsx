@@ -13,9 +13,6 @@ import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDebouncedCallback } from "use-debounce";
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import { FavoriteToggleButton } from "@/components/FavoriteToggleButton";
 
 interface FilterSidebarProps {
   filters: Record<string, string>;
@@ -141,7 +138,7 @@ function RatingRangeFilter({
   return (
     <div className="space-y-2">
       <Label>Rating Range</Label>
-      <div className="flex gap-2">
+      <div className="flex gap-1.5">
         <Input
           type="number"
           min={0}
@@ -150,7 +147,7 @@ function RatingRangeFilter({
           value={min ?? ""}
           onChange={(e) => onMinChange(e.target.value)}
           placeholder="Min"
-          className="w-24"
+          className="w-20"
         />
         <Input
           type="number"
@@ -160,7 +157,7 @@ function RatingRangeFilter({
           value={max ?? ""}
           onChange={(e) => onMaxChange(e.target.value)}
           placeholder="Max"
-          className="w-24"
+          className="w-20"
         />
       </div>
     </div>
@@ -181,14 +178,14 @@ function PriceRangeFilter({
   return (
     <div className="space-y-2">
       <Label>Price Range ($)</Label>
-      <div className="flex gap-2">
+      <div className="flex gap-1.5">
         <Input
           type="number"
           min={0}
           value={min ?? ""}
           onChange={(e) => onMinChange(e.target.value)}
           placeholder="Min"
-          className="w-24"
+          className="w-20"
         />
         <Input
           type="number"
@@ -196,7 +193,7 @@ function PriceRangeFilter({
           value={max ?? ""}
           onChange={(e) => onMaxChange(e.target.value)}
           placeholder="Max"
-          className="w-24"
+          className="w-20"
         />
       </div>
     </div>
@@ -264,7 +261,7 @@ export default function FilterSidebar({
       className={`
       h-screen bg-background dark:bg-background border-r border-gray-200 shadow-lg
       transition-all duration-300 overflow-y-auto
-      ${isCollapsed ? "w-14" : "w-56"}
+      ${isCollapsed ? "w-12" : "w-56"}
     `}
       aria-label="Product filters sidebar"
     >

@@ -50,8 +50,7 @@ function Navbar() {
                 <img
                   src="/images/logo.png"
                   alt="Wine Store Logo"
-                  className="h-14 w-auto"
-                  style={{ maxHeight: "56px" }}
+                  className="h-12 md:h-14 w-auto max-h-[3.5rem]"
                 />
                 <span
                   className={`${cinzel.className} text-xl font-semibold tracking-widest text-[#8B0015] mt-1`}
@@ -59,15 +58,12 @@ function Navbar() {
                   VINEFOX
                 </span>
                 <span
-                  className={`${cormorant.className} text-xs text-[#8B0015] mt-1 text-center`}
+                  className={`${cormorant.className} text-xs md:text-sm text-[#8B0015] mt-1 text-center`}
                 >
                   Discover. Share. Savor the rare.
                 </span>
               </Link>
-              <div
-                className="hidden sm:block ml-2 flex-shrink-0"
-                style={{ width: "16rem" }}
-              >
+              <div className="hidden sm:block ml-2 flex-shrink-0 w-64">
                 <NavSearch />
               </div>
             </div>
@@ -160,7 +156,7 @@ function NavLinkButton({
     <Button
       asChild
       variant="outline"
-      className={`capitalize px-3 py-2 text-base flex items-center ${className}`}
+      className={`capitalize px-3 py-2 md:px-4 md:py-2 text-base md:text-lg flex items-center ${className}`}
     >
       <Link href={href} className="flex items-center">
         {icon}
@@ -175,12 +171,12 @@ function CartNavButton({ count }: { count: number }) {
     <Button
       asChild
       variant="outline"
-      className="capitalize px-3 py-2 text-base flex items-center relative"
+      className="capitalize px-3 py-2 md:px-4 md:py-2 text-base md:text-lg flex items-center relative"
     >
       <Link href="/cart" className="flex items-center">
         <LuShoppingCart className="w-6 h-6 mr-1" />
         <span>Cart</span>
-        <span className="absolute -top-2 -right-2 bg-primary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
+        <span className="absolute -top-2 -right-2 bg-primary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs md:h-6 md:w-6 md:text-sm">
           {count}
         </span>
       </Link>
@@ -195,7 +191,7 @@ function ModeButton() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center px-3 py-2 text-base"
+          className="flex items-center px-3 py-2 md:px-4 md:py-2 text-base md:text-lg"
         >
           <span className="relative flex items-center mr-1">
             <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

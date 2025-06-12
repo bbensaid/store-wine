@@ -59,8 +59,8 @@ function HeroCarousel() {
   return (
     <div className="hidden lg:block">
       <div className="flex flex-col items-center">
-        <Card className="max-w-[20rem] w-full h-auto bg-white flex items-center justify-center relative overflow-hidden border border-gray-300 p-8 rounded-md">
-          <div className="relative aspect-[2/4] w-full overflow-hidden">
+        <Card className="max-w-[20rem] w-full h-auto bg-white flex items-center justify-center relative overflow-hidden border border-gray-300 p-6 md:p-8 rounded-md">
+          <div className="relative aspect-[3/4] w-full overflow-hidden">
             <Image
               src={carouselImages[current]}
               alt="hero"
@@ -69,11 +69,11 @@ function HeroCarousel() {
             />
           </div>
         </Card>
-        <div className="flex items-center justify-center gap-4 mt-4">
+        <div className="flex items-center justify-center gap-3 md:gap-4 mt-4">
           {paused ? (
             <Button
               variant="outline"
-              className="border-[#8B0015] text-[#8B0015] bg-transparent hover:bg-[#8B0015]/10 focus:ring-0 focus:ring-offset-0 flex items-center gap-2"
+              className="border-[#8B0015] text-[#8B0015] bg-transparent hover:bg-[#8B0015]/10 focus:ring-0 focus:ring-offset-0 flex items-center gap-1.5 md:gap-2 text-base md:text-lg px-4 py-2 md:px-6 md:py-3"
               onClick={() => setPaused(false)}
               aria-label="Play carousel"
             >
@@ -83,7 +83,7 @@ function HeroCarousel() {
           ) : (
             <Button
               variant="outline"
-              className="border-[#8B0015] text-[#8B0015] bg-transparent hover:bg-[#8B0015]/10 focus:ring-0 focus:ring-offset-0 flex items-center gap-2"
+              className="border-[#8B0015] text-[#8B0015] bg-transparent hover:bg-[#8B0015]/10 focus:ring-0 focus:ring-offset-0 flex items-center gap-1.5 md:gap-2 text-base md:text-lg px-4 py-2 md:px-6 md:py-3"
               onClick={() => setPaused(true)}
               aria-label="Pause carousel"
             >

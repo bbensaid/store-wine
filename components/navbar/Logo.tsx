@@ -9,7 +9,7 @@ function Logo() {
       asChild
       variant="outline"
       size="icon"
-      className="flex justify-center items-center relative px-3 py-2 text-base"
+      className="flex justify-center items-center relative px-3 py-2 md:px-4 md:py-2 text-base md:text-lg"
     >
       <Link href="/" className="flex items-center">
         <AiOutlineHome className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 mr-1" />

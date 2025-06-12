@@ -41,26 +41,26 @@ function Hero() {
               <img
                 src="/images/logo.png"
                 alt="Wine Store Logo"
-                className="h-40 w-auto"
+                className="h-40 w-auto max-h-[10rem]"
               />
             </Link>
           </div>
           {/* Brand Name */}
           <h1
-            className={`${cinzel.className} text-4xl sm:text-5xl text-[#8B0015] tracking-[.1em] font-medium`}
+            className={`${cinzel.className} text-4xl sm:text-5xl md:text-6xl text-[#8B0015] tracking-[.1em] font-medium`}
           >
             VineFox
           </h1>
           {/* Slogan */}
           <h2
-            className={`${cormorant.className} text-3xl sm:text-4xl text-[#8B0015] tracking-wide`}
+            className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl text-[#8B0015] tracking-wide`}
           >
             Discover. Share. Savor the rare.
           </h2>
         </div>
         {/* Body text for hero section. Update for marketing or branding changes. */}
         <p
-          className={`${cormorant.className} mt-8 w-full text-2xl sm:text-3xl leading-relaxed text-[#2D2D2D]`}
+          className={`${cormorant.className} mt-8 w-full text-2xl sm:text-3xl md:text-4xl leading-relaxed text-[#2D2D2D]`}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque et
           voluptas saepe in quae voluptate, laborum maiores possimus illum
@@ -70,7 +70,7 @@ function Hero() {
         {/* Call-to-action button */}
         <Button
           asChild
-          className={`${cinzel.className} mt-16 px-6 py-6 text-xl sm:text-2xl text-white tracking-[.1em] font-medium rounded-xl`}
+          className={`${cinzel.className} mt-16 px-6 py-6 md:px-8 md:py-7 text-xl sm:text-2xl md:text-3xl text-white tracking-[.1em] font-medium rounded-xl`}
         >
           <Link href="/products">Our Products</Link>
         </Button>

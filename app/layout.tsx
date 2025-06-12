@@ -4,14 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/navbar/Navbar";
 import { Suspense } from "react";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,7 +38,7 @@ export default function RootLayout({
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[2400px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-[2400px] w-full mx-auto p-4 sm:p-6 lg:p-8">
       {children}
     </div>
   );
