@@ -19,8 +19,7 @@ function LinksDropdown({ active = false }: { active?: boolean }) {
           className={
             (active
               ? "bg-primary text-white border-primary hover:bg-primary/90 hover:text-white"
-              : "bg-background border border-primary text-primary hover:bg-accent") +
-            " h-8 px-2 text-xs md:text-sm flex items-center"
+              : "border-input text-primary") + " flex items-center"
           }
         >
           <LuAlignLeft className="w-6 h-6 mr-1" />
