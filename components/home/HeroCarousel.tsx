@@ -8,6 +8,7 @@ import hero3 from "@/public/images/wines/hero3.jpeg";
 import hero4 from "@/public/images/wines/hero4.jpeg";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { clsx } from "clsx";
 
 const carouselImages = [hero1, hero2, hero3, hero4];
 
@@ -59,7 +60,7 @@ function HeroCarousel() {
   return (
     <div className="hidden lg:block">
       <div className="flex flex-col items-center">
-        <Card className="max-w-[20rem] w-full h-auto bg-white flex items-center justify-center relative overflow-hidden border border-gray-300 p-6 md:p-8 rounded-md">
+        <Card className="w-full h-auto bg-white flex items-end justify-center relative overflow-hidden border border-gray-300 p-6 md:p-8 rounded-md">
           <div className="relative aspect-[3/4] w-full overflow-hidden">
             <Image
               src={carouselImages[current]}

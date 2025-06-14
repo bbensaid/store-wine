@@ -3,10 +3,17 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import Container from "../global/Container";
 import NavSearch from "./NavSearch";
-import { AiOutlineInfoCircle, AiFillHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { GiWineBottle } from "react-icons/gi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { LuShoppingCart, LuMenu } from "react-icons/lu";
+import {
+  LuMenu,
+  LuUser,
+  LuHouse,
+  LuPhone,
+  LuCircleHelp,
+  LuShield,
+} from "react-icons/lu";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 import {
@@ -15,9 +22,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import LinksDropdown from "./LinksDropdown";
-import { Cinzel, Cormorant_Garamond } from "next/font/google";
+import { Cinzel } from "next/font/google";
+import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
+import React from "react";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -25,116 +35,185 @@ const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["500", "600"],
-  style: ["italic"],
-});
-
 function Navbar() {
-  // temp cart count
-  const numItemsInCart = 9;
-
+  const pathname = usePathname();
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <nav className="sticky top-0 z-50 bg-white border-b shadow-sm h-16 flex items-center">
       <Container>
-        <div className="flex flex-col gap-4 py-2 sm:py-3">
-          <div className="flex items-center w-full justify-between">
-            {/* Left: Logo + Search */}
-            <div className="flex items-center flex-shrink-0 gap-2 sm:gap-4">
-              <Link
-                href="/"
-                className="flex flex-col items-center justify-center"
+        {/* Logo outside and left of navbar */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-50 pl-2">
+          <div className="border border-primary/20 bg-white/90 rounded-xl shadow-sm px-3 py-1 flex items-center min-w-[110px]">
+            <Link href="/" className="flex items-center h-full">
+              <img
+                src="/images/logo.png"
+                alt="Wine Store Logo"
+                className="h-10 w-auto max-h-[2.5rem]"
+              />
+              <span
+                className={`${cinzel.className} text-xl font-semibold tracking-widest text-primary ml-2`}
               >
-                <img
-                  src="/images/logo.png"
-                  alt="Wine Store Logo"
-                  className="h-12 md:h-14 w-auto max-h-[3.5rem]"
-                />
-                <span
-                  className={`${cinzel.className} text-xl font-semibold tracking-widest text-[#8B0015] mt-1`}
-                >
-                  VINEFOX
-                </span>
-                <span
-                  className={`${cormorant.className} text-xs md:text-sm text-[#8B0015] mt-1 text-center`}
-                >
-                  Discover. Share. Savor the rare.
-                </span>
-              </Link>
-              <div className="hidden sm:block ml-2 flex-shrink-0 w-64">
-                <NavSearch />
-              </div>
+                VINEFOX
+              </span>
+            </Link>
+          </div>
+        </div>
+        {/* Desktop Navbar */}
+        <div className="hidden md:flex items-center w-full h-16 gap-x-4 lg:gap-x-4 md:gap-x-2 justify-between">
+          {/* Home button now inside navbar, to the right of logo */}
+          <NavLinkButton
+            href="/"
+            label="Home"
+            icon={<LuHouse className="w-5 h-5 mr-1 text-primary" />}
+            active={pathname === "/"}
+            className=""
+          />
+          {/* Search (fixed width, gap to buttons) */}
+          <div className="flex-grow min-w-0 mr-4">
+            <NavSearch className="w-full h-10 rounded-md border border-primary/30 pl-4 text-base" />
+          </div>
+          {/* All nav/utility buttons (right) */}
+          <div className="flex items-center gap-x-3 ml-auto text-sm md:text-xs">
+            <NavLinkButton
+              href="/products"
+              label="Products"
+              icon={<GiWineBottle className="w-5 h-5 mr-1 text-primary" />}
+              active={pathname.startsWith("/products")}
+              className=""
+            />
+            <NavLinkButton
+              href="/favorites"
+              label="Favorites"
+              icon={<AiFillHeart className="w-5 h-5 mr-1 text-primary" />}
+              active={pathname.startsWith("/favorites")}
+              className=""
+            />
+            <NavLinkButton
+              href="/orders"
+              label="Orders"
+              icon={
+                <HiOutlineShoppingBag className="w-5 h-5 mr-1 text-primary" />
+              }
+              active={pathname.startsWith("/orders")}
+              className=""
+            />
+            <LinksDropdown />
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 text-primary hidden lg:flex"
+            >
+              <LuPhone className="w-5 h-5 text-primary" />
+              Customer Service
+            </Button>
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 text-primary hidden lg:flex"
+            >
+              <LuCircleHelp className="w-5 h-5 text-primary" />
+              Help
+            </Button>
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 text-primary hidden lg:flex"
+            >
+              <LuShield className="w-5 h-5 text-primary" />
+              Privacy Policy
+            </Button>
+            <ModeButton className="" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 z-50 pr-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-primary"
+              >
+                <LuUser className="w-5 h-5 mr-1 text-primary" />
+                Sign in
+              </Button>
             </div>
-            {/* Right: Nav links + Menu + Cart */}
-            <div className="flex items-center gap-4">
+            <CartButton />
+          </div>
+        </div>
+        {/* Mobile Navbar */}
+        <div className="flex md:hidden items-center w-full h-16 gap-x-2 px-2">
+          <div className="flex items-center min-w-[90px]">
+            <Link href="/" className="flex items-center h-full">
+              <img
+                src="/images/logo.png"
+                alt="Wine Store Logo"
+                className="h-8 w-auto max-h-[2rem]"
+              />
+              <span
+                className={`${cinzel.className} text-lg font-semibold tracking-widest text-primary ml-2`}
+              >
+                VINEFOX
+              </span>
+            </Link>
+          </div>
+          <div className="flex-grow" />
+          <CartButton />
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button variant="outline" size="icon" aria-label="Open menu">
+                <LuMenu className="w-6 h-6" />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="p-6 flex flex-col gap-4 w-full max-w-xs">
+              <NavSearch className="mb-2" />
               <NavLinkButton
-                href="/about"
-                label="About"
-                icon={<AiOutlineInfoCircle className="w-5 h-5 mr-1" />}
+                href="/"
+                label="Home"
+                icon={<LuHouse className="w-5 h-5 mr-1 text-primary" />}
+                className=""
               />
               <NavLinkButton
                 href="/products"
                 label="Products"
                 icon={<GiWineBottle className="w-5 h-5 mr-1" />}
+                className=""
               />
               <NavLinkButton
                 href="/favorites"
                 label="Favorites"
                 icon={<AiFillHeart className="w-5 h-5 mr-1" color="black" />}
+                className=""
               />
               <NavLinkButton
                 href="/orders"
                 label="Orders"
                 icon={<HiOutlineShoppingBag className="w-5 h-5 mr-1" />}
+                className=""
               />
-              <ModeButton />
               <LinksDropdown />
-              <CartNavButton count={numItemsInCart} />
-            </div>
-            {/* Mobile: Hamburger menu for other buttons */}
-            <div className="sm:hidden ml-2">
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <Button variant="outline" size="icon" aria-label="Open menu">
-                    <LuMenu className="w-6 h-6" />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent className="p-6 flex flex-col gap-4 w-full max-w-xs">
-                  <NavLinkButton
-                    href="/about"
-                    label="About"
-                    icon={<AiOutlineInfoCircle className="w-5 h-5 mr-1" />}
-                  />
-                  <NavLinkButton
-                    href="/products"
-                    label="Products"
-                    icon={<GiWineBottle className="w-5 h-5 mr-1" />}
-                  />
-                  <NavLinkButton
-                    href="/favorites"
-                    label="Favorites"
-                    icon={
-                      <AiFillHeart className="w-5 h-5 mr-1" color="black" />
-                    }
-                  />
-                  <NavLinkButton
-                    href="/orders"
-                    label="Orders"
-                    icon={<HiOutlineShoppingBag className="w-5 h-5 mr-1" />}
-                  />
-                  <ModeButton />
-                  <LinksDropdown />
-                  <CartNavButton count={numItemsInCart} />
-                </DrawerContent>
-              </Drawer>
-            </div>
-          </div>
-          {/* Mobile search below nav */}
-          <div className="block sm:hidden w-full mt-2">
-            <NavSearch />
-          </div>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-primary"
+              >
+                <LuPhone className="w-5 h-5 text-primary" />
+                Customer Service
+              </Button>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-primary"
+              >
+                <LuCircleHelp className="w-5 h-5 text-primary" />
+                Help
+              </Button>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-primary"
+              >
+                <LuShield className="w-5 h-5 text-primary" />
+                Privacy Policy
+              </Button>
+              <ModeButton className="" />
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-primary"
+              >
+                <LuUser className="w-5 h-5 mr-1 text-primary" />
+                Sign in
+              </Button>
+              <CartButton />
+            </DrawerContent>
+          </Drawer>
         </div>
       </Container>
     </nav>
@@ -145,53 +224,48 @@ function NavLinkButton({
   href,
   label,
   icon,
+  active = false,
   className = "",
 }: {
   href: string;
   label: string;
-  icon: React.ReactNode;
+  icon: React.ReactElement<any>;
+  active?: boolean;
   className?: string;
 }) {
+  const iconWithColor = React.cloneElement(icon, {
+    ...icon.props,
+    className: clsx(
+      icon.props.className ?? "",
+      active ? "text-white" : "text-primary"
+    ),
+  });
   return (
     <Button
+      variant={active ? undefined : "outline"}
+      className={
+        className +
+        " flex items-center gap-2 " +
+        (active ? "bg-primary text-white border-primary" : "text-primary")
+      }
       asChild
-      variant="outline"
-      className={`capitalize px-3 py-2 md:px-4 md:py-2 text-base md:text-lg flex items-center ${className}`}
     >
-      <Link href={href} className="flex items-center">
-        {icon}
+      <Link href={href}>
+        {iconWithColor}
         {label}
       </Link>
     </Button>
   );
 }
 
-function CartNavButton({ count }: { count: number }) {
-  return (
-    <Button
-      asChild
-      variant="outline"
-      className="capitalize px-3 py-2 md:px-4 md:py-2 text-base md:text-lg flex items-center relative"
-    >
-      <Link href="/cart" className="flex items-center">
-        <LuShoppingCart className="w-6 h-6 mr-1" />
-        <span>Cart</span>
-        <span className="absolute -top-2 -right-2 bg-primary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs md:h-6 md:w-6 md:text-sm">
-          {count}
-        </span>
-      </Link>
-    </Button>
-  );
-}
-
-function ModeButton() {
+function ModeButton({ className = "" }: { className?: string }) {
   const { setTheme } = useTheme();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center px-3 py-2 md:px-4 md:py-2 text-base md:text-lg"
+          className={className + " flex items-center text-primary"}
         >
           <span className="relative flex items-center mr-1">
             <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -212,6 +286,16 @@ function ModeButton() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+// Stub CartButton (icon + text, no cart logic)
+function CartButton() {
+  return (
+    <Button variant="outline" className="flex items-center gap-2 text-primary">
+      <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
+      Cart
+    </Button>
   );
 }
 

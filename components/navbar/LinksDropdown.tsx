@@ -9,25 +9,34 @@ import { Button } from "../ui/button";
 import { links } from "@/utils/links";
 import { useRouter } from "next/navigation";
 
-function MenuDropdown() {
+function LinksDropdown({ active = false }: { active?: boolean }) {
   const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
-          className="flex items-center px-3 py-2 md:px-4 md:py-2 text-base md:text-lg"
+          variant={active ? undefined : "outline"}
+          className={
+            (active
+              ? "bg-primary text-white border-primary hover:bg-primary/90 hover:text-white"
+              : "bg-background border border-primary text-primary hover:bg-accent") +
+            " h-8 px-2 text-xs md:text-sm flex items-center"
+          }
         >
           <LuAlignLeft className="w-6 h-6 mr-1" />
           <span className="hidden sm:inline">Menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="start" sideOffset={10}>
+      <DropdownMenuContent
+        className="w-40 bg-white border border-gray-200"
+        align="start"
+        sideOffset={10}
+      >
         {links.map((link) => (
           <DropdownMenuItem
             key={link.href}
             onSelect={() => router.push(link.href)}
-            className="capitalize w-full"
+            className="capitalize w-full text-red-600"
           >
             {link.label}
           </DropdownMenuItem>
@@ -37,4 +46,4 @@ function MenuDropdown() {
   );
 }
 
-export default MenuDropdown;
+export default LinksDropdown;
