@@ -19,7 +19,7 @@ function ProductsGrid({
         return (
           <article key={productId} className="group relative">
             <Link href={`/products/${productId}`} className="h-full">
-              <Card className="h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
+              <Card className="h-auto flex flex-col justify-between relative overflow-hidden p-0">
                 {/* Image at the top, with margin from top and sides */}
                 <div className="relative aspect-[3/4] mt-8 mx-4 overflow-hidden">
                   <Image

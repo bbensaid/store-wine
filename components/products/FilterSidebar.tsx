@@ -1,18 +1,10 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDebouncedCallback } from "use-debounce";
+import { useEffect, useState } from "react";
 
 interface FilterSidebarProps {
   filters: Record<string, string>;
@@ -32,18 +24,48 @@ function WineTypeFilter({
   return (
     <div className="space-y-2">
       <Label>Wine Type</Label>
-      <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select type" className="" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Types</SelectItem>
-          <SelectItem value="red">Red</SelectItem>
-          <SelectItem value="white">White</SelectItem>
-          <SelectItem value="rose">Rosé</SelectItem>
-          <SelectItem value="sparkling">Sparkling</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="type-all"
+            checked={value === "all"}
+            onCheckedChange={() => onChange("all")}
+          />
+          <Label htmlFor="type-all">All Types</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="type-red"
+            checked={value === "red"}
+            onCheckedChange={() => onChange("red")}
+          />
+          <Label htmlFor="type-red">Red</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="type-white"
+            checked={value === "white"}
+            onCheckedChange={() => onChange("white")}
+          />
+          <Label htmlFor="type-white">White</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="type-rose"
+            checked={value === "rose"}
+            onCheckedChange={() => onChange("rose")}
+          />
+          <Label htmlFor="type-rose">Rosé</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="type-sparkling"
+            checked={value === "sparkling"}
+            onCheckedChange={() => onChange("sparkling")}
+          />
+          <Label htmlFor="type-sparkling">Sparkling</Label>
+        </div>
+      </div>
     </div>
   );
 }
@@ -58,17 +80,40 @@ function BodyFilter({
   return (
     <div className="space-y-2">
       <Label>Body</Label>
-      <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select body" className="" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Body Types</SelectItem>
-          <SelectItem value="light">Light-bodied</SelectItem>
-          <SelectItem value="medium">Medium-bodied</SelectItem>
-          <SelectItem value="full">Full-bodied</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="body-all"
+            checked={value === "all"}
+            onCheckedChange={() => onChange("all")}
+          />
+          <Label htmlFor="body-all">All Bodies</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="body-light"
+            checked={value === "light"}
+            onCheckedChange={() => onChange("light")}
+          />
+          <Label htmlFor="body-light">Light</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="body-medium"
+            checked={value === "medium"}
+            onCheckedChange={() => onChange("medium")}
+          />
+          <Label htmlFor="body-medium">Medium</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="body-full"
+            checked={value === "full"}
+            onCheckedChange={() => onChange("full")}
+          />
+          <Label htmlFor="body-full">Full</Label>
+        </div>
+      </div>
     </div>
   );
 }
@@ -83,17 +128,40 @@ function AcidityFilter({
   return (
     <div className="space-y-2">
       <Label>Acidity</Label>
-      <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select acidity" className="" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Acidity Levels</SelectItem>
-          <SelectItem value="low">Low</SelectItem>
-          <SelectItem value="medium">Medium</SelectItem>
-          <SelectItem value="high">High</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="acidity-all"
+            checked={value === "all"}
+            onCheckedChange={() => onChange("all")}
+          />
+          <Label htmlFor="acidity-all">All Acidities</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="acidity-low"
+            checked={value === "low"}
+            onCheckedChange={() => onChange("low")}
+          />
+          <Label htmlFor="acidity-low">Low</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="acidity-medium"
+            checked={value === "medium"}
+            onCheckedChange={() => onChange("medium")}
+          />
+          <Label htmlFor="acidity-medium">Medium</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="acidity-high"
+            checked={value === "high"}
+            onCheckedChange={() => onChange("high")}
+          />
+          <Label htmlFor="acidity-high">High</Label>
+        </div>
+      </div>
     </div>
   );
 }
@@ -108,18 +176,48 @@ function CountryFilter({
   return (
     <div className="space-y-2">
       <Label>Country</Label>
-      <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select country" className="" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Countries</SelectItem>
-          <SelectItem value="Spain">Spain</SelectItem>
-          <SelectItem value="France">France</SelectItem>
-          <SelectItem value="Italy">Italy</SelectItem>
-          <SelectItem value="Portugal">Portugal</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="country-all"
+            checked={value === "all"}
+            onCheckedChange={() => onChange("all")}
+          />
+          <Label htmlFor="country-all">All Countries</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="country-france"
+            checked={value === "france"}
+            onCheckedChange={() => onChange("france")}
+          />
+          <Label htmlFor="country-france">France</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="country-italy"
+            checked={value === "italy"}
+            onCheckedChange={() => onChange("italy")}
+          />
+          <Label htmlFor="country-italy">Italy</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="country-spain"
+            checked={value === "spain"}
+            onCheckedChange={() => onChange("spain")}
+          />
+          <Label htmlFor="country-spain">Spain</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="country-usa"
+            checked={value === "usa"}
+            onCheckedChange={() => onChange("usa")}
+          />
+          <Label htmlFor="country-usa">USA</Label>
+        </div>
+      </div>
     </div>
   );
 }
@@ -138,22 +236,23 @@ function RatingRangeFilter({
   return (
     <div className="space-y-2">
       <Label>Rating Range</Label>
-      <div className="flex gap-1.5">
-        <Input
+      <div className="flex items-center space-x-2">
+        <input
           type="number"
-          min={0}
-          max={5}
-          step={0.5}
+          min="0"
+          max="5"
+          step="0.1"
           value={min ?? ""}
           onChange={(e) => onMinChange(e.target.value)}
           placeholder="Min"
           className="w-20"
         />
-        <Input
+        <span>-</span>
+        <input
           type="number"
-          min={0}
-          max={5}
-          step={0.5}
+          min="0"
+          max="5"
+          step="0.1"
           value={max ?? ""}
           onChange={(e) => onMaxChange(e.target.value)}
           placeholder="Max"
@@ -177,19 +276,22 @@ function PriceRangeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Price Range ($)</Label>
-      <div className="flex gap-1.5">
-        <Input
+      <Label>Price Range</Label>
+      <div className="flex items-center space-x-2">
+        <input
           type="number"
-          min={0}
+          min="0"
+          step="0.01"
           value={min ?? ""}
           onChange={(e) => onMinChange(e.target.value)}
           placeholder="Min"
           className="w-20"
         />
-        <Input
+        <span>-</span>
+        <input
           type="number"
-          min={0}
+          min="0"
+          step="0.01"
           value={max ?? ""}
           onChange={(e) => onMaxChange(e.target.value)}
           placeholder="Max"
@@ -259,13 +361,13 @@ export default function FilterSidebar({
   return (
     <aside
       className={`
-      h-screen bg-background dark:bg-background border-r border-gray-200 shadow-lg
+      h-screen bg-background border-r shadow-lg
       transition-all duration-300 overflow-y-auto
       ${isCollapsed ? "w-12" : "w-56"}
     `}
       aria-label="Product filters sidebar"
     >
-      <div className="p-4 sticky top-0 bg-background dark:bg-background z-10 border-b border-gray-200">
+      <div className="p-4 sticky top-0 bg-background z-10 border-b">
         <Button
           variant="ghost"
           onClick={onToggleCollapse}
@@ -307,9 +409,8 @@ export default function FilterSidebar({
         >
           <Button
             onClick={handleReset}
-            variant="default"
-            className="mb-2 w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
-            style={{ borderColor: "#8B0015" }}
+            variant="outline"
+            className="mb-2 w-full"
             aria-label="Reset all filters"
           >
             Reset Filter
@@ -317,9 +418,8 @@ export default function FilterSidebar({
           {!dynamicFiltering && (
             <Button
               onClick={handleApplyFilters}
-              variant="default"
-              className="w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
-              style={{ borderColor: "#8B0015" }}
+              variant="outline"
+              className="w-full"
               aria-label="Apply selected filters"
             >
               Apply Filters

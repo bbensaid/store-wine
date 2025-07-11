@@ -18,7 +18,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16 items-start">
         {/* IMAGE FIRST COL */}
         <div>
-          <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
+          <Card className="max-w-[32rem] w-full h-auto flex flex-col justify-between relative overflow-hidden p-0">
             <div className="relative aspect-[2/4] mt-20 mx-20 overflow-hidden">
               <Image
                 src={imageUrl}
@@ -52,7 +52,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
           </div>
           <ProductRating productId={params.id} />
           <h4 className="text-xl mt-2">{harmonize || grapes}</h4>
-          <p className="mt-3 text-md bg-muted inline-block p-2 rounded-md">
+          <p className="text-xl mt-3 font-bold">
             {dollarsAmount}
           </p>
           <p className="mt-6 leading-8 text-muted-foreground">{elaborate}</p>

@@ -12,12 +12,11 @@ import {
   LuShield,
   LuMail,
   LuMessageCircle,
-
   LuWine,
   LuHeart,
   LuFileQuestion,
 } from "react-icons/lu";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { SunIcon } from "@radix-ui/react-icons";
 
 import {
   DropdownMenu,
@@ -28,9 +27,9 @@ import {
 
 import { Cinzel } from "next/font/google";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
-import { usePathname } from "next/navigation";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -39,267 +38,203 @@ const cinzel = Cinzel({
 });
 
 function Navbar() {
-  const pathname = usePathname();
   const [winesOpen, setWinesOpen] = useState(false);
+  const pathname = usePathname();
+  
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-primary/20 h-16 flex items-center w-full justify-between px-2 sm:px-4 lg:px-6">
-
+    <nav className="sticky top-0 z-50 border-b h-16 flex items-center w-full justify-between px-4">
       {/* Logo */}
       <div className="flex items-center">
-        <div className="border-2 border-primary/80 shadow-xl bg-white px-2 sm:px-3 py-1 flex items-center min-w-[90px] sm:min-w-[110px] h-8 sm:h-10 rounded-4xl">
-          <Link href="/" className="flex items-center h-full">
-            <img
-              src="/images/logo.png"
-              alt="Wine Store Logo"
-              className="h-6 sm:h-8 w-auto max-h-[1.5rem] sm:max-h-[2rem]"
-            />
-            <span
-              className={`${cinzel.className} text-base sm:text-lg font-bold tracking-widest text-primary ml-1 sm:ml-2`}
-            >
-              BABYFOX
-            </span>
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center">
+          <img
+            src="/images/logo.png"
+            alt="Wine Store Logo"
+            className="h-8 w-auto"
+          />
+          <span className={`${cinzel.className} text-lg font-bold ml-2`}>
+            BABYFOX
+          </span>
+        </Link>
       </div>
 
       {/* Desktop Center content */}
-      <div className="hidden md:flex items-center justify-evenly gap-x-2 sm:gap-x-4 lg:gap-x-6 flex-1 px-2 sm:px-4 lg:px-6">
+      <div className="hidden md:flex items-center gap-4 flex-1 px-4">
         {/* Home button */}
-        <Button
-          className={
-            "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-            (pathname === "/" || pathname === "" ? "bg-gray-200 text-primary border-gray-400" : "")
-          }
+        <Button 
+          variant={pathname === "/" ? undefined : "outline"}
+          className={pathname === "/" ? "bg-accent text-accent-foreground" : ""}
           asChild
         >
           <Link href="/">
-            <LuHouse className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
-            <span className="hidden sm:inline">Home</span>
+            <LuHouse className="w-4 h-4 mr-2" />
+            Home
           </Link>
         </Button>
 
         {/* Search */}
-        <div className="bg-white flex-auto min-w-0 max-w-md lg:max-w-lg">
-          <NavSearch className="w-full h-8 sm:h-10 rounded-md border border-primary/20 pl-3 sm:pl-4 text-sm sm:text-base" />
+        <div className="flex-auto max-w-md">
+          <NavSearch />
         </div>
 
         {/* Nav buttons */}
         <DropdownMenu open={winesOpen} onOpenChange={setWinesOpen}>
           <DropdownMenuTrigger asChild>
-            <Button
-              className={
-                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites")
-                  ? "bg-gray-200 text-primary border-gray-400"
-                  : "")
-              }
+            <Button 
+              variant={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? undefined : "outline"}
+              className={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
             >
-              <LuWine className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-              <span className="hidden sm:inline">Wines</span>
+              <LuWine className="w-4 h-4 mr-2" />
+              Wines
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200">
-            <DropdownMenuItem asChild className="capitalize w-full text-red-600">
-              <Link href="/products" className="flex items-center gap-2">
-                <LuWine className="w-5 h-5" />
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href="/products" className="flex items-center">
+                <LuWine className="w-4 h-4 mr-2" />
                 All Wines
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="capitalize w-full text-red-600">
-              <Link href="/favorites" className="flex items-center gap-2">
-                <LuHeart className="w-5 h-5" />
+            <DropdownMenuItem asChild>
+              <Link href="/favorites" className="flex items-center">
+                <LuHeart className="w-4 h-4 mr-2" />
                 Favorites
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button
-          className={
-            "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-            (pathname.startsWith("/orders")
-              ? "bg-gray-200 text-primary border-gray-400"
-              : "")
-          }
+
+        <Button 
+          variant={pathname.startsWith("/orders") ? undefined : "outline"}
+          className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
           asChild
         >
           <Link href="/orders">
-            <HiOutlineShoppingBag className={`w-4 h-4 sm:w-5 sm:h-5 mr-1 ${pathname.startsWith("/orders") ? "text-white" : "text-primary"}`} />
-            <span className="hidden sm:inline">Orders</span>
+            <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
+            Orders
           </Link>
         </Button>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 text-primary hidden lg:flex hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-            >
-              <LuPhone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-              <span className="hidden xl:inline">Customer Service</span>
+            <Button variant="outline" className="hidden lg:flex">
+              <LuPhone className="w-4 h-4 mr-2" />
+              Customer Service
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200">
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuMail className="w-5 h-5 mr-2" />
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <LuMail className="w-4 h-4 mr-2" />
               Email Support
             </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuMessageCircle className="w-5 h-5 mr-2" />
+            <DropdownMenuItem>
+              <LuMessageCircle className="w-4 h-4 mr-2" />
               Live Chat
             </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuFileQuestion className="w-5 h-5 mr-2" />
+            <DropdownMenuItem>
+              <LuFileQuestion className="w-4 h-4 mr-2" />
               FAQ
             </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuShield className="w-5 h-5 mr-2" />
+            <DropdownMenuItem>
+              <LuShield className="w-4 h-4 mr-2" />
               Privacy Policy
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button
-          className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-        >
-          <span className="relative flex items-center mr-1">
-            <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
-          </span>
-          <span className="hidden sm:inline">Mode</span>
+
+        <Button variant="outline">
+          <SunIcon className="h-4 w-4 mr-2" />
+          Mode
         </Button>
-        <Button
-          className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-        >
-          <HiOutlineShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-          <span className="hidden sm:inline">Cart</span>
+
+        <Button variant="outline">
+          <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
+          Cart
         </Button>
       </div>
 
       {/* Desktop Sign in button */}
       <div className="hidden md:flex items-center">
-        <Button
-          className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-        >
-          <LuUser className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
-          <span className="hidden sm:inline">Sign in</span>
+        <Button variant="outline">
+          <LuUser className="w-4 h-4 mr-2" />
+          Sign in
         </Button>
       </div>
 
       {/* Mobile Navbar */}
-      <div className="flex md:hidden items-center w-full h-16 gap-x-2 px-2">
-        <div className="flex items-center min-w-[90px]">
-          <Link href="/" className="flex items-center h-full">
-            <img
-              src="/images/logo.png"
-              alt="Wine Store Logo"
-              className="h-8 w-auto max-h-[2rem]"
-            />
-            <span
-              className={`${cinzel.className} text-lg font-semibold tracking-widest text-primary ml-2`}
-            >
-              VINEFOX
-            </span>
-          </Link>
-        </div>
-        <div className="flex-grow" />
-        <Button
-          className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
-        >
-          <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
-          Cart
+      <div className="flex md:hidden items-center gap-2">
+        <Button variant="outline">
+          <HiOutlineShoppingBag className="w-5 h-5" />
         </Button>
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant="outline" size="icon" aria-label="Open menu">
+            <Button variant="outline" size="icon">
               <LuMenu className="w-6 h-6" />
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="p-6 flex flex-col gap-4 w-full max-w-xs">
-            <NavSearch className="mb-2" />
-            <Button
-              className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
-                (pathname === "/" ? "bg-gray-200 text-primary border-gray-400" : "")
-              }
-              asChild
-            >
-              <Link href="/">
-                <LuHouse className="w-5 h-5 mr-1 text-primary" />
-                Home
-              </Link>
-            </Button>
-            <Button
-              className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
-                (pathname.startsWith("/products") ? "bg-gray-200 text-primary border-gray-400" : "")
-              }
-              asChild
-            >
-              <Link href="/products">
-                <LuWine className="w-5 h-5 mr-1" />
-                Products
-              </Link>
-            </Button>
-            <Button
-              className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
-                (pathname.startsWith("/favorites") ? "bg-gray-200 text-primary border-gray-400" : "")
-              }
-              asChild
-            >
-              <Link href="/favorites">
-                <LuHeart className="w-5 h-5 mr-1" />
-                Favorites
-              </Link>
-            </Button>
-            <Button
-              className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
-                (pathname.startsWith("/orders") ? "bg-gray-200 text-primary border-gray-400" : "")
-              }
-              asChild
-            >
-              <Link href="/orders">
-                <HiOutlineShoppingBag className="w-5 h-5 mr-1" />
-                Orders
-              </Link>
-            </Button>
-            <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white"
-            >
-              <LuPhone className="w-5 h-5 text-primary" />
-              Customer Service
-            </Button>
-            <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white"
-            >
-              <LuCircleHelp className="w-5 h-5 text-primary" />
-              Help
-            </Button>
-            <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white"
-            >
-              <LuShield className="w-5 h-5 text-primary" />
-              Privacy Policy
-            </Button>
-            <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
-            >
-              <span className="relative flex items-center mr-1">
-                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
-              </span>
-              <span>Mode</span>
-            </Button>
-            <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
-            >
-              <LuUser className="w-5 h-5 mr-1 text-primary" />
-              Sign in
-            </Button>
-            <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
-            >
-              <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
-              Cart
-            </Button>
+          <DrawerContent className="p-6">
+            <NavSearch className="mb-4" />
+            <div className="flex flex-col gap-2">
+              <Button 
+                variant={pathname === "/" ? undefined : "outline"}
+                className={pathname === "/" ? "bg-accent text-accent-foreground" : ""}
+                asChild
+              >
+                <Link href="/" className="justify-start">
+                  <LuHouse className="w-4 h-4 mr-2" />
+                  Home
+                </Link>
+              </Button>
+              <Button 
+                variant={pathname.startsWith("/products") ? undefined : "outline"}
+                className={pathname.startsWith("/products") ? "bg-accent text-accent-foreground" : ""}
+                asChild
+              >
+                <Link href="/products" className="justify-start">
+                  <LuWine className="w-4 h-4 mr-2" />
+                  Products
+                </Link>
+              </Button>
+              <Button 
+                variant={pathname.startsWith("/favorites") ? undefined : "outline"}
+                className={pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
+                asChild
+              >
+                <Link href="/favorites" className="justify-start">
+                  <LuHeart className="w-4 h-4 mr-2" />
+                  Favorites
+                </Link>
+              </Button>
+              <Button 
+                variant={pathname.startsWith("/orders") ? undefined : "outline"}
+                className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
+                asChild
+              >
+                <Link href="/orders" className="justify-start">
+                  <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
+                  Orders
+                </Link>
+              </Button>
+              <Button variant="outline" className="justify-start">
+                <LuPhone className="w-4 h-4 mr-2" />
+                Customer Service
+              </Button>
+              <Button variant="outline" className="justify-start">
+                <LuCircleHelp className="w-4 h-4 mr-2" />
+                Help
+              </Button>
+              <Button variant="outline" className="justify-start">
+                <LuShield className="w-4 h-4 mr-2" />
+                Privacy Policy
+              </Button>
+              <Button variant="outline" className="justify-start">
+                <SunIcon className="h-4 w-4 mr-2" />
+                Mode
+              </Button>
+              <Button variant="outline" className="justify-start">
+                <LuUser className="w-4 h-4 mr-2" />
+                Sign in
+              </Button>
+            </div>
           </DrawerContent>
         </Drawer>
       </div>

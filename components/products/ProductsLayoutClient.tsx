@@ -10,6 +10,7 @@ import {
   DrawerClose,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 
 export default function ProductsLayoutClient({
   children,
@@ -50,23 +51,17 @@ export default function ProductsLayoutClient({
       <div className="md:hidden p-2">
         <Drawer direction="left">
           <DrawerTrigger asChild>
-            <button
-              className="w-full bg-[#8B0015] text-white rounded-md py-2 font-semibold shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B0015]"
-              aria-label="Open filters sidebar"
-            >
+            <Button className="w-full" aria-label="Open filters sidebar">
               Filters
-            </button>
+            </Button>
           </DrawerTrigger>
           <DrawerContent className="p-0 w-4/5 max-w-xs h-full">
             <div className="flex justify-between items-center p-4 border-b">
               <DrawerTitle>Filters</DrawerTitle>
               <DrawerClose asChild>
-                <button
-                  aria-label="Close filters sidebar"
-                  className="text-2xl px-2 py-1 focus:outline-none"
-                >
+                <Button variant="ghost" aria-label="Close filters sidebar">
                   ×
-                </button>
+                </Button>
               </DrawerClose>
             </div>
             <div className="p-4">

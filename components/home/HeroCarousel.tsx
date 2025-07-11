@@ -8,35 +8,9 @@ import hero3 from "@/public/images/wines/hero3.jpeg";
 import hero4 from "@/public/images/wines/hero4.jpeg";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { clsx } from "clsx";
+import { Play, Pause } from "lucide-react";
 
 const carouselImages = [hero1, hero2, hero3, hero4];
-
-// SVG icons for play and pause (theme red)
-const themeRed = "#8B0015";
-const PlayIcon = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill={themeRed}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <polygon points="5,3 17,10 5,17" />
-  </svg>
-);
-const PauseIcon = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill={themeRed}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect x="4" y="3" width="4" height="14" />
-    <rect x="12" y="3" width="4" height="14" />
-  </svg>
-);
 
 function HeroCarousel() {
   const [current, setCurrent] = useState(0);
@@ -60,7 +34,7 @@ function HeroCarousel() {
   return (
     <div className="hidden lg:block">
       <div className="flex flex-col items-center">
-        <Card className="w-full h-auto bg-white flex items-end justify-center relative overflow-hidden border border-gray-300 p-6 md:p-8 rounded-md">
+        <Card className="w-full h-auto flex items-end justify-center relative overflow-hidden p-6 md:p-8">
           <div className="relative aspect-[3/4] w-full overflow-hidden">
             <Image
               src={carouselImages[current]}
@@ -74,21 +48,19 @@ function HeroCarousel() {
           {paused ? (
             <Button
               variant="outline"
-              className="border-[#8B0015] text-[#8B0015] bg-transparent hover:bg-[#8B0015]/10 focus:ring-0 focus:ring-offset-0 flex items-center gap-1.5 md:gap-2 text-base md:text-lg px-4 py-2 md:px-6 md:py-3"
               onClick={() => setPaused(false)}
               aria-label="Play carousel"
             >
-              <PlayIcon />
+              <Play className="w-4 h-4 mr-2" />
               <span>Play</span>
             </Button>
           ) : (
             <Button
               variant="outline"
-              className="border-[#8B0015] text-[#8B0015] bg-transparent hover:bg-[#8B0015]/10 focus:ring-0 focus:ring-offset-0 flex items-center gap-1.5 md:gap-2 text-base md:text-lg px-4 py-2 md:px-6 md:py-3"
               onClick={() => setPaused(true)}
               aria-label="Pause carousel"
             >
-              <PauseIcon />
+              <Pause className="w-4 h-4 mr-2" />
               <span>Pause</span>
             </Button>
           )}

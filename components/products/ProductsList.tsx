@@ -36,7 +36,7 @@ function ProductsList({
         return (
           <article key={productId} className="group relative">
             <Link href={`/products/${productId}`}>
-              <Card className="transform group-hover:shadow-xl transition-shadow duration-500 p-0 rounded-md">
+              <Card className="transform group-hover:shadow-xl transition-shadow duration-500 p-0">
                 <CardContent className="py-2 px-4 grid md:grid-cols-[12rem_1fr_1fr] gap-4 md:gap-8">
                   <div className="relative h-[12rem] md:h-[15rem] w-full md:w-[12rem]">
                     <Image

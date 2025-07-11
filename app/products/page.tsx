@@ -56,7 +56,6 @@ export default async function ProductsPage({ searchParams }: any) {
         {/* Results count (left) */}
         <span
           className="text-xl font-normal"
-          style={{ color: "#8B0015" }}
           role="status"
           aria-live="polite"
         >
@@ -75,7 +74,7 @@ export default async function ProductsPage({ searchParams }: any) {
             <Button
               asChild
               disabled={page === 0}
-              variant="default"
+              variant="outline"
               size="lg"
               aria-label="Previous page"
             >
@@ -92,13 +91,13 @@ export default async function ProductsPage({ searchParams }: any) {
                 Previous
               </Link>
             </Button>
-            <span className="text-xl font-normal" style={{ color: "#8B0015" }}>
+            <span className="text-xl font-normal">
               Page {page + 1}/{totalPages}
             </span>
             <Button
               asChild
               disabled={page + 1 >= totalPages}
-              variant="default"
+              variant="outline"
               size="lg"
               aria-label="Next page"
             >
@@ -120,8 +119,9 @@ export default async function ProductsPage({ searchParams }: any) {
         {/* Grid/List toggle buttons (right) */}
         <div className="justify-self-end flex gap-x-4">
           <Button
-            variant={layout === "grid" ? "default" : "ghost"}
+            variant={layout === "grid" ? undefined : "outline"}
             size="icon"
+            className={layout === "grid" ? "bg-accent text-accent-foreground" : ""}
             asChild
             aria-label="Grid view"
           >
@@ -139,8 +139,9 @@ export default async function ProductsPage({ searchParams }: any) {
             </Link>
           </Button>
           <Button
-            variant={layout === "list" ? "default" : "ghost"}
+            variant={layout === "list" ? undefined : "outline"}
             size="icon"
+            className={layout === "list" ? "bg-accent text-accent-foreground" : ""}
             asChild
             aria-label="List view"
           >
