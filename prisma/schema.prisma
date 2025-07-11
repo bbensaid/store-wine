@@ -1,101 +1,66 @@
-// ===============================
-// PRISMA SCHEMA FOR WINE STORE DB
-// ===============================
-// This schema defines all database models, relations, and indexes for the wine store application.
-// - To add new fields, simply add them to the relevant model and run `npx prisma db push` or `npx prisma migrate dev`.
-// - To add new models (tables), define them below and update your seed script and API as needed.
-// - All relations, defaults, and indexes are documented for future upgrades and performance tuning.
-
 generator client {
-  provider = "prisma-client-js" // Generates the Prisma client for Node.js
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql" // Using PostgreSQL (Supabase)
-  url       = env("DATABASE_URL") // Connection string from .env
-  directUrl = env("DIRECT_URL")   // Optional direct connection for migrations
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-// ===============================
-// MODEL: Wine
-// ===============================
-// Represents a wine product in the store.
-// - Add new fields for future features (e.g., awards, tasting notes).
-// - Use @@index for fields that are frequently filtered in the UI/API.
 model Wine {
-  abv       Float    // Alcohol by volume (e.g., 13.5)
-  acidity   String   // Acidity profile (e.g., "Medium", "High")
-  body      String   // Body profile (e.g., "Full", "Light")
-  code      String   // Internal or supplier code
-  elaborate String?  // Optional: detailed description
-  grapes    String   // Grape varieties (comma-separated)
-  harmonize String   // Food pairings (comma-separated)
-  id        Int      @id @default(autoincrement()) // Primary key
-  name      String   // Wine name (shown in UI)
-  price     Int      @default(0) // Price in cents (for currency safety)
-  regionId  Int      // Foreign key to Region
-  type      String   // Wine type (e.g., Red, White, Rosé)
-  createdAt DateTime @default(now()) // Creation timestamp (for sorting/filtering)
-  featured  Boolean  @default(false) // Used for homepage/featured filters
-  images    Image[]  // One-to-many: wine can have multiple images
-  ratings   Rating[] // One-to-many: wine can have multiple ratings
-  region    Region   @relation("RegionToWine", fields: [regionId], references: [id]) // Many-to-one: wine belongs to a region
+  abv       Float
+  acidity   String
+  body      String
+  code      String
+  elaborate String?
+  grapes    String
+  harmonize String
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int      @default(0)
+  regionId  Int
+  type      String
+  createdAt DateTime @default(now())
+  featured  Boolean  @default(false)
+  images    Image[]
+  ratings   Rating[]
+  region    Region   @relation("RegionToWine", fields: [regionId], references: [id])
 
-  @@index([featured])   // For fast featured queries (homepage, promotions)
-  @@index([regionId])   // For region-based filtering (UI filters)
+  @@index([featured])
+  @@index([regionId])
 }
 
-// ===============================
-// MODEL: Region
-// ===============================
-// Represents a wine-producing region.
-// - Add new fields for future features (e.g., climate, description).
 model Region {
-  id      Int    @id @default(autoincrement()) // Primary key
-  name    String // Region name (e.g., "Bordeaux")
-  country String // Country (e.g., "France")
-  wines   Wine[] @relation("RegionToWine") // One-to-many: region has many wines
+  id      Int    @id @default(autoincrement())
+  name    String
+  country String
+  wines   Wine[] @relation("RegionToWine")
 }
 
-// ===============================
-// MODEL: Rating
-// ===============================
-// Represents a user rating for a wine.
-// - Add new fields for future features (e.g., review text, verified purchase).
 model Rating {
-  id      Int      @id @default(autoincrement()) // Primary key
-  wineId  Int      // Foreign key to Wine
-  userId  Int      // Foreign key to User
-  vintage String?  // Optional: vintage year
-  rating  Float    // Rating value (e.g., 4.5)
-  date    DateTime // Date of rating
-  user    User     @relation(fields: [userId], references: [id]) // Many-to-one: rating belongs to a user
-  wine    Wine     @relation(fields: [wineId], references: [id]) // Many-to-one: rating belongs to a wine
+  id      Int      @id @default(autoincrement())
+  wineId  Int
+  userId  Int
+  vintage String?
+  rating  Float
+  date    DateTime
+  user    User     @relation(fields: [userId], references: [id])
+  wine    Wine     @relation(fields: [wineId], references: [id])
 }
 
-// ===============================
-// MODEL: User
-// ===============================
-// Represents a user account.
-// - Passwords should be hashed in production (see seed.js).
-// - Add new fields for future features (e.g., address, phone, preferences).
 model User {
-  email    String   @unique // User email (unique)
-  id       Int      @id @default(autoincrement()) // Primary key
-  name     String?  // Optional: user display name
-  password String   // Hashed password (never store plaintext in prod)
-  role     String   @default("USER") // Role (e.g., USER, ADMIN)
-  ratings  Rating[] // One-to-many: user can have many ratings
+  email    String   @unique
+  id       Int      @id @default(autoincrement())
+  name     String?
+  password String
+  role     String   @default("USER")
+  ratings  Rating[]
 }
 
-// ===============================
-// MODEL: Image
-// ===============================
-// Represents an image for a wine.
-// - Add new fields for future features (e.g., alt text, order).
 model Image {
-  id     Int    @id @default(autoincrement()) // Primary key
-  url    String // Image URL (relative to /public/images or full URL)
-  wineId Int    // Foreign key to Wine
-  wine   Wine   @relation(fields: [wineId], references: [id]) // Many-to-one: image belongs to a wine
+  id     Int    @id @default(autoincrement())
+  url    String
+  wineId Int
+  wine   Wine   @relation(fields: [wineId], references: [id])
 }

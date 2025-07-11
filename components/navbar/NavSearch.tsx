@@ -25,7 +25,7 @@ function NavSearch({ className = "" }: { className?: string }) {
       type="search"
       placeholder="Search wines..."
       className={clsx(
-        "w-[8-rem] md:w-[12rem] lg:w-[28rem] dark:bg-muted focus-visible:ring-accent focus-visible:border-accent",
+        "w-full dark:bg-muted focus-visible:ring-accent focus-visible:border-accent",
         className
       )}
       value={search}
