@@ -119,7 +119,7 @@ export default async function ProductsPage({ searchParams }: any) {
         {/* Grid/List toggle buttons (right) */}
         <div className="justify-self-end flex gap-x-4">
           <Button
-            variant={layout === "grid" ? undefined : "outline"}
+            variant="outline"
             size="icon"
             className={layout === "grid" ? "bg-accent text-accent-foreground" : ""}
             asChild
@@ -139,7 +139,7 @@ export default async function ProductsPage({ searchParams }: any) {
             </Link>
           </Button>
           <Button
-            variant={layout === "list" ? undefined : "outline"}
+            variant="outline"
             size="icon"
             className={layout === "list" ? "bg-accent text-accent-foreground" : ""}
             asChild

@@ -47,13 +47,13 @@ function Hero() {
           </div>
           {/* Brand Name */}
           <h1
-            className={`${cinzel.className} text-4xl sm:text-5xl md:text-6xl tracking-[.1em] font-medium`}
+            className={`${cinzel.className} text-4xl text-red-800 sm:text-5xl md:text-6xl tracking-[.1em] font-medium`}
           >
             VineFox
           </h1>
           {/* Slogan */}
           <h2
-            className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl tracking-wide`}
+            className={`${cormorant.className} text-3xl text-red-800 sm:text-4xl md:text-5xl tracking-wide`}
           >
             Discover. Share. Savor the rare.
           </h2>

@@ -42,122 +42,123 @@ function Navbar() {
   const pathname = usePathname();
   
   return (
-    <nav className="sticky top-0 z-50 border-b h-16 flex items-center w-full justify-between px-4">
+    <nav className="sticky top-0 z-50 border-b-1 h-14 flex items-center w-full px-2">
       {/* Logo */}
       <div className="flex items-center">
-        <Link href="/" className="flex items-center">
-          <img
-            src="/images/logo.png"
-            alt="Wine Store Logo"
-            className="h-8 w-auto"
-          />
-          <span className={`${cinzel.className} text-lg font-bold ml-2`}>
-            BABYFOX
+        <Link href="/" className="flex items-center ">
+          <div className="w-12 h-12">
+            <img
+              src="/images/logo.png"
+              alt="Wine Store Logo"
+              className="w-full h-full"
+            />
+          </div>
+          <span className={`${cinzel.className} text-xl text-red-800 font-semibold mr-6`}>
+            VINEFOX
           </span>
         </Link>
       </div>
 
       {/* Desktop Center content */}
-      <div className="hidden md:flex items-center gap-4 flex-1 px-4">
+      <div className="hidden md:flex items-center gap-4 px-4 flex-1 justify-between">
         {/* Home button */}
         <Button 
-          variant={pathname === "/" ? undefined : "outline"}
+          variant="outline"
           className={pathname === "/" ? "bg-accent text-accent-foreground" : ""}
           asChild
         >
           <Link href="/">
-            <LuHouse className="w-4 h-4 mr-2" />
+            <LuHouse className="w-4 h-4 mr-0" />
             Home
           </Link>
         </Button>
 
         {/* Search */}
-        <div className="flex-auto max-w-md">
+        <div className="flex-auto max-w-xl">
           <NavSearch />
         </div>
 
         {/* Nav buttons */}
-        <DropdownMenu open={winesOpen} onOpenChange={setWinesOpen}>
-          <DropdownMenuTrigger asChild>
-            <Button 
-              variant={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? undefined : "outline"}
-              className={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
-            >
-              <LuWine className="w-4 h-4 mr-2" />
-              Wines
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem asChild>
-              <Link href="/products" className="flex items-center">
+        <div className="flex items-center gap-4">
+          <DropdownMenu open={winesOpen} onOpenChange={setWinesOpen}>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline"
+                className={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
+              >
                 <LuWine className="w-4 h-4 mr-2" />
-                All Wines
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/favorites" className="flex items-center">
-                <LuHeart className="w-4 h-4 mr-2" />
-                Favorites
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                Wines
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem asChild>
+                <Link href="/products" className="flex items-center">
+                  <LuWine className="w-4 h-4 mr-2" />
+                  All Wines
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/favorites" className="flex items-center">
+                  <LuHeart className="w-4 h-4 mr-2" />
+                  Favorites
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        <Button 
-          variant={pathname.startsWith("/orders") ? undefined : "outline"}
-          className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
-          asChild
-        >
-          <Link href="/orders">
+          <Button 
+            variant="outline"
+            className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
+            asChild
+          >
+            <Link href="/orders">
+              <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
+              Orders
+            </Link>
+          </Button>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="hidden lg:flex">
+                <LuPhone className="w-4 h-4 mr-2" />
+                Customer Service
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>
+                <LuMail className="w-4 h-4 mr-2" />
+                Email Support
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LuMessageCircle className="w-4 h-4 mr-2" />
+                Live Chat
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LuFileQuestion className="w-4 h-4 mr-2" />
+                FAQ
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LuShield className="w-4 h-4 mr-2" />
+                Privacy Policy
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Button variant="outline">
+            <SunIcon className="h-4 w-4 mr-2" />
+            Mode
+          </Button>
+
+          <Button variant="outline">
             <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
-            Orders
-          </Link>
-        </Button>
+            Cart
+          </Button>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="hidden lg:flex">
-              <LuPhone className="w-4 h-4 mr-2" />
-              Customer Service
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-              <LuMail className="w-4 h-4 mr-2" />
-              Email Support
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LuMessageCircle className="w-4 h-4 mr-2" />
-              Live Chat
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LuFileQuestion className="w-4 h-4 mr-2" />
-              FAQ
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LuShield className="w-4 h-4 mr-2" />
-              Privacy Policy
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Button variant="outline">
-          <SunIcon className="h-4 w-4 mr-2" />
-          Mode
-        </Button>
-
-        <Button variant="outline">
-          <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
-          Cart
-        </Button>
-      </div>
-
-      {/* Desktop Sign in button */}
-      <div className="hidden md:flex items-center">
-        <Button variant="outline">
-          <LuUser className="w-4 h-4 mr-2" />
-          Sign in
-        </Button>
+          <Button variant="outline">
+            <LuUser className="w-4 h-4 mr-0" />
+            Sign in
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navbar */}
@@ -175,7 +176,7 @@ function Navbar() {
             <NavSearch className="mb-4" />
             <div className="flex flex-col gap-2">
               <Button 
-                variant={pathname === "/" ? undefined : "outline"}
+                variant="outline"
                 className={pathname === "/" ? "bg-accent text-accent-foreground" : ""}
                 asChild
               >
@@ -185,7 +186,7 @@ function Navbar() {
                 </Link>
               </Button>
               <Button 
-                variant={pathname.startsWith("/products") ? undefined : "outline"}
+                variant="outline"
                 className={pathname.startsWith("/products") ? "bg-accent text-accent-foreground" : ""}
                 asChild
               >
@@ -195,7 +196,7 @@ function Navbar() {
                 </Link>
               </Button>
               <Button 
-                variant={pathname.startsWith("/favorites") ? undefined : "outline"}
+                variant="outline"
                 className={pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
                 asChild
               >
@@ -205,7 +206,7 @@ function Navbar() {
                 </Link>
               </Button>
               <Button 
-                variant={pathname.startsWith("/orders") ? undefined : "outline"}
+                variant="outline"
                 className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
                 asChild
               >
