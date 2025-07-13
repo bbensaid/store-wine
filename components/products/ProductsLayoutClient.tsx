@@ -46,7 +46,7 @@ export default function ProductsLayoutClient({
   }, [router, pathname]);
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-[15%_70%_15%] min-h-screen">
+    <div className="w-full">
       {/* Mobile Filters Button and Drawer */}
       <div className="md:hidden p-2">
         <Drawer direction="left">
@@ -78,20 +78,27 @@ export default function ProductsLayoutClient({
           </DrawerContent>
         </Drawer>
       </div>
-      {/* Sidebar on desktop */}
-      <div className="hidden md:block h-full">
-        <FilterSidebar
-          filters={filters}
-          onFiltersChanged={handleFiltersChanged}
-          onResetFilters={handleResetFilters}
-          isCollapsed={isCollapsed}
-          onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
-        />
+      {/* Desktop layout with sidebar and content */}
+      <div className="hidden md:flex">
+        {/* Sidebar with left margin */}
+        <div className="flex-shrink-0 pl-0">
+          <FilterSidebar
+            filters={filters}
+            onFiltersChanged={handleFiltersChanged}
+            onResetFilters={handleResetFilters}
+            isCollapsed={isCollapsed}
+            onToggleCollapse={() => setIsCollapsed((prev) => !prev)}
+          />
+        </div>
+        {/* Main content with big left margin */}
+        <div className="flex-1 pl-24">
+          {children}
+        </div>
       </div>
-      {/* Main content in center 70% */}
-      <div className="w-full h-full col-span-1 md:col-span-1">{children}</div>
-      {/* Right 15% empty for symmetry */}
-      <div className="hidden md:block" />
+      {/* Mobile content */}
+      <div className="md:hidden">
+        {children}
+      </div>
     </div>
   );
 }

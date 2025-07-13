@@ -368,13 +368,13 @@ export default function FilterSidebar({
   return (
     <aside
       className={`
-      h-screen bg-background border-r shadow-lg
+      bg-background border-r border-red-800 shadow-lg
       transition-all duration-300 overflow-y-auto
-      ${isCollapsed ? "w-12" : "w-56"}
+      ${isCollapsed ? "w-16" : "w-52"}
     `}
       aria-label="Product filters sidebar"
     >
-      <div className="p-4 sticky top-0 bg-background z-10 border-b">
+      <div className="p-4 sticky top-0 bg-background z-10 border border-b-red-800 border-t-0 border-l-0 border-r-0">
         <Button
           variant="ghost"
           onClick={onToggleCollapse}
