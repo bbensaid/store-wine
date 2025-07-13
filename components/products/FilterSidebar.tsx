@@ -5,6 +5,13 @@ import { Separator } from "@/components/ui/separator";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
+import { Cinzel } from "next/font/google";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 interface FilterSidebarProps {
   filters: Record<string, string>;
@@ -23,7 +30,7 @@ function WineTypeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Wine Type</Label>
+      <Label className={cinzel.className}>Wine Type</Label>
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -31,7 +38,7 @@ function WineTypeFilter({
             checked={value === "all"}
             onCheckedChange={() => onChange("all")}
           />
-          <Label htmlFor="type-all">All Types</Label>
+          <Label htmlFor="type-all" className={cinzel.className}>All Types</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -39,7 +46,7 @@ function WineTypeFilter({
             checked={value === "red"}
             onCheckedChange={() => onChange("red")}
           />
-          <Label htmlFor="type-red">Red</Label>
+          <Label htmlFor="type-red" className={cinzel.className}>Red</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -47,7 +54,7 @@ function WineTypeFilter({
             checked={value === "white"}
             onCheckedChange={() => onChange("white")}
           />
-          <Label htmlFor="type-white">White</Label>
+          <Label htmlFor="type-white" className={cinzel.className}>White</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -55,7 +62,7 @@ function WineTypeFilter({
             checked={value === "rose"}
             onCheckedChange={() => onChange("rose")}
           />
-          <Label htmlFor="type-rose">Rosé</Label>
+          <Label htmlFor="type-rose" className={cinzel.className}>Rosé</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -63,7 +70,7 @@ function WineTypeFilter({
             checked={value === "sparkling"}
             onCheckedChange={() => onChange("sparkling")}
           />
-          <Label htmlFor="type-sparkling">Sparkling</Label>
+          <Label htmlFor="type-sparkling" className={cinzel.className}>Sparkling</Label>
         </div>
       </div>
     </div>
@@ -79,7 +86,7 @@ function BodyFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Body</Label>
+      <Label className={cinzel.className}>Body</Label>
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -87,7 +94,7 @@ function BodyFilter({
             checked={value === "all"}
             onCheckedChange={() => onChange("all")}
           />
-          <Label htmlFor="body-all">All Bodies</Label>
+          <Label htmlFor="body-all" className={cinzel.className}>All Bodies</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -95,7 +102,7 @@ function BodyFilter({
             checked={value === "light"}
             onCheckedChange={() => onChange("light")}
           />
-          <Label htmlFor="body-light">Light</Label>
+          <Label htmlFor="body-light" className={cinzel.className}>Light</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -103,7 +110,7 @@ function BodyFilter({
             checked={value === "medium"}
             onCheckedChange={() => onChange("medium")}
           />
-          <Label htmlFor="body-medium">Medium</Label>
+          <Label htmlFor="body-medium" className={cinzel.className}>Medium</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -111,7 +118,7 @@ function BodyFilter({
             checked={value === "full"}
             onCheckedChange={() => onChange("full")}
           />
-          <Label htmlFor="body-full">Full</Label>
+          <Label htmlFor="body-full" className={cinzel.className}>Full</Label>
         </div>
       </div>
     </div>
@@ -127,7 +134,7 @@ function AcidityFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Acidity</Label>
+      <Label className={cinzel.className}>Acidity</Label>
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -135,7 +142,7 @@ function AcidityFilter({
             checked={value === "all"}
             onCheckedChange={() => onChange("all")}
           />
-          <Label htmlFor="acidity-all">All Acidities</Label>
+          <Label htmlFor="acidity-all" className={cinzel.className}>All Acidities</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -143,7 +150,7 @@ function AcidityFilter({
             checked={value === "low"}
             onCheckedChange={() => onChange("low")}
           />
-          <Label htmlFor="acidity-low">Low</Label>
+          <Label htmlFor="acidity-low" className={cinzel.className}>Low</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -151,7 +158,7 @@ function AcidityFilter({
             checked={value === "medium"}
             onCheckedChange={() => onChange("medium")}
           />
-          <Label htmlFor="acidity-medium">Medium</Label>
+          <Label htmlFor="acidity-medium" className={cinzel.className}>Medium</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -159,7 +166,7 @@ function AcidityFilter({
             checked={value === "high"}
             onCheckedChange={() => onChange("high")}
           />
-          <Label htmlFor="acidity-high">High</Label>
+          <Label htmlFor="acidity-high" className={cinzel.className}>High</Label>
         </div>
       </div>
     </div>
@@ -175,7 +182,7 @@ function CountryFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Country</Label>
+      <Label className={cinzel.className}>Country</Label>
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -183,7 +190,7 @@ function CountryFilter({
             checked={value === "all"}
             onCheckedChange={() => onChange("all")}
           />
-          <Label htmlFor="country-all">All Countries</Label>
+          <Label htmlFor="country-all" className={cinzel.className}>All Countries</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -191,7 +198,7 @@ function CountryFilter({
             checked={value === "france"}
             onCheckedChange={() => onChange("france")}
           />
-          <Label htmlFor="country-france">France</Label>
+          <Label htmlFor="country-france" className={cinzel.className}>France</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -199,7 +206,7 @@ function CountryFilter({
             checked={value === "italy"}
             onCheckedChange={() => onChange("italy")}
           />
-          <Label htmlFor="country-italy">Italy</Label>
+          <Label htmlFor="country-italy" className={cinzel.className}>Italy</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -207,7 +214,7 @@ function CountryFilter({
             checked={value === "spain"}
             onCheckedChange={() => onChange("spain")}
           />
-          <Label htmlFor="country-spain">Spain</Label>
+          <Label htmlFor="country-spain" className={cinzel.className}>Spain</Label>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -215,7 +222,7 @@ function CountryFilter({
             checked={value === "usa"}
             onCheckedChange={() => onChange("usa")}
           />
-          <Label htmlFor="country-usa">USA</Label>
+          <Label htmlFor="country-usa" className={cinzel.className}>USA</Label>
         </div>
       </div>
     </div>
@@ -235,7 +242,7 @@ function RatingRangeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Rating Range</Label>
+      <Label className={cinzel.className}>Rating Range</Label>
       <div className="flex items-center space-x-2">
         <input
           type="number"
@@ -276,7 +283,7 @@ function PriceRangeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Price Range</Label>
+      <Label className={cinzel.className}>Price Range</Label>
       <div className="flex items-center space-x-2">
         <input
           type="number"
@@ -312,7 +319,7 @@ function FeaturedFilter({
   return (
     <div className="flex items-center space-x-2">
       <Checkbox id="featured" checked={checked} onCheckedChange={onChange} />
-      <Label htmlFor="featured">Featured Wines</Label>
+      <Label htmlFor="featured" className={cinzel.className}>Featured Wines</Label>
     </div>
   );
 }
@@ -378,12 +385,12 @@ export default function FilterSidebar({
           {isCollapsed ? (
             <>
               <ChevronRight />
-              <span className="text-xs hidden md:block">Expand</span>
+              <span className={`text-xs hidden md:block ${cinzel.className}`}>Expand</span>
             </>
           ) : (
             <>
               <ChevronLeft />
-              <span className="text-xs hidden md:block">Collapse</span>
+              <span className={`text-xs hidden md:block ${cinzel.className}`}>Collapse</span>
             </>
           )}
         </Button>
@@ -395,7 +402,7 @@ export default function FilterSidebar({
               onCheckedChange={(checked) => setDynamicFiltering(!!checked)}
               aria-checked={dynamicFiltering}
             />
-            <Label htmlFor="dynamic-filtering">Dynamic Filtering</Label>
+            <Label htmlFor="dynamic-filtering" className={cinzel.className}>Dynamic Filtering</Label>
           </div>
         )}
       </div>
@@ -405,12 +412,12 @@ export default function FilterSidebar({
           id="sidebar-filters-content"
           role="region"
           aria-label="Filter options"
-          className="p-4 space-y-6"
+          className={`p-4 space-y-6 ${cinzel.className}`}
         >
           <Button
             onClick={handleReset}
             variant="outline"
-            className="mb-2 w-full"
+            className={`mb-2 w-full ${cinzel.className}`}
             aria-label="Reset all filters"
           >
             Reset Filter
@@ -419,7 +426,7 @@ export default function FilterSidebar({
             <Button
               onClick={handleApplyFilters}
               variant="outline"
-              className="w-full"
+              className={`w-full ${cinzel.className}`}
               aria-label="Apply selected filters"
             >
               Apply Filters
