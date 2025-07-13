@@ -3,6 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import { Wine, Image as PrismaImage } from "@prisma/client";
+import { Cinzel } from "next/font/google";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 function ProductsGrid({
   products,
@@ -37,13 +44,13 @@ function ProductsGrid({
                 </div>
                 {/* Info at the bottom */}
                 <div className="flex flex-col items-center px-2 py-0 flex-1 gap-y-2">
-                  <h2 className="text-base md:text-lg font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0">
+                  <h2 className={`text-base md:text-lg font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0 ${cinzel.className}`}>
                     {name}
                   </h2>
-                  <p className="text-xs md:text-sm text-muted-foreground text-center mt-0 mb-0">
+                  <p className={`text-xs md:text-sm text-muted-foreground text-center mt-0 mb-0 ${cinzel.className}`}>
                     {product.type}
                   </p>
-                  <p className="text-sm md:text-base font-bold text-center mt-0 mb-4">
+                  <p className={`text-sm md:text-base font-bold text-center mt-0 mb-4 ${cinzel.className}`}>
                     ${product.price}
                   </p>
                 </div>

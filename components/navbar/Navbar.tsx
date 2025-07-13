@@ -42,7 +42,7 @@ function Navbar() {
   const pathname = usePathname();
   
   return (
-    <nav className="sticky top-0 z-50 border-b-1 h-14 flex items-center w-full px-2">
+    <nav className="sticky top-0 z-50 border-b-1 border-t-1 border-red-800 h-14 flex items-center w-full px-0">
       {/* Logo */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center ">
@@ -64,7 +64,7 @@ function Navbar() {
         {/* Home button */}
         <Button 
           variant="outline"
-          className={pathname === "/" ? "bg-accent text-accent-foreground" : ""}
+          className={`${pathname === "/" ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
           asChild
         >
           <Link href="/">
@@ -84,7 +84,7 @@ function Navbar() {
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="outline"
-                className={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
+                className={`${winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
               >
                 <LuWine className="w-4 h-4 mr-2" />
                 Wines
@@ -108,7 +108,7 @@ function Navbar() {
 
           <Button 
             variant="outline"
-            className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
+            className={`${pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
             asChild
           >
             <Link href="/orders">
@@ -119,10 +119,10 @@ function Navbar() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="hidden lg:flex">
-                <LuPhone className="w-4 h-4 mr-2" />
-                Customer Service
-              </Button>
+                        <Button variant="outline" className={`hidden lg:flex ${cinzel.className}`}>
+            <LuPhone className="w-4 h-4 mr-2" />
+            Customer Service
+          </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
@@ -144,17 +144,17 @@ function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="outline">
+          <Button variant="outline" className={cinzel.className}>
             <SunIcon className="h-4 w-4 mr-2" />
             Mode
           </Button>
 
-          <Button variant="outline">
+          <Button variant="outline" className={cinzel.className}>
             <HiOutlineShoppingBag className="w-4 h-4 mr-2" />
             Cart
           </Button>
 
-          <Button variant="outline">
+          <Button variant="outline" className={cinzel.className}>
             <LuUser className="w-4 h-4 mr-0" />
             Sign in
           </Button>
@@ -163,7 +163,7 @@ function Navbar() {
 
       {/* Mobile Navbar */}
       <div className="flex md:hidden items-center gap-2">
-        <Button variant="outline">
+        <Button variant="outline" className={cinzel.className}>
           <HiOutlineShoppingBag className="w-5 h-5" />
         </Button>
         <Drawer>
@@ -177,7 +177,7 @@ function Navbar() {
             <div className="flex flex-col gap-2">
               <Button 
                 variant="outline"
-                className={pathname === "/" ? "bg-accent text-accent-foreground" : ""}
+                className={`${pathname === "/" ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
                 asChild
               >
                 <Link href="/" className="justify-start">
@@ -187,7 +187,7 @@ function Navbar() {
               </Button>
               <Button 
                 variant="outline"
-                className={pathname.startsWith("/products") ? "bg-accent text-accent-foreground" : ""}
+                className={`${pathname.startsWith("/products") ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
                 asChild
               >
                 <Link href="/products" className="justify-start">
@@ -197,7 +197,7 @@ function Navbar() {
               </Button>
               <Button 
                 variant="outline"
-                className={pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""}
+                className={`${pathname.startsWith("/favorites") ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
                 asChild
               >
                 <Link href="/favorites" className="justify-start">
@@ -207,7 +207,7 @@ function Navbar() {
               </Button>
               <Button 
                 variant="outline"
-                className={pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""}
+                className={`${pathname.startsWith("/orders") ? "bg-accent text-accent-foreground" : ""} ${cinzel.className}`}
                 asChild
               >
                 <Link href="/orders" className="justify-start">
@@ -215,23 +215,23 @@ function Navbar() {
                   Orders
                 </Link>
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className={`justify-start ${cinzel.className}`}>
                 <LuPhone className="w-4 h-4 mr-2" />
                 Customer Service
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className={`justify-start ${cinzel.className}`}>
                 <LuCircleHelp className="w-4 h-4 mr-2" />
                 Help
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className={`justify-start ${cinzel.className}`}>
                 <LuShield className="w-4 h-4 mr-2" />
                 Privacy Policy
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className={`justify-start ${cinzel.className}`}>
                 <SunIcon className="h-4 w-4 mr-2" />
                 Mode
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className={`justify-start ${cinzel.className}`}>
                 <LuUser className="w-4 h-4 mr-2" />
                 Sign in
               </Button>

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cinzel } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Navbar from "@/components/navbar/Navbar";
 import { Suspense } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const inter = Inter({ subsets: ["latin"] });
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Wine Store",
@@ -21,7 +25,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body className={cinzel.className}>
           <Providers>
             <div className="min-h-screen flex flex-col">
               <Suspense>

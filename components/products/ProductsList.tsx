@@ -4,6 +4,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Wine, Image as PrismaImage } from "@prisma/client";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
+import { Cinzel } from "next/font/google";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 function ProductsList({
   products,
@@ -52,18 +59,18 @@ function ProductsList({
 
                   <div className="flex flex-col gap-2">
                     <div>
-                      <h2 className="text-lg md:text-xl font-semibold capitalize">
+                      <h2 className={`text-lg md:text-xl font-semibold capitalize ${cinzel.className}`}>
                         {name}
                       </h2>
-                      <h4 className="text-muted-foreground -mt-1 text-sm md:text-base">
+                      <h4 className={`text-muted-foreground -mt-1 text-sm md:text-base ${cinzel.className}`}>
                         {type}
                       </h4>
-                      <div className="text-xs md:text-sm text-muted-foreground">
+                      <div className={`text-xs md:text-sm text-muted-foreground ${cinzel.className}`}>
                         {region.name}, {region.country}
                       </div>
                     </div>
 
-                    <div className="text-muted-foreground mt-2 text-xs md:text-sm">
+                    <div className={`text-muted-foreground mt-2 text-xs md:text-sm ${cinzel.className}`}>
                       {elaborate && <p className="mb-2">{elaborate}</p>}
                       <div className="grid gap-2">
                         {grapes && (
@@ -85,10 +92,10 @@ function ProductsList({
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <div className="text-xl font-semibold mb-2">
+                    <div className={`text-xl font-semibold mb-2 ${cinzel.className}`}>
                       {dollarsAmount}
                     </div>
-                    <div className="text-muted-foreground grid gap-2 text-xs md:text-sm">
+                    <div className={`text-muted-foreground grid gap-2 text-xs md:text-sm ${cinzel.className}`}>
                       {harmonize && (
                         <div>
                           <span className="font-medium text-foreground">

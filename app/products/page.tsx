@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { LuLayoutGrid, LuList } from "react-icons/lu";
 import Link from "next/link";
 import { getProducts } from "@/lib/getProducts";
+import { Cinzel } from "next/font/google";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 const PAGE_SIZE = 20;
 
@@ -55,7 +62,7 @@ export default async function ProductsPage({ searchParams }: any) {
       <div className="grid grid-cols-[1fr_auto_1fr] gap-x-6 items-center mb-2">
         {/* Results count (left) */}
         <span
-          className="text-xl font-normal"
+          className={`text-xl font-normal ${cinzel.className}`}
           role="status"
           aria-live="polite"
         >
@@ -76,6 +83,7 @@ export default async function ProductsPage({ searchParams }: any) {
               disabled={page === 0}
               variant="outline"
               size="lg"
+              className={cinzel.className}
               aria-label="Previous page"
             >
               <Link
@@ -91,7 +99,7 @@ export default async function ProductsPage({ searchParams }: any) {
                 Previous
               </Link>
             </Button>
-            <span className="text-xl font-normal">
+            <span className={`text-xl font-normal ${cinzel.className}`}>
               Page {page + 1}/{totalPages}
             </span>
             <Button
@@ -99,6 +107,7 @@ export default async function ProductsPage({ searchParams }: any) {
               disabled={page + 1 >= totalPages}
               variant="outline"
               size="lg"
+              className={cinzel.className}
               aria-label="Next page"
             >
               <Link
