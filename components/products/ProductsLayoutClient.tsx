@@ -51,7 +51,7 @@ export default function ProductsLayoutClient({
         <Drawer direction="left">
           <DrawerTrigger asChild>
             <button
-              className="w-full bg-[#8B0015] text-white rounded-md py-2 font-semibold shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B0015]"
+              className="w-full flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary rounded-md py-2 font-semibold shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Open filters sidebar"
             >
               Filters
@@ -63,7 +63,7 @@ export default function ProductsLayoutClient({
               <DrawerClose asChild>
                 <button
                   aria-label="Close filters sidebar"
-                  className="text-2xl px-2 py-1 focus:outline-none"
+                  className="text-2xl px-2 py-1 focus:outline-none text-primary hover:bg-gray-100 hover:text-primary"
                 >
                   ×
                 </button>

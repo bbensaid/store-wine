@@ -55,7 +55,7 @@ export default async function ProductsPage({ searchParams }: any) {
       <div className="grid grid-cols-[1fr_auto_1fr] gap-x-6 items-center mb-2">
         {/* Results count (left) */}
         <span
-          className="text-sm sm:text-base font-normal text-muted-foreground"
+          className="text-sm sm:text-base font-normal text-primary"
           role="status"
           aria-live="polite"
         >
@@ -90,7 +90,7 @@ export default async function ProductsPage({ searchParams }: any) {
                 Previous
               </Link>
             </Button>
-            <span className="text-sm sm:text-base font-normal text-muted-foreground">
+            <span className="text-sm sm:text-base font-normal text-primary">
               Page {page + 1}/{totalPages}
             </span>
             <Button

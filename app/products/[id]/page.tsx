@@ -18,7 +18,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16 items-start">
         {/* IMAGE FIRST COL */}
         <div>
-          <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-gray-300 p-0 rounded-md">
+          <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-primary/20 p-0 rounded-md">
             <div className="relative aspect-[2/4] mt-20 mx-20 overflow-hidden">
               <Image
                 src={imageUrl}
@@ -32,13 +32,13 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
               </div>
             </div>
             <div className="flex flex-col items-center px-4 py-0 flex-1 gap-y-4">
-              <h2 className="text-2xl font-semibold capitalize text-center truncate w-full leading-tight mb-0 mt-0">
+              <h2 className="text-2xl font-semibold capitalize text-center truncate w-full leading-tight mb-0 mt-0 text-primary">
                 {name}
               </h2>
-              <p className="text-lg text-muted-foreground text-center mt-0 mb-0">
+              <p className="text-lg text-primary text-center mt-0 mb-0">
                 {harmonize || grapes}
               </p>
-              <p className="text-xl font-bold text-center mt-0 mb-8">
+              <p className="text-xl font-bold text-center mt-0 mb-8 text-primary">
                 {dollarsAmount}
               </p>
             </div>
@@ -47,16 +47,16 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
         {/* PRODUCT INFO SECOND COL */}
         <div>
           <div className="flex gap-x-8 items-center">
-            <h1 className="capitalize text-3xl font-bold">{name}</h1>
+            <h1 className="capitalize text-3xl font-bold text-primary">{name}</h1>
             <FavoriteToggleButton />
           </div>
-          <ProductRating productId={params.id} />
-          <h4 className="text-xl mt-2">{harmonize || grapes}</h4>
-          <p className="mt-3 text-md bg-muted inline-block p-2 rounded-md">
+          <ProductRating />
+          <h4 className="text-xl mt-2 text-primary">{harmonize || grapes}</h4>
+          <p className="mt-3 text-md bg-muted inline-block p-2 rounded-md text-primary">
             {dollarsAmount}
           </p>
-          <p className="mt-6 leading-8 text-muted-foreground">{elaborate}</p>
-          <AddToCart productId={params.id} />
+          <p className="mt-6 leading-8 text-primary">{elaborate}</p>
+          <AddToCart />
         </div>
       </div>
     </section>

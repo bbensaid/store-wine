@@ -15,19 +15,17 @@ function LinksDropdown({ active = false }: { active?: boolean }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant={active ? undefined : "outline"}
           className={
-            (active
-              ? "bg-primary text-white border-primary hover:bg-primary/90 hover:text-white"
-              : "border-input text-primary") + " flex items-center"
+            "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
+            (active ? "bg-gray-200 text-primary border-gray-400" : "")
           }
         >
-          <LuAlignLeft className="w-6 h-6 mr-1" />
+          <LuAlignLeft className="w-6 h-6 mr-1 text-primary" />
           <span className="hidden sm:inline">Menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-40 bg-white border border-gray-200"
+        className="w-40 bg-white border border-primary/20 text-primary"
         align="start"
         sideOffset={10}
       >
@@ -35,7 +33,7 @@ function LinksDropdown({ active = false }: { active?: boolean }) {
           <DropdownMenuItem
             key={link.href}
             onSelect={() => router.push(link.href)}
-            className="capitalize w-full text-red-600"
+            className="capitalize w-full text-primary"
           >
             {link.label}
           </DropdownMenuItem>

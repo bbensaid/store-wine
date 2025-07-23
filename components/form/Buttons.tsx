@@ -25,12 +25,12 @@ export function SubmitButton({
     <Button
       type="submit"
       disabled={pending}
-      className={cn("capitalize", className)}
+      className={cn("flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary capitalize", className)}
       size={size}
     >
       {pending ? (
         <>
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          <ReloadIcon className="mr-2 h-4 w-4 animate-spin text-primary" />
           Please wait...
         </>
       ) : (
@@ -45,11 +45,10 @@ export const CardSignInButton = () => {
     <Button
       type="button"
       size="icon"
-      variant="outline"
-      className="p-2 cursor-pointer opacity-50"
+      className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary p-2 cursor-pointer opacity-50"
       disabled
     >
-      <FaRegHeart />
+      <FaRegHeart className="text-primary" />
     </Button>
   );
 };
@@ -60,15 +59,14 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
     <Button
       type="submit"
       size="icon"
-      variant="outline"
-      className=" p-2 cursor-pointer"
+      className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary p-2 cursor-pointer"
     >
       {pending ? (
-        <ReloadIcon className=" animate-spin" />
+        <ReloadIcon className="animate-spin text-primary" />
       ) : isFavorite ? (
-        <FaHeart />
+        <FaHeart className="text-primary" />
       ) : (
-        <FaRegHeart />
+        <FaRegHeart className="text-primary" />
       )}
     </Button>
   );

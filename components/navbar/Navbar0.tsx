@@ -81,73 +81,70 @@ function Navbar() {
             <DropdownMenu open={winesOpen} onOpenChange={setWinesOpen}>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant={winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? undefined : "outline"}
                   className={
-                    "flex items-center gap-2 hover:bg-gray-100 hover:text-primary " +
+                    "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                     (winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites")
-                      ? "bg-primary text-white border-primary"
-                      : "text-primary")
+                      ? "bg-gray-200 text-primary border-gray-400"
+                      : "")
                   }
                 >
-                  <LuWine className={`w-5 h-5 ${winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites") ? "text-white" : "text-primary"}`} />
+                  <LuWine className="w-5 h-5 text-primary" />
                   Wines
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200">
-                <DropdownMenuItem asChild className="capitalize w-full text-red-600">
-                  <Link href="/products" className="flex items-center gap-2">
-                    <LuWine className="w-5 h-5" />
+              <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+                <DropdownMenuItem asChild className="capitalize w-full text-primary">
+                  <Link href="/products" className="flex items-center gap-2 text-primary">
+                    <LuWine className="w-5 h-5 text-primary" />
                     All Wines
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="capitalize w-full text-red-600">
-                  <Link href="/favorites" className="flex items-center gap-2">
-                    <LuHeart className="w-5 h-5" />
+                <DropdownMenuItem asChild className="capitalize w-full text-primary">
+                  <Link href="/favorites" className="flex items-center gap-2 text-primary">
+                    <LuHeart className="w-5 h-5 text-primary" />
                     Favorites
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <Button
-              variant={pathname.startsWith("/orders") ? undefined : "outline"}
               className={
-                "flex items-center gap-2 hover:bg-gray-100 hover:text-primary " +
+                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/orders")
-                  ? "bg-primary text-white border-primary"
-                  : "text-primary")
+                  ? "bg-gray-200 text-primary border-gray-400"
+                  : "")
               }
               asChild
             >
               <Link href="/orders">
-                <HiOutlineShoppingBag className={`w-5 h-5 mr-1 ${pathname.startsWith("/orders") ? "text-white" : "text-primary"}`} />
+                <HiOutlineShoppingBag className="w-5 h-5 mr-1 text-primary" />
                 Orders
               </Link>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="flex items-center gap-2 text-primary hidden lg:flex hover:bg-gray-100 hover:text-primary"
+                  className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary hidden lg:flex"
                 >
                   <LuPhone className="w-5 h-5 text-primary" />
                   Customer Service
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200">
-                <DropdownMenuItem className="capitalize w-full text-red-600">
-                  <LuMail className="w-5 h-5 mr-2" />
+              <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+                <DropdownMenuItem className="capitalize w-full text-primary">
+                  <LuMail className="w-5 h-5 mr-2 text-primary" />
                   Email Support
                 </DropdownMenuItem>
-                <DropdownMenuItem className="capitalize w-full text-red-600">
-                  <LuMessageCircle className="w-5 h-5 mr-2" />
+                <DropdownMenuItem className="capitalize w-full text-primary">
+                  <LuMessageCircle className="w-5 h-5 mr-2 text-primary" />
                   Live Chat
                 </DropdownMenuItem>
-                <DropdownMenuItem className="capitalize w-full text-red-600">
-                  <LuFileQuestion className="w-5 h-5 mr-2" />
+                <DropdownMenuItem className="capitalize w-full text-primary">
+                  <LuFileQuestion className="w-5 h-5 mr-2 text-primary" />
                   FAQ
                 </DropdownMenuItem>
-                <DropdownMenuItem className="capitalize w-full text-red-600">
-                  <LuShield className="w-5 h-5 mr-2" />
+                <DropdownMenuItem className="capitalize w-full text-primary">
+                  <LuShield className="w-5 h-5 mr-2 text-primary" />
                   Privacy Policy
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -155,8 +152,7 @@ function Navbar() {
             <ModeButton className="hover:bg-gray-100 hover:text-primary" />
             <div className="absolute right-0 top-1/2 -translate-y-1/2 z-50 pr-2">
               <Button
-                variant="outline"
-                className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary"
+                className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
               >
                 <LuUser className="w-5 h-5 mr-1 text-primary" />
                 Sign in
@@ -185,8 +181,8 @@ function Navbar() {
           <CartButton />
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="outline" size="icon" aria-label="Open menu">
-                <LuMenu className="w-6 h-6" />
+              <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary" size="icon" aria-label="Open menu">
+                <LuMenu className="w-6 h-6 text-primary" />
               </Button>
             </DrawerTrigger>
             <DrawerContent className="p-6 flex flex-col gap-4 w-full max-w-xs">
@@ -220,30 +216,26 @@ function Navbar() {
                 className=""
               />
               <Button
-                variant="outline"
-                className="flex items-center gap-2 text-primary"
+                className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
               >
                 <LuPhone className="w-5 h-5 text-primary" />
                 Customer Service
               </Button>
               <Button
-                variant="outline"
-                className="flex items-center gap-2 text-primary"
+                className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
               >
                 <LuCircleHelp className="w-5 h-5 text-primary" />
                 Help
               </Button>
               <Button
-                variant="outline"
-                className="flex items-center gap-2 text-primary"
+                className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
               >
                 <LuShield className="w-5 h-5 text-primary" />
                 Privacy Policy
               </Button>
               <ModeButton className="" />
               <Button
-                variant="outline"
-                className="flex items-center gap-2 text-primary"
+                className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
               >
                 <LuUser className="w-5 h-5 mr-1 text-primary" />
                 Sign in
@@ -273,16 +265,15 @@ function NavLinkButton({
   const iconWithColor = React.cloneElement(icon, {
     className: clsx(
       icon.props.className ?? "",
-      active ? "text-white" : "text-primary"
+      "text-primary"
     ),
   });
   return (
     <Button
-      variant={active ? undefined : "outline"}
       className={
         className +
-        " flex items-center gap-2 " +
-        (active ? "bg-primary text-white border-primary" : "text-primary")
+        " flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
+        (active ? "bg-gray-200 text-primary border-gray-400" : "")
       }
       asChild
     >
@@ -301,19 +292,19 @@ function ModeButton({ className = "" }: { className?: string }) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className={className + " flex items-center text-primary"}
+          className={className + " flex items-center text-primary border border-primary/20"}
         >
           <span className="relative flex items-center mr-1">
-            <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
+            <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-primary" />
+            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100 text-primary" />
           </span>
           <span>Mode</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+      <DropdownMenuContent align="end" className="text-primary border border-primary/20">
+        <DropdownMenuItem onClick={() => setTheme("light")} className="text-primary">Light</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")} className="text-primary">Dark</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")} className="text-primary">System</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -322,7 +313,7 @@ function ModeButton({ className = "" }: { className?: string }) {
 // Stub CartButton (icon + text, no cart logic)
 function CartButton({ className = "" }: { className?: string }) {
   return (
-    <Button variant="outline" className={"flex items-center gap-2 text-primary " + className}>
+    <Button className={"flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " + className}>
       <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
       Cart
     </Button>

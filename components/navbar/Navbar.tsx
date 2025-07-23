@@ -98,16 +98,16 @@ function Navbar() {
               <span className="hidden sm:inline">Wines</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200">
-            <DropdownMenuItem asChild className="capitalize w-full text-red-600">
-              <Link href="/products" className="flex items-center gap-2">
-                <LuWine className="w-5 h-5" />
+          <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+            <DropdownMenuItem asChild className="capitalize w-full text-primary">
+              <Link href="/products" className="flex items-center gap-2 text-primary">
+                <LuWine className="w-5 h-5 text-primary" />
                 All Wines
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="capitalize w-full text-red-600">
-              <Link href="/favorites" className="flex items-center gap-2">
-                <LuHeart className="w-5 h-5" />
+            <DropdownMenuItem asChild className="capitalize w-full text-primary">
+              <Link href="/favorites" className="flex items-center gap-2 text-primary">
+                <LuHeart className="w-5 h-5 text-primary" />
                 Favorites
               </Link>
             </DropdownMenuItem>
@@ -123,7 +123,7 @@ function Navbar() {
           asChild
         >
           <Link href="/orders">
-            <HiOutlineShoppingBag className={`w-4 h-4 sm:w-5 sm:h-5 mr-1 ${pathname.startsWith("/orders") ? "text-white" : "text-primary"}`} />
+            <HiOutlineShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
             <span className="hidden sm:inline">Orders</span>
           </Link>
         </Button>
@@ -136,21 +136,21 @@ function Navbar() {
               <span className="hidden xl:inline">Customer Service</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-gray-200">
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuMail className="w-5 h-5 mr-2" />
+          <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <LuMail className="w-5 h-5 mr-2 text-primary" />
               Email Support
             </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuMessageCircle className="w-5 h-5 mr-2" />
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <LuMessageCircle className="w-5 h-5 mr-2 text-primary" />
               Live Chat
             </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuFileQuestion className="w-5 h-5 mr-2" />
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <LuFileQuestion className="w-5 h-5 mr-2 text-primary" />
               FAQ
             </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-red-600">
-              <LuShield className="w-5 h-5 mr-2" />
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <LuShield className="w-5 h-5 mr-2 text-primary" />
               Privacy Policy
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -207,15 +207,15 @@ function Navbar() {
         </Button>
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant="outline" size="icon" aria-label="Open menu">
-              <LuMenu className="w-6 h-6" />
+            <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary" size="icon" aria-label="Open menu">
+              <LuMenu className="w-6 h-6 text-primary" />
             </Button>
           </DrawerTrigger>
           <DrawerContent className="p-6 flex flex-col gap-4 w-full max-w-xs">
             <NavSearch className="mb-2" />
             <Button
               className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
+                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname === "/" ? "bg-gray-200 text-primary border-gray-400" : "")
               }
               asChild
@@ -227,75 +227,75 @@ function Navbar() {
             </Button>
             <Button
               className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
+                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/products") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
               asChild
             >
               <Link href="/products">
-                <LuWine className="w-5 h-5 mr-1" />
+                <LuWine className="w-5 h-5 mr-1 text-primary" />
                 Products
               </Link>
             </Button>
             <Button
               className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
+                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/favorites") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
               asChild
             >
               <Link href="/favorites">
-                <LuHeart className="w-5 h-5 mr-1" />
+                <LuHeart className="w-5 h-5 mr-1 text-primary" />
                 Favorites
               </Link>
             </Button>
             <Button
               className={
-                "flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white " +
+                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/orders") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
               asChild
             >
               <Link href="/orders">
-                <HiOutlineShoppingBag className="w-5 h-5 mr-1" />
+                <HiOutlineShoppingBag className="w-5 h-5 mr-1 text-primary" />
                 Orders
               </Link>
             </Button>
             <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
               <LuPhone className="w-5 h-5 text-primary" />
               Customer Service
             </Button>
             <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
               <LuCircleHelp className="w-5 h-5 text-primary" />
               Help
             </Button>
             <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary font-normal border border-primary/20 bg-white"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
               <LuShield className="w-5 h-5 text-primary" />
               Privacy Policy
             </Button>
             <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
               <span className="relative flex items-center mr-1">
-                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
+                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-primary" />
+                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100 text-primary" />
               </span>
               <span>Mode</span>
             </Button>
             <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
               <LuUser className="w-5 h-5 mr-1 text-primary" />
               Sign in
             </Button>
             <Button
-              className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
               <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
               Cart

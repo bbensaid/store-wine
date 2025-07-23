@@ -13,7 +13,7 @@ function LoadingContainer() {
 
 function LoadingProduct() {
   return (
-    <Card>
+    <Card className="border border-primary/20">
       <CardContent className="p-4">
         <Skeleton className="h-48 w-full" />
         <Skeleton className="h-4 w-3/4 mt-4" />

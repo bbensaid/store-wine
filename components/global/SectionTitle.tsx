@@ -11,7 +11,7 @@ function SectionTitle({ text }: { text: string }) {
   return (
     <div>
       <h2
-        className={`${cinzel.className} text-xl sm:text-2xl text-[#8B0015] tracking-[.1em] font-medium mb-6`}
+        className={`${cinzel.className} text-xl sm:text-2xl text-primary tracking-[.1em] font-medium mb-6`}
       >
         {text}
       </h2>
@@ -19,4 +19,5 @@ function SectionTitle({ text }: { text: string }) {
     </div>
   );
 }
+
 export default SectionTitle;
