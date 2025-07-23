@@ -55,8 +55,7 @@ export default async function ProductsPage({ searchParams }: any) {
       <div className="grid grid-cols-[1fr_auto_1fr] gap-x-6 items-center mb-2">
         {/* Results count (left) */}
         <span
-          className="text-xl font-normal"
-          style={{ color: "#8B0015" }}
+          className="text-sm sm:text-base font-normal text-muted-foreground"
           role="status"
           aria-live="polite"
         >
@@ -75,8 +74,7 @@ export default async function ProductsPage({ searchParams }: any) {
             <Button
               asChild
               disabled={page === 0}
-              variant="default"
-              size="lg"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label="Previous page"
             >
               <Link
@@ -92,14 +90,13 @@ export default async function ProductsPage({ searchParams }: any) {
                 Previous
               </Link>
             </Button>
-            <span className="text-xl font-normal" style={{ color: "#8B0015" }}>
+            <span className="text-sm sm:text-base font-normal text-muted-foreground">
               Page {page + 1}/{totalPages}
             </span>
             <Button
               asChild
               disabled={page + 1 >= totalPages}
-              variant="default"
-              size="lg"
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label="Next page"
             >
               <Link
@@ -120,8 +117,10 @@ export default async function ProductsPage({ searchParams }: any) {
         {/* Grid/List toggle buttons (right) */}
         <div className="justify-self-end flex gap-x-4">
           <Button
-            variant={layout === "grid" ? "default" : "ghost"}
-            size="icon"
+            className={
+              "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
+              (layout === "grid" ? "bg-gray-200 text-primary border-gray-400" : "")
+            }
             asChild
             aria-label="Grid view"
           >
@@ -139,8 +138,10 @@ export default async function ProductsPage({ searchParams }: any) {
             </Link>
           </Button>
           <Button
-            variant={layout === "list" ? "default" : "ghost"}
-            size="icon"
+            className={
+              "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
+              (layout === "list" ? "bg-gray-200 text-primary border-gray-400" : "")
+            }
             asChild
             aria-label="List view"
           >

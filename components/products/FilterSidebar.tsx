@@ -31,17 +31,17 @@ function WineTypeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Wine Type</Label>
+      <Label className="text-primary">Wine Type</Label>
       <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select type" className="" />
+        <SelectTrigger className="text-primary border border-primary/20">
+          <SelectValue placeholder="Select type" className="text-primary" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Types</SelectItem>
-          <SelectItem value="red">Red</SelectItem>
-          <SelectItem value="white">White</SelectItem>
-          <SelectItem value="rose">Rosé</SelectItem>
-          <SelectItem value="sparkling">Sparkling</SelectItem>
+          <SelectItem value="all" className="text-primary">All Types</SelectItem>
+          <SelectItem value="red" className="text-primary">Red</SelectItem>
+          <SelectItem value="white" className="text-primary">White</SelectItem>
+          <SelectItem value="rose" className="text-primary">Rosé</SelectItem>
+          <SelectItem value="sparkling" className="text-primary">Sparkling</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -57,16 +57,16 @@ function BodyFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Body</Label>
+      <Label className="text-primary">Body</Label>
       <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select body" className="" />
+        <SelectTrigger className="text-primary border border-primary/20">
+          <SelectValue placeholder="Select body" className="text-primary" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Body Types</SelectItem>
-          <SelectItem value="light">Light-bodied</SelectItem>
-          <SelectItem value="medium">Medium-bodied</SelectItem>
-          <SelectItem value="full">Full-bodied</SelectItem>
+          <SelectItem value="all" className="text-primary">All Body Types</SelectItem>
+          <SelectItem value="light" className="text-primary">Light-bodied</SelectItem>
+          <SelectItem value="medium" className="text-primary">Medium-bodied</SelectItem>
+          <SelectItem value="full" className="text-primary">Full-bodied</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -82,16 +82,16 @@ function AcidityFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Acidity</Label>
+      <Label className="text-primary">Acidity</Label>
       <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select acidity" className="" />
+        <SelectTrigger className="text-primary border border-primary/20">
+          <SelectValue placeholder="Select acidity" className="text-primary" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Acidity Levels</SelectItem>
-          <SelectItem value="low">Low</SelectItem>
-          <SelectItem value="medium">Medium</SelectItem>
-          <SelectItem value="high">High</SelectItem>
+          <SelectItem value="all" className="text-primary">All Acidity Levels</SelectItem>
+          <SelectItem value="low" className="text-primary">Low</SelectItem>
+          <SelectItem value="medium" className="text-primary">Medium</SelectItem>
+          <SelectItem value="high" className="text-primary">High</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -107,17 +107,17 @@ function CountryFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Country</Label>
+      <Label className="text-primary">Country</Label>
       <Select value={value || "all"} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select country" className="" />
+        <SelectTrigger className="text-primary border border-primary/20">
+          <SelectValue placeholder="Select country" className="text-primary" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Countries</SelectItem>
-          <SelectItem value="Spain">Spain</SelectItem>
-          <SelectItem value="France">France</SelectItem>
-          <SelectItem value="Italy">Italy</SelectItem>
-          <SelectItem value="Portugal">Portugal</SelectItem>
+          <SelectItem value="all" className="text-primary">All Countries</SelectItem>
+          <SelectItem value="Spain" className="text-primary">Spain</SelectItem>
+          <SelectItem value="France" className="text-primary">France</SelectItem>
+          <SelectItem value="Italy" className="text-primary">Italy</SelectItem>
+          <SelectItem value="Portugal" className="text-primary">Portugal</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -137,7 +137,7 @@ function RatingRangeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Rating Range</Label>
+      <Label className="text-primary">Rating Range</Label>
       <div className="flex gap-1.5">
         <Input
           type="number"
@@ -147,7 +147,7 @@ function RatingRangeFilter({
           value={min ?? ""}
           onChange={(e) => onMinChange(e.target.value)}
           placeholder="Min"
-          className="w-20"
+          className="w-20 text-primary placeholder:text-primary border border-primary/20"
         />
         <Input
           type="number"
@@ -157,7 +157,7 @@ function RatingRangeFilter({
           value={max ?? ""}
           onChange={(e) => onMaxChange(e.target.value)}
           placeholder="Max"
-          className="w-20"
+          className="w-20 text-primary placeholder:text-primary border border-primary/20"
         />
       </div>
     </div>
@@ -177,7 +177,7 @@ function PriceRangeFilter({
 }) {
   return (
     <div className="space-y-2">
-      <Label>Price Range ($)</Label>
+      <Label className="text-primary">Price Range ($)</Label>
       <div className="flex gap-1.5">
         <Input
           type="number"
@@ -185,7 +185,7 @@ function PriceRangeFilter({
           value={min ?? ""}
           onChange={(e) => onMinChange(e.target.value)}
           placeholder="Min"
-          className="w-20"
+          className="w-20 text-primary placeholder:text-primary border border-primary/20"
         />
         <Input
           type="number"
@@ -193,7 +193,7 @@ function PriceRangeFilter({
           value={max ?? ""}
           onChange={(e) => onMaxChange(e.target.value)}
           placeholder="Max"
-          className="w-20"
+          className="w-20 text-primary placeholder:text-primary border border-primary/20"
         />
       </div>
     </div>
@@ -210,7 +210,7 @@ function FeaturedFilter({
   return (
     <div className="flex items-center space-x-2">
       <Checkbox id="featured" checked={checked} onCheckedChange={onChange} />
-      <Label htmlFor="featured">Featured Wines</Label>
+      <Label htmlFor="featured" className="text-primary">Featured Wines</Label>
     </div>
   );
 }
@@ -261,7 +261,7 @@ export default function FilterSidebar({
       className={`
       h-screen bg-background dark:bg-background border-r border-gray-200 shadow-lg
       transition-all duration-300 overflow-y-auto
-      ${isCollapsed ? "w-12" : "w-56"}
+      ${isCollapsed ? "w-14" : "w-56"}
     `}
       aria-label="Product filters sidebar"
     >
@@ -269,19 +269,19 @@ export default function FilterSidebar({
         <Button
           variant="ghost"
           onClick={onToggleCollapse}
-          className="w-full flex flex-col items-center gap-1"
+          className="w-full flex flex-col items-center gap-1 text-primary hover:text-primary"
           aria-expanded={!isCollapsed}
           aria-controls="sidebar-filters-content"
         >
           {isCollapsed ? (
             <>
-              <ChevronRight />
-              <span className="text-xs hidden md:block">Expand</span>
+              <ChevronRight className="text-primary" />
+              <span className="text-xs hidden md:block text-primary">Expand</span>
             </>
           ) : (
             <>
-              <ChevronLeft />
-              <span className="text-xs hidden md:block">Collapse</span>
+              <ChevronLeft className="text-primary" />
+              <span className="text-xs hidden md:block text-primary">Collapse</span>
             </>
           )}
         </Button>
@@ -293,7 +293,7 @@ export default function FilterSidebar({
               onCheckedChange={(checked) => setDynamicFiltering(!!checked)}
               aria-checked={dynamicFiltering}
             />
-            <Label htmlFor="dynamic-filtering">Dynamic Filtering</Label>
+            <Label htmlFor="dynamic-filtering" className="text-primary">Dynamic Filtering</Label>
           </div>
         )}
       </div>
@@ -307,9 +307,7 @@ export default function FilterSidebar({
         >
           <Button
             onClick={handleReset}
-            variant="default"
-            className="mb-2 w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
-            style={{ borderColor: "#8B0015" }}
+            className="mb-2 w-full flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             aria-label="Reset all filters"
           >
             Reset Filter
@@ -317,9 +315,7 @@ export default function FilterSidebar({
           {!dynamicFiltering && (
             <Button
               onClick={handleApplyFilters}
-              variant="default"
-              className="w-full border-[#8B0015] bg-[#8B0015] text-white hover:bg-[#8B0015] hover:text-white hover:border-[#8B0015] focus-visible:ring-[#8B0015]"
-              style={{ borderColor: "#8B0015" }}
+              className="w-full flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
               aria-label="Apply selected filters"
             >
               Apply Filters
