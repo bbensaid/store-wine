@@ -9,7 +9,32 @@ import hero4 from "@/public/images/wines/hero4.jpeg";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const carouselImages = [hero1, hero2, hero3, hero4];
+const carouselData = [
+  {
+    image: hero1,
+    title: "Premium Red Wines",
+    subtitle: "Discover our finest collection of aged reds",
+    description: "From bold Cabernets to elegant Pinot Noirs, experience the depth and complexity of our premium red wine selection."
+  },
+  {
+    image: hero2,
+    title: "Exclusive White Wines",
+    subtitle: "Crisp and refreshing whites for every occasion",
+    description: "From buttery Chardonnays to zesty Sauvignon Blancs, find your perfect white wine companion."
+  },
+  {
+    image: hero3,
+    title: "Rare Vintage Collection",
+    subtitle: "Limited edition wines from exceptional years",
+    description: "Explore our curated selection of rare vintages, each bottle tells a story of exceptional terroir and craftsmanship."
+  },
+  {
+    image: hero4,
+    title: "Artisan Sparkling Wines",
+    subtitle: "Celebrate with our handcrafted bubbles",
+    description: "From traditional méthode champenoise to modern sparkling techniques, raise a glass to life's special moments."
+  }
+];
 
 // SVG icons for play and pause (theme red)
 const PlayIcon = () => (
@@ -36,7 +61,7 @@ const PauseIcon = () => (
   </svg>
 );
 
-function HeroCarousel() {
+function HeroCarousel({ onSlideChange }: { onSlideChange?: (index: number) => void }) {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -48,21 +73,25 @@ function HeroCarousel() {
   useEffect(() => {
     if (paused) return;
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % carouselImages.length);
+      setCurrent((prev) => (prev + 1) % carouselData.length);
     }, 3000);
     return () => clearInterval(interval);
   }, [paused]);
+
+  useEffect(() => {
+    onSlideChange?.(current);
+  }, [current, onSlideChange]);
 
   if (!mounted) return null; // Prevent SSR mismatch
 
   return (
     <div className="hidden lg:block">
       <div className="flex flex-col items-center">
-        <Card className="w-full h-auto bg-white flex items-end justify-center relative overflow-hidden border border-primary/20 p-6 md:p-8 rounded-md">
+        <Card className="w-full max-w-2xl h-auto bg-white flex items-end justify-center relative overflow-hidden border border-primary/20 p-8 md:p-12 rounded-md">
           <div className="relative aspect-[3/4] w-full overflow-hidden">
             <Image
-              src={carouselImages[current]}
-              alt="hero"
+              src={carouselData[current].image}
+              alt={carouselData[current].title}
               fill
               className="object-cover rounded-md"
             />

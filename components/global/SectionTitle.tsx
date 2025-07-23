@@ -11,11 +11,11 @@ function SectionTitle({ text }: { text: string }) {
   return (
     <div>
       <h2
-        className={`${cinzel.className} text-xl sm:text-2xl text-primary tracking-[.1em] font-medium mb-6`}
+        className={`${cinzel.className} text-xl sm:text-2xl text-primary tracking-[.1em] font-medium mb-2`}
       >
         {text}
       </h2>
-      <Separator />
+      <Separator className="mb-8" />
     </div>
   );
 }

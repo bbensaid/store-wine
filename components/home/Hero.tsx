@@ -33,7 +33,7 @@ function Hero() {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
       {/* Left: Logo, Brand, Slogan, CTA */}
-      <div className="lg:col-span-8">
+      <div className="lg:col-span-7">
         <div className="flex flex-col items-center gap-4">
           {/* Logo */}
           <div className="flex items-center gap-4">
@@ -76,7 +76,7 @@ function Hero() {
         </Button>
       </div>
       {/* Right: Hero Carousel */}
-      <div className="lg:col-span-4">
+      <div className="lg:col-span-5">
         <HeroCarousel />
       </div>
     </section>
