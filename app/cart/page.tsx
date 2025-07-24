@@ -1,6 +1,13 @@
 import React from "react";
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
 
-function CartPage() {
+export default async function CartPage() {
+  const { userId } = await auth()
+  
+  if (!userId) {
+    redirect('/sign-in')
+  }
   return <div>CartPage</div>;
 }
 

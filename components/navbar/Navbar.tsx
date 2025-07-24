@@ -31,6 +31,12 @@ import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { usePathname } from "next/navigation";
 
 import React, { useState } from "react";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -172,14 +178,30 @@ function Navbar() {
         </Button>
       </div>
 
-      {/* Desktop Sign in button */}
+      {/* Desktop Authentication */}
       <div className="hidden md:flex items-center">
-        <Button
-          className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-        >
-          <LuUser className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
-          <span className="hidden sm:inline">Sign in</span>
-        </Button>
+        <SignedOut>
+          <SignInButton mode="modal">
+            <Button
+              className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
+            >
+              <LuUser className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
+              <span className="hidden sm:inline">Sign in</span>
+            </Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton 
+            appearance={{
+              elements: {
+                avatarBox: "w-8 h-8 sm:w-10 sm:h-10",
+                userButtonPopoverCard: "bg-white border border-primary/20 text-primary",
+                userButtonPopoverActionButton: "text-primary hover:bg-gray-100",
+                userButtonPopoverActionButtonText: "text-primary",
+              }
+            }}
+          />
+        </SignedIn>
       </div>
 
       {/* Mobile Navbar */}
@@ -288,12 +310,28 @@ function Navbar() {
               </span>
               <span>Mode</span>
             </Button>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-            >
-              <LuUser className="w-5 h-5 mr-1 text-primary" />
-              Sign in
-            </Button>
+                         <SignedOut>
+               <SignInButton mode="modal">
+                 <Button
+                   className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
+                 >
+                   <LuUser className="w-5 h-5 mr-1 text-primary" />
+                   Sign in
+                 </Button>
+               </SignInButton>
+             </SignedOut>
+             <SignedIn>
+               <UserButton 
+                 appearance={{
+                   elements: {
+                     avatarBox: "w-8 h-8 sm:w-10 sm:h-10",
+                     userButtonPopoverCard: "bg-white border border-primary/20 text-primary",
+                     userButtonPopoverActionButton: "text-primary hover:bg-gray-100",
+                     userButtonPopoverActionButtonText: "text-primary",
+                   }
+                 }}
+               />
+             </SignedIn>
             <Button
               className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
             >
