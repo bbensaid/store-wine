@@ -1,28 +1,12 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { clerkMiddleware } from '@clerk/nextjs/server'
 
-const isPublicRoute = createRouteMatcher([
-  "/products(.*)", // all /products and subroutes
-  "/about",
-  "/sign-in",
-  "/sign-up", // if you have a sign-up page
-  "/",
-]);
-
-export default clerkMiddleware(async (auth, req) => {
-  console.log("middleware running", req.nextUrl.pathname);
-  if (!isPublicRoute(req)) {
-    const { userId } = await auth();
-    if (!userId) {
-      return NextResponse.redirect(
-        `https://super-stag-57.accounts.dev/sign-in?redirect_url=${encodeURIComponent(
-          req.url
-        )}`
-      );
-    }
-  }
-});
+export default clerkMiddleware()
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)", "/", "/(api|trpc)(.*)"],
-};
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+}

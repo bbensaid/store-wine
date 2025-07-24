@@ -64,7 +64,7 @@ function CollapsibleHero() {
     <div className="relative">
       {/* Toggle Button - appears when hero is collapsed */}
       {isCollapsed && (
-        <div className="fixed top-20 right-4 z-50">
+        <div className="fixed top-20 left-4 z-50">
           <Button
             onClick={toggleHero}
             variant="outline"
@@ -139,7 +139,7 @@ function CollapsibleHero() {
 
       {/* Quick Hide Button - appears when hero is visible */}
       {!isCollapsed && (
-        <div className="fixed top-20 right-4 z-50">
+        <div className="fixed top-20 left-4 z-50">
           <Button
             onClick={toggleHero}
             variant="outline"
