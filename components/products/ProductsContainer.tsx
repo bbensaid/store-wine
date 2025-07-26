@@ -11,7 +11,7 @@ interface ProductsContainerProps {
   })[];
 }
 
-function ProductsContainer({ layout, products }: ProductsContainerProps) {
+async function ProductsContainer({ layout, products }: ProductsContainerProps) {
   const totalProducts = products.length;
   return (
     <>

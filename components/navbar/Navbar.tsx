@@ -35,8 +35,8 @@ import {
   SignInButton,
   SignedIn,
   SignedOut,
-  UserButton,
 } from '@clerk/nextjs';
+import UserButtonWrapper from '../auth/UserButtonWrapper';
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -191,16 +191,7 @@ function Navbar() {
           </SignInButton>
         </SignedOut>
         <SignedIn>
-          <UserButton 
-            appearance={{
-              elements: {
-                avatarBox: "w-8 h-8 sm:w-10 sm:h-10",
-                userButtonPopoverCard: "bg-white border border-primary/20 text-primary",
-                userButtonPopoverActionButton: "text-primary hover:bg-gray-100",
-                userButtonPopoverActionButtonText: "text-primary",
-              }
-            }}
-          />
+          <UserButtonWrapper />
         </SignedIn>
       </div>
 
@@ -321,16 +312,7 @@ function Navbar() {
                </SignInButton>
              </SignedOut>
              <SignedIn>
-               <UserButton 
-                 appearance={{
-                   elements: {
-                     avatarBox: "w-8 h-8 sm:w-10 sm:h-10",
-                     userButtonPopoverCard: "bg-white border border-primary/20 text-primary",
-                     userButtonPopoverActionButton: "text-primary hover:bg-gray-100",
-                     userButtonPopoverActionButtonText: "text-primary",
-                   }
-                 }}
-               />
+               <UserButtonWrapper />
              </SignedIn>
             <Button
               className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"

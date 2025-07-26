@@ -1,5 +1,9 @@
+"use server";
+
 import prisma from "@/utils/db";
 import { redirect } from "next/navigation";
+import { getCurrentUserId } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 export const fetchFeaturedProducts = async () => {
   const products = await prisma.wine.findMany({
@@ -50,7 +54,6 @@ export const fetchAllProducts = async (searchTerm: string) => {
 };
 
 // single product code - added June 7
-
 export const fetchSingleProduct = async (productId: string) => {
   const product = await prisma.wine.findUnique({
     where: { id: Number(productId) },
@@ -62,32 +65,76 @@ export const fetchSingleProduct = async (productId: string) => {
   return product;
 };
 
-export const toggleFavoriteAction = async (
-  { wineId, favoriteId, pathname }: { wineId: number; favoriteId: string | null; pathname: string }
-) => {
-  "use server";
-  
-  const { getCurrentUserId } = await import("@/lib/auth");
+// Favorites actions (from user's original code)
+export const fetchFavoriteId = async ({ wineId }: { wineId: number }) => {
   const userId = await getCurrentUserId();
+  if (!userId) return null;
+  
+  const favorite = await prisma.favorite.findFirst({
+    where: {
+      wineId,
+      clerkId: userId,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return favorite?.id || null;
+};
+
+export const toggleFavoriteAction = async (prevState: {
+  wineId: number;
+  favoriteId: string | null;
+  pathname: string;
+}) => {
+  const userId = await getCurrentUserId();
+  const { wineId, favoriteId, pathname } = prevState;
   
   if (!userId) {
     throw new Error("Unauthorized");
   }
+  
+  try {
+    if (favoriteId) {
+      await prisma.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    } else {
+      await prisma.favorite.create({
+        data: {
+          wineId,
+          clerkId: userId,
+        },
+      });
+    }
+    revalidatePath(pathname);
+    return { message: favoriteId ? "Removed from Faves" : "Added to Faves" };
+  } catch (error) {
+    throw new Error("Failed to toggle favorite");
+  }
+};
 
-  if (favoriteId) {
-    // Remove from favorites
-    await prisma.favorite.delete({
-      where: { id: favoriteId },
-    });
-  } else {
-    // Add to favorites
-    await prisma.favorite.create({
-      data: {
-        wineId,
-        clerkId: userId,
-      },
-    });
+export const fetchUserFavorites = async () => {
+  const userId = await getCurrentUserId();
+  
+  if (!userId) {
+    throw new Error("User not authenticated");
   }
 
-  redirect(pathname);
+  const favorites = await prisma.favorite.findMany({
+    where: {
+      clerkId: userId,
+    },
+    include: {
+      wine: {
+        include: {
+          images: true,
+        },
+      },
+    },
+  });
+  
+  return favorites.map(favorite => favorite.wine);
 };

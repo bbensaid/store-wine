@@ -1,14 +1,15 @@
-import { FaHeart } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
+import { currentUser } from "@clerk/nextjs/server";
+import { fetchFavoriteId } from "@/utils/actions";
+import FavoriteToggleForm from "./FavoriteToggleForm";
+import { CardSignInButton } from "../form/Buttons";
 
-function FavoriteToggleButton() {
-  return (
-    <Button 
-      size="icon" 
-      className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary p-2 cursor-pointer"
-    >
-      <FaHeart className="text-primary" />
-    </Button>
-  );
+async function FavoriteToggleButton({ wineId }: { wineId: number }) {
+  const user = await currentUser();
+  if (!user) return <CardSignInButton />;
+  
+  const favoriteId = await fetchFavoriteId({ wineId });
+
+  return <FavoriteToggleForm favoriteId={favoriteId} wineId={wineId} />;
 }
+
 export default FavoriteToggleButton;

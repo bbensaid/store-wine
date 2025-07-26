@@ -1,33 +1,20 @@
 import React from "react";
 import Container from "@/components/global/Container";
-import { getCurrentUserId } from '@/lib/auth'
-import { redirect } from 'next/navigation'
-import prisma from "@/lib/prisma";
+import { getCurrentUserId } from "@/lib/auth";
+import { fetchUserFavorites } from "@/utils/actions";
 import ProductsGrid from "@/components/products/ProductsGrid";
 import EmptyList from "@/components/global/EmptyList";
 import SectionTitle from "@/components/global/SectionTitle";
+import { redirect } from "next/navigation";
 
 export default async function FavoritesPage() {
-  const userId = await getCurrentUserId()
+  const userId = await getCurrentUserId();
   
   if (!userId) {
-    redirect('/sign-in')
+    redirect('/sign-in');
   }
 
-  const favorites = await prisma.favorite.findMany({
-    where: {
-      clerkId: userId,
-    },
-    include: {
-      wine: {
-        include: {
-          images: true,
-        },
-      },
-    },
-  });
-
-  const favoriteWines = favorites.map(fav => fav.wine);
+  const favoriteWines = await fetchUserFavorites();
 
   return (
     <Container>

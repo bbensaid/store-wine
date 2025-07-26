@@ -19,7 +19,11 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
         {/* IMAGE FIRST COL */}
         <div>
           <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-primary/20 p-0 rounded-md">
-            <div className="relative aspect-[2/4] mt-20 mx-20 overflow-hidden">
+            {/* Favorites button positioned outside image */}
+            <div className="absolute top-2 right-2 z-10">
+              <FavoriteToggleButton wineId={product.id} />
+            </div>
+            <div className="relative aspect-[2/4] mt-12 mx-12 overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={name}
@@ -27,9 +31,6 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
                 className="object-cover object-bottom rounded-md"
                 priority
               />
-              <div className="absolute top-4 right-4 z-10">
-                <FavoriteToggleButton />
-              </div>
             </div>
             <div className="flex flex-col items-center px-4 py-0 flex-1 gap-y-4">
               <h2 className="text-2xl font-semibold capitalize text-center truncate w-full leading-tight mb-0 mt-0 text-primary">
@@ -48,7 +49,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
         <div>
           <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold text-primary">{name}</h1>
-            <FavoriteToggleButton />
+            <FavoriteToggleButton wineId={product.id} />
           </div>
           <ProductRating />
           <h4 className="text-xl mt-2 text-primary">{harmonize || grapes}</h4>

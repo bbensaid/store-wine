@@ -6,7 +6,7 @@ import { toggleFavoriteAction } from "@/utils/actions";
 import { CardSubmitButton } from "../form/Buttons";
 
 type FavoriteToggleFormProps = {
-  wineId: string;
+  wineId: number;
   favoriteId: string | null;
 };
 
