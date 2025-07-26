@@ -1,9 +1,9 @@
 import React from "react";
-import { auth } from '@clerk/nextjs/server'
+import { getCurrentUserId } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 
 export default async function CartPage() {
-  const { userId } = await auth()
+  const userId = await getCurrentUserId()
   
   if (!userId) {
     redirect('/sign-in')
@@ -11,4 +11,4 @@ export default async function CartPage() {
   return <div>CartPage</div>;
 }
 
-export default CartPage;
+

@@ -9,26 +9,30 @@ datasource db {
 }
 
 model Wine {
-  abv       Float
-  acidity   String
-  body      String
-  code      String
-  elaborate String?
-  grapes    String
-  harmonize String
-  id        Int      @id @default(autoincrement())
-  name      String
-  price     Int      @default(0)
-  regionId  Int
-  type      String
-  createdAt DateTime @default(now())
-  featured  Boolean  @default(false)
-  images    Image[]
-  ratings   Rating[]
-  region    Region   @relation("RegionToWine", fields: [regionId], references: [id])
-
-  @@index([featured])
-  @@index([regionId])
+  id          Int         @id @default(autoincrement())
+  name        String
+  type        String
+  elaborate   String?
+  grapes      String
+  harmonize   String
+  abv         Float
+  body        String
+  acidity     String
+  code        String
+  price       Int         @default(0)
+  featured    Boolean     @default(false)
+  image       String?
+  regionId    Int
+  clerkId     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relations
+  region      Region      @relation("RegionToWine", fields: [regionId], references: [id])
+  images      Image[]
+  favorites   Favorite[]
+  reviews     Review[]
+  cartItems   CartItem[]
 }
 
 model Region {
@@ -38,29 +42,70 @@ model Region {
   wines   Wine[] @relation("RegionToWine")
 }
 
-model Rating {
-  id      Int      @id @default(autoincrement())
-  wineId  Int
-  userId  Int
-  vintage String?
-  rating  Float
-  date    DateTime
-  user    User     @relation(fields: [userId], references: [id])
-  wine    Wine     @relation(fields: [wineId], references: [id])
-}
-
-model User {
-  email    String   @unique
-  id       Int      @id @default(autoincrement())
-  name     String?
-  password String
-  role     String   @default("USER")
-  ratings  Rating[]
-}
-
 model Image {
   id     Int    @id @default(autoincrement())
   url    String
   wineId Int
-  wine   Wine   @relation(fields: [wineId], references: [id])
+  wine   Wine   @relation(fields: [wineId], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  clerkId   String
+  wine      Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  wineId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id            String   @id @default(uuid())
+  clerkId       String
+  rating        Int
+  comment       String
+  authorName    String
+  authorImageUrl String
+  vintage       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  wine          Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  wineId        Int
+}
+
+model Cart {
+  id             String     @id @default(uuid())
+  clerkId        String
+  cartItems      CartItem[]
+  numItemsInCart Int        @default(0)
+  cartTotal      Int        @default(0)
+  shipping       Int        @default(5)
+  tax            Int        @default(0)
+  taxRate        Float      @default(0.1)
+  orderTotal     Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  wine      Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  wineId    Int
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId    String
+  amount    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id         String   @id @default(uuid())
+  clerkId    String
+  products   Int      @default(0)
+  orderTotal Int      @default(0)
+  tax        Int      @default(0)
+  shipping   Int      @default(0)
+  email      String
+  isPaid     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

@@ -40,11 +40,11 @@ export async function GET(request: Request) {
     const ratingMin = searchParams.get("ratingMin");
     const ratingMax = searchParams.get("ratingMax");
     if (ratingMin || ratingMax) {
-      where.ratings = {
+      where.reviews = {
         some: {
           AND: [
-            ratingMin ? { rating: { gte: parseFloat(ratingMin) } } : {},
-            ratingMax ? { rating: { lte: parseFloat(ratingMax) } } : {},
+            ratingMin ? { rating: { gte: parseInt(ratingMin) } } : {},
+            ratingMax ? { rating: { lte: parseInt(ratingMax) } } : {},
           ],
         },
       };
@@ -72,7 +72,7 @@ export async function GET(request: Request) {
       include: {
         region: true,
         images: true,
-        ratings: { select: { rating: true } },
+        reviews: { select: { rating: true } },
       },
       skip: offset,
       take: limit,
@@ -81,7 +81,7 @@ export async function GET(request: Request) {
     // Calculate average rating for each wine
     const winesWithAvgRating = wines
       .map((wine) => {
-        const ratings = wine.ratings.map((r) => r.rating);
+        const ratings = wine.reviews.map((r) => r.rating);
         const avgRating =
           ratings.length > 0
             ? ratings.reduce((a, b) => a + b, 0) / ratings.length
@@ -89,13 +89,13 @@ export async function GET(request: Request) {
         return {
           ...wine,
           averageRating: avgRating,
-          ratings: undefined,
+          reviews: undefined,
         };
       })
       .filter((wine) => {
-        if (ratingMin && wine.averageRating < parseFloat(ratingMin))
+        if (ratingMin && wine.averageRating < parseInt(ratingMin))
           return false;
-        if (ratingMax && wine.averageRating > parseFloat(ratingMax))
+        if (ratingMax && wine.averageRating > parseInt(ratingMax))
           return false;
         return true;
       });

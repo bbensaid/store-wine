@@ -39,14 +39,14 @@ export async function getProducts({
     }
   }
   if (filters.ratingMin || filters.ratingMax) {
-    where.ratings = {
+    where.reviews = {
       some: {
         AND: [
           filters.ratingMin
-            ? { rating: { gte: parseFloat(filters.ratingMin) } }
+            ? { rating: { gte: parseInt(filters.ratingMin) } }
             : {},
           filters.ratingMax
-            ? { rating: { lte: parseFloat(filters.ratingMax) } }
+            ? { rating: { lte: parseInt(filters.ratingMax) } }
             : {},
         ],
       },
@@ -71,7 +71,7 @@ export async function getProducts({
     include: {
       region: true,
       images: true,
-      ratings: { select: { rating: true } },
+      reviews: { select: { rating: true } },
     },
     skip: page * pageSize,
     take: pageSize,
@@ -79,7 +79,7 @@ export async function getProducts({
 
   // Calculate average rating for each wine
   const products = wines.map((wine) => {
-    const ratings = wine.ratings.map((r) => r.rating);
+    const ratings = wine.reviews.map((r) => r.rating);
     const avgRating =
       ratings.length > 0
         ? ratings.reduce((a, b) => a + b, 0) / ratings.length
@@ -87,7 +87,7 @@ export async function getProducts({
     return {
       ...wine,
       averageRating: avgRating,
-      ratings: undefined,
+      reviews: undefined,
     };
   });
 

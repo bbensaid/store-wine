@@ -10,6 +10,17 @@ export const fetchFeaturedProducts = async () => {
       images: true,
     },
   });
+  
+  // If no featured products, get the first 6 wines instead
+  if (products.length === 0) {
+    return await prisma.wine.findMany({
+      take: 6,
+      include: {
+        images: true,
+      },
+    });
+  }
+  
   return products;
 };
 
@@ -49,4 +60,34 @@ export const fetchSingleProduct = async (productId: string) => {
     redirect("/products");
   }
   return product;
+};
+
+export const toggleFavoriteAction = async (
+  { wineId, favoriteId, pathname }: { wineId: number; favoriteId: string | null; pathname: string }
+) => {
+  "use server";
+  
+  const { getCurrentUserId } = await import("@/lib/auth");
+  const userId = await getCurrentUserId();
+  
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  if (favoriteId) {
+    // Remove from favorites
+    await prisma.favorite.delete({
+      where: { id: favoriteId },
+    });
+  } else {
+    // Add to favorites
+    await prisma.favorite.create({
+      data: {
+        wineId,
+        clerkId: userId,
+      },
+    });
+  }
+
+  redirect(pathname);
 };
