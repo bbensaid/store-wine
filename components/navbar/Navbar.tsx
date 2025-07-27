@@ -16,6 +16,7 @@ import {
   LuWine,
   LuHeart,
   LuFileQuestion,
+  LuStar,
 } from "react-icons/lu";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
@@ -115,6 +116,12 @@ function Navbar() {
               <Link href="/favorites" className="flex items-center gap-2 text-primary">
                 <LuHeart className="w-5 h-5 text-primary" />
                 Favorites
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className="capitalize w-full text-primary">
+              <Link href="/reviews" className="flex items-center gap-2 text-primary">
+                <LuStar className="w-5 h-5 text-primary" />
+                Reviews
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -260,6 +267,18 @@ function Navbar() {
               <Link href="/favorites">
                 <LuHeart className="w-5 h-5 mr-1 text-primary" />
                 Favorites
+              </Link>
+            </Button>
+            <Button
+              className={
+                "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
+                (pathname.startsWith("/reviews") ? "bg-gray-200 text-primary border-gray-400" : "")
+              }
+              asChild
+            >
+              <Link href="/reviews">
+                <LuStar className="w-5 h-5 mr-1 text-primary" />
+                Reviews
               </Link>
             </Button>
             <Button

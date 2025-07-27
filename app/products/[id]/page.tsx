@@ -5,6 +5,8 @@ import { formatCurrency } from "@/utils/format";
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import AddToCart from "@/components/single-product/AddToCart";
 import ProductRating from "@/components/single-product/ProductRating";
+import ReviewForm from "@/components/single-product/ReviewForm";
+import ReviewsList from "@/components/single-product/ReviewsList";
 import { Card } from "@/components/ui/card";
 
 async function SingleProductPage({ params }: { params: { id: string } }) {
@@ -51,7 +53,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
             <h1 className="capitalize text-3xl font-bold text-primary">{name}</h1>
             <FavoriteToggleButton wineId={product.id} />
           </div>
-          <ProductRating />
+          <ProductRating wineId={product.id} />
           <h4 className="text-xl mt-2 text-primary">{harmonize || grapes}</h4>
           <p className="mt-3 text-md bg-muted inline-block p-2 rounded-md text-primary">
             {dollarsAmount}
@@ -59,6 +61,12 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
           <p className="mt-6 leading-8 text-primary">{elaborate}</p>
           <AddToCart />
         </div>
+      </div>
+      
+      {/* Reviews Section */}
+      <div className="mt-12">
+        <ReviewsList wineId={product.id} />
+        <ReviewForm wineId={product.id} />
       </div>
     </section>
   );

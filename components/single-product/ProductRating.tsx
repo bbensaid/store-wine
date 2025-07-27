@@ -1,15 +1,20 @@
 import { FaStar } from "react-icons/fa";
+import { getAverageRating } from "@/utils/actions";
 
-async function ProductRating() {
-  const rating = 4.2;
-  const count = 25;
+interface ProductRatingProps {
+  wineId: number;
+}
+
+async function ProductRating({ wineId }: ProductRatingProps) {
+  const { average, count } = await getAverageRating(wineId);
 
   const className = `flex gap-1 items-center text-md mt-1 mb-4 text-primary`;
-  const countValue = `(${count}) reviews`;
+  const countValue = count > 0 ? `(${count}) reviews` : "(No reviews yet)";
+  
   return (
     <span className={className}>
       <FaStar className="w-3 h-3 text-primary" />
-      {rating} {countValue}
+      {average > 0 ? average : "No rating"} {countValue}
     </span>
   );
 }
