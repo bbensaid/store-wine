@@ -4,7 +4,7 @@ import { fetchProductReviews } from "@/utils/actions";
 import { FaStar } from "react-icons/fa";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import { prisma } from "@/utils/db";
+import prisma from "@/utils/db";
 
 async function ReviewsPage() {
   // Get all reviews with wine information
