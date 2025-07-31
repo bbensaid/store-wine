@@ -4,6 +4,22 @@ import prisma from "@/utils/db";
 import { redirect } from "next/navigation";
 import { getCurrentUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { currentUser } from "@clerk/nextjs/server";
+
+const renderError = (error: unknown): { message: string } => {
+  console.log(error);
+  return {
+    message: error instanceof Error ? error.message : "An error occurred",
+  };
+};
+
+const getAuthUser = async () => {
+  const user = await currentUser();
+  if (!user) {
+    throw new Error("You must be logged in to access this route");
+  }
+  return user;
+};
 
 export const fetchFeaturedProducts = async () => {
   const products = await prisma.wine.findMany({
@@ -329,52 +345,62 @@ export const updateCartItemAction = async ({
 
 // Order functionality
 export const createOrderAction = async (prevState: any, formData: FormData) => {
-  const userId = await getCurrentUserId();
-  if (!userId) {
-    redirect("/sign-in");
-  }
-
   let orderId: null | string = null;
   let cartId: null | string = null;
   
   try {
+    console.log("createOrderAction started");
+    const user = await getAuthUser();
+    console.log("User authenticated:", user.id);
+    
     const cart = await fetchOrCreateCart({
-      userId,
+      userId: user.id,
       errorOnFailure: true,
     });
+    console.log("Cart found:", cart.id, "Items:", cart.numItemsInCart);
     cartId = cart.id;
+    
+    // Check if cart has items
+    if (cart.numItemsInCart === 0) {
+      return { message: "Your cart is empty. Please add items before placing an order." };
+    }
+    
+    // Check if order total is greater than 0
+    if (cart.orderTotal <= 0) {
+      return { message: "Order total must be greater than $0. Please add items with a price before placing an order." };
+    }
+    
     await prisma.order.deleteMany({
       where: {
-        clerkId: userId,
+        clerkId: user.id,
         isPaid: false,
       },
     });
 
     const order = await prisma.order.create({
       data: {
-        clerkId: userId,
+        clerkId: user.id,
         products: cart.numItemsInCart,
         orderTotal: cart.orderTotal,
         tax: cart.tax,
         shipping: cart.shipping,
-        email: "user@example.com", // You'll need to get this from Clerk
+        email: user.emailAddresses[0].emailAddress,
       },
     });
     orderId = order.id;
+    console.log("Order created:", orderId);
   } catch (error) {
-    console.error("Error creating order:", error);
-    return { error: "Failed to create order" };
+    console.error("Error in createOrderAction:", error);
+    return renderError(error);
   }
   redirect(`/checkout?orderId=${orderId}&cartId=${cartId}`);
 };
 
 export const fetchUserOrders = async () => {
-  const userId = await getCurrentUserId();
-  if (!userId) return [];
-
+  const user = await getAuthUser();
   const orders = await prisma.order.findMany({
     where: {
-      clerkId: userId,
+      clerkId: user.id,
       isPaid: true,
     },
     orderBy: {
@@ -385,7 +411,8 @@ export const fetchUserOrders = async () => {
 };
 
 export const fetchAdminOrders = async () => {
-  // For now, return all orders - you can add admin check later
+  const user = await getAuthUser();
+
   const orders = await prisma.order.findMany({
     where: {
       isPaid: true,

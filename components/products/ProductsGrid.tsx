@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import { Wine, Image as PrismaImage } from "@prisma/client";
+import { formatCurrency } from "@/utils/format";
 
 async function ProductsGrid({
   products,
@@ -43,7 +44,7 @@ async function ProductsGrid({
                     {product.type}
                   </p>
                   <p className="text-sm md:text-base font-bold text-center mt-0 mb-1 text-primary">
-                    ${product.price}
+                    {formatCurrency(product.price)}
                   </p>
                 </div>
               </Link>
