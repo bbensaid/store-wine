@@ -38,6 +38,7 @@ import {
   SignedOut,
 } from '@clerk/nextjs';
 import UserButtonWrapper from '../auth/UserButtonWrapper';
+import CartButton from './CartButton';
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -177,12 +178,7 @@ function Navbar() {
           </span>
           <span className="hidden sm:inline">Mode</span>
         </Button>
-        <Button
-          className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-        >
-          <HiOutlineShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-          <span className="hidden sm:inline">Cart</span>
-        </Button>
+        <CartButton />
       </div>
 
       {/* Desktop Authentication */}
@@ -219,12 +215,7 @@ function Navbar() {
           </Link>
         </div>
         <div className="flex-grow" />
-        <Button
-          className="flex items-center gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary border border-primary/20 bg-white font-normal"
-        >
-          <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
-          Cart
-        </Button>
+        <CartButton />
         <Drawer>
           <DrawerTrigger asChild>
             <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary" size="icon" aria-label="Open menu">
@@ -333,12 +324,6 @@ function Navbar() {
              <SignedIn>
                <UserButtonWrapper />
              </SignedIn>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-            >
-              <HiOutlineShoppingBag className="w-5 h-5 text-primary" />
-              Cart
-            </Button>
           </DrawerContent>
         </Drawer>
       </div>

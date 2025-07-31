@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { SignInButton } from "@clerk/nextjs";
 
 type btnSize = "default" | "lg" | "sm";
 
@@ -39,6 +40,16 @@ export function SubmitButton({
     </Button>
   );
 }
+
+export const ProductSignInButton = () => {
+  return (
+    <SignInButton mode="modal">
+      <Button type="button" size="default" className="mt-8">
+        Please Sign In
+      </Button>
+    </SignInButton>
+  );
+};
 
 export const CardSignInButton = () => {
   return (

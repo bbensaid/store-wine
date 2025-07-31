@@ -59,7 +59,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
             {dollarsAmount}
           </p>
           <p className="mt-6 leading-8 text-primary">{elaborate}</p>
-          <AddToCart />
+          <AddToCart wineId={product.id.toString()} />
         </div>
       </div>
       

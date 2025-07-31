@@ -53,6 +53,350 @@ export const fetchAllProducts = async (searchTerm: string) => {
   });
 };
 
+export const fetchProductReviews = async (productId: string) => {
+  const reviews = await prisma.review.findMany({
+    where: {
+      wineId: parseInt(productId),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return reviews;
+};
+
+// Cart functionality
+export const fetchCartItems = async () => {
+  try {
+    const userId = await getCurrentUserId();
+    console.log("fetchCartItems - userId:", userId);
+    
+    if (!userId) {
+      console.log("No userId in fetchCartItems");
+      return 0;
+    }
+
+    const cart = await prisma.cart.findFirst({
+      where: {
+        clerkId: userId,
+      },
+      select: {
+        numItemsInCart: true,
+      },
+    });
+    
+    console.log("fetchCartItems - cart:", cart);
+    return cart?.numItemsInCart || 0;
+  } catch (error) {
+    console.error("Error in fetchCartItems:", error);
+    return 0;
+  }
+};
+
+const fetchWine = async (wineId: string) => {
+  const wine = await prisma.wine.findUnique({
+    where: {
+      id: parseInt(wineId),
+    },
+  });
+
+  if (!wine) {
+    throw new Error("Wine not found");
+  }
+  return wine;
+};
+
+const includeWineClause = {
+  cartItems: {
+    include: {
+      wine: {
+        include: {
+          images: true,
+          region: true,
+        },
+      },
+    },
+  },
+};
+
+export const fetchOrCreateCart = async ({
+  userId,
+  errorOnFailure = false,
+}: {
+  userId: string;
+  errorOnFailure?: boolean;
+}) => {
+  console.log("fetchOrCreateCart called with userId:", userId);
+  
+  let cart = await prisma.cart.findFirst({
+    where: {
+      clerkId: userId,
+    },
+    include: includeWineClause,
+  });
+
+  if (!cart && errorOnFailure) {
+    throw new Error("Cart not found");
+  }
+
+  if (!cart) {
+    console.log("Creating new cart for userId:", userId);
+    cart = await prisma.cart.create({
+      data: {
+        clerkId: userId,
+      },
+      include: includeWineClause,
+    });
+  }
+
+  return cart;
+};
+
+const updateOrCreateCartItem = async ({
+  wineId,
+  cartId,
+  amount,
+}: {
+  wineId: string;
+  cartId: string;
+  amount: number;
+}) => {
+  let cartItem = await prisma.cartItem.findFirst({
+    where: {
+      wineId: parseInt(wineId),
+      cartId,
+    },
+  });
+
+  if (cartItem) {
+    cartItem = await prisma.cartItem.update({
+      where: {
+        id: cartItem.id,
+      },
+      data: {
+        amount: cartItem.amount + amount,
+      },
+    });
+  } else {
+    cartItem = await prisma.cartItem.create({
+      data: { amount, wineId: parseInt(wineId), cartId },
+    });
+  }
+};
+
+export const updateCart = async (cart: any) => {
+  try {
+    const cartItems = await prisma.cartItem.findMany({
+      where: {
+        cartId: cart.id,
+      },
+      include: {
+        wine: {
+          include: {
+            images: true,
+            region: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    let numItemsInCart = 0;
+    let cartTotal = 0;
+
+    for (const item of cartItems) {
+      numItemsInCart += item.amount;
+      cartTotal += item.amount * item.wine.price;
+    }
+    
+    // Use default tax rate if not available
+    const taxRate = cart.taxRate || 0.1;
+    const tax = taxRate * cartTotal;
+    const shipping = cartTotal ? (cart.shipping || 5) : 0;
+    const orderTotal = cartTotal + tax + shipping;
+
+    const currentCart = await prisma.cart.update({
+      where: {
+        id: cart.id,
+      },
+      data: {
+        numItemsInCart,
+        cartTotal,
+        tax,
+        orderTotal,
+      },
+      include: includeWineClause,
+    });
+    return { currentCart, cartItems };
+  } catch (error) {
+    console.error("Error updating cart:", error);
+    throw error;
+  }
+};
+
+export const addToCartAction = async (prevState: any, formData: FormData) => {
+  try {
+    const wineId = formData.get("wineId") as string;
+    const amount = Number(formData.get("amount"));
+    const userId = formData.get("userId") as string;
+    
+    console.log("addToCartAction called with:", { wineId, amount, userId });
+    
+    if (!userId) {
+      return { message: "Please sign in to add items to cart" };
+    }
+    
+    await fetchWine(wineId);
+    const cart = await fetchOrCreateCart({ userId });
+    await updateOrCreateCartItem({ wineId: wineId, cartId: cart.id, amount });
+    await updateCart(cart);
+    
+    console.log("Successfully added to cart");
+    return { message: "Added to cart successfully!" };
+  } catch (error) {
+    console.error("Error in addToCartAction:", error);
+    return { message: error instanceof Error ? error.message : "Failed to add to cart" };
+  }
+};
+
+export const removeCartItemAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    return { error: "Not authenticated" };
+  }
+
+  try {
+    const cartItemId = formData.get("id") as string;
+    const cart = await fetchOrCreateCart({
+      userId,
+      errorOnFailure: true,
+    });
+    await prisma.cartItem.delete({
+      where: {
+        id: cartItemId,
+        cartId: cart.id,
+      },
+    });
+
+    await updateCart(cart);
+    revalidatePath("/cart");
+    return { message: "Item removed from cart" };
+  } catch (error) {
+    console.error("Error removing cart item:", error);
+    return { error: "Failed to remove item" };
+  }
+};
+
+export const updateCartItemAction = async ({
+  amount,
+  cartItemId,
+}: {
+  amount: number;
+  cartItemId: string;
+}) => {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    return { error: "Not authenticated" };
+  }
+
+  try {
+    const cart = await fetchOrCreateCart({
+      userId,
+      errorOnFailure: true,
+    });
+    await prisma.cartItem.update({
+      where: {
+        id: cartItemId,
+        cartId: cart.id,
+      },
+      data: {
+        amount,
+      },
+    });
+    await updateCart(cart);
+    revalidatePath("/cart");
+    return { message: "cart updated" };
+  } catch (error) {
+    console.error("Error updating cart item:", error);
+    return { error: "Failed to update cart" };
+  }
+};
+
+// Order functionality
+export const createOrderAction = async (prevState: any, formData: FormData) => {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  let orderId: null | string = null;
+  let cartId: null | string = null;
+  
+  try {
+    const cart = await fetchOrCreateCart({
+      userId,
+      errorOnFailure: true,
+    });
+    cartId = cart.id;
+    await prisma.order.deleteMany({
+      where: {
+        clerkId: userId,
+        isPaid: false,
+      },
+    });
+
+    const order = await prisma.order.create({
+      data: {
+        clerkId: userId,
+        products: cart.numItemsInCart,
+        orderTotal: cart.orderTotal,
+        tax: cart.tax,
+        shipping: cart.shipping,
+        email: "user@example.com", // You'll need to get this from Clerk
+      },
+    });
+    orderId = order.id;
+  } catch (error) {
+    console.error("Error creating order:", error);
+    return { error: "Failed to create order" };
+  }
+  redirect(`/checkout?orderId=${orderId}&cartId=${cartId}`);
+};
+
+export const fetchUserOrders = async () => {
+  const userId = await getCurrentUserId();
+  if (!userId) return [];
+
+  const orders = await prisma.order.findMany({
+    where: {
+      clerkId: userId,
+      isPaid: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return orders;
+};
+
+export const fetchAdminOrders = async () => {
+  // For now, return all orders - you can add admin check later
+  const orders = await prisma.order.findMany({
+    where: {
+      isPaid: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return orders;
+};
+
 // single product code - added June 7
 export const fetchSingleProduct = async (productId: string) => {
   const product = await prisma.wine.findUnique({
@@ -140,18 +484,6 @@ export const fetchUserFavorites = async () => {
 };
 
 // Review and Rating functions
-export const fetchProductReviews = async (wineId: number) => {
-  const reviews = await prisma.review.findMany({
-    where: {
-      wineId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  return reviews;
-};
-
 export const fetchUserReview = async (wineId: number) => {
   const userId = await getCurrentUserId();
   if (!userId) return null;
