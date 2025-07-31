@@ -13,7 +13,7 @@ const renderError = (error: unknown): { message: string } => {
   };
 };
 
-const getAuthUser = async () => {
+export const getAuthUser = async () => {
   const user = await currentUser();
   if (!user) {
     throw new Error("You must be logged in to access this route");
@@ -389,6 +389,23 @@ export const createOrderAction = async (prevState: any, formData: FormData) => {
     });
     orderId = order.id;
     console.log("Order created:", orderId);
+
+    // Create order items from cart items
+    const cartItems = await prisma.cartItem.findMany({
+      where: { cartId: cart.id },
+      include: { wine: true },
+    });
+
+    for (const cartItem of cartItems) {
+      await prisma.orderItem.create({
+        data: {
+          orderId: order.id,
+          wineId: cartItem.wineId,
+          amount: cartItem.amount,
+          price: cartItem.wine.price,
+        },
+      });
+    }
   } catch (error) {
     console.error("Error in createOrderAction:", error);
     return renderError(error);
@@ -398,6 +415,8 @@ export const createOrderAction = async (prevState: any, formData: FormData) => {
 
 export const fetchUserOrders = async () => {
   const user = await getAuthUser();
+  console.log("fetchUserOrders - User ID:", user.id);
+  
   const orders = await prisma.order.findMany({
     where: {
       clerkId: user.id,
@@ -407,6 +426,10 @@ export const fetchUserOrders = async () => {
       createdAt: "desc",
     },
   });
+  
+  console.log("fetchUserOrders - Found orders:", orders.length);
+  console.log("fetchUserOrders - Orders:", orders);
+  
   return orders;
 };
 
@@ -422,6 +445,32 @@ export const fetchAdminOrders = async () => {
     },
   });
   return orders;
+};
+
+export const fetchSingleOrder = async (orderId: string) => {
+  const user = await getAuthUser();
+  
+  const order = await prisma.order.findFirst({
+    where: {
+      id: orderId,
+      clerkId: user.id,
+      isPaid: true,
+    },
+    include: {
+      orderItems: {
+        include: {
+          wine: {
+            include: {
+              images: true,
+              region: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  
+  return order;
 };
 
 // single product code - added June 7

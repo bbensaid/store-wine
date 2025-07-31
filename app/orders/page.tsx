@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   TableBody,
@@ -7,13 +8,42 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 import SectionTitle from "@/components/global/SectionTitle";
-import { fetchUserOrders } from "@/utils/actions";
 import { formatCurrency, formatDate } from "@/utils/format";
 
-async function OrdersPage() {
-  const orders = await fetchUserOrders();
+function OrdersPage() {
+  const router = useRouter();
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadOrders = async () => {
+      try {
+        const response = await fetch('/api/orders');
+        const data = await response.json();
+        console.log('Orders API response:', data);
+        // Ensure data is an array
+        setOrders(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error loading orders:', error);
+        setOrders([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadOrders();
+  }, []);
+
+  const handleRowClick = (orderId: string) => {
+    router.push(`/orders/${orderId}`);
+  };
+
+  if (loading) {
+    return <div className="p-8">Loading orders...</div>;
+  }
 
   return (
     <>
@@ -35,7 +65,11 @@ async function OrdersPage() {
               const { id, products, orderTotal, tax, shipping, createdAt } = order;
 
               return (
-                <TableRow key={order.id}>
+                <TableRow 
+                  key={order.id} 
+                  className="cursor-pointer hover:bg-gray-50"
+                  onClick={() => handleRowClick(id)}
+                >
                   <TableCell>{products}</TableCell>
                   <TableCell>{formatCurrency(orderTotal)}</TableCell>
                   <TableCell>{formatCurrency(tax)}</TableCell>

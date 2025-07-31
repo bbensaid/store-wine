@@ -37,7 +37,7 @@ async function ProductsGrid({
                 </div>
                 {/* Info at the bottom */}
                 <div className="flex flex-col items-center px-2 pt-4 flex-1 gap-y-1">
-                  <h2 className="text-base md:text-lg font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0 text-primary">
+                  <h2 className="text-sm md:text-base font-medium capitalize text-center truncate w-full leading-tight mb-0 mt-0 text-primary">
                     {name}
                   </h2>
                   <p className="text-xs md:text-sm text-primary text-center mt-0 mb-0">

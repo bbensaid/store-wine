@@ -33,6 +33,7 @@ model Wine {
   favorites   Favorite[]
   reviews     Review[]
   cartItems   CartItem[]
+  orderItems  OrderItem[]
 }
 
 model Region {
@@ -98,14 +99,29 @@ model CartItem {
 }
 
 model Order {
-  id         String   @id @default(uuid())
+  id         String      @id @default(uuid())
   clerkId    String
-  products   Int      @default(0)
-  orderTotal Int      @default(0)
-  tax        Int      @default(0)
-  shipping   Int      @default(0)
+  products   Int         @default(0)
+  orderTotal Int         @default(0)
+  tax        Int         @default(0)
+  shipping   Int         @default(0)
   email      String
-  isPaid     Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  isPaid     Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  
+  // Relations
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
+  wine      Wine     @relation(fields: [wineId], references: [id])
+  wineId    Int
+  amount    Int
+  price     Int      // Price at time of purchase
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

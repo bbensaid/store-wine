@@ -74,7 +74,7 @@ function HeroCarousel({ onSlideChange }: { onSlideChange?: (index: number) => vo
     if (paused) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % carouselData.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [paused]);
 

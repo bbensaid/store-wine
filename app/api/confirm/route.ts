@@ -11,11 +11,15 @@ export const GET = async (req: NextRequest) => {
 
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id);
-    // console.log(session);
+    console.log("Confirm route - Session status:", session.status);
+    console.log("Confirm route - Session metadata:", session.metadata);
 
     const orderId = session.metadata?.orderId;
     const cartId = session.metadata?.cartId;
+    console.log("Confirm route - OrderId:", orderId, "CartId:", cartId);
+    
     if (session.status === "complete") {
+      console.log("Confirm route - Payment complete, updating order");
       await prisma.order.update({
         where: {
           id: orderId,
@@ -24,11 +28,16 @@ export const GET = async (req: NextRequest) => {
           isPaid: true,
         },
       });
+      console.log("Confirm route - Order updated successfully");
+      
       await prisma.cart.delete({
         where: {
           id: cartId,
         },
       });
+      console.log("Confirm route - Cart deleted successfully");
+    } else {
+      console.log("Confirm route - Payment not complete, status:", session.status);
     }
   } catch (err) {
     console.log(err);
