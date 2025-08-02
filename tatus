@@ -1,0 +1,5 @@
+[33mb5720c3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Restored Show/Hide Hero buttons and moved them to left side
+[33m2bb989f[m Stripe payment working - redirect to home page after payment
+[33m199f272[m Cart Done
+[33mecf8a9b[m Fix prisma import error in reviews page - change from named to default import
+[33m8d26e31[m Basic Review Done
