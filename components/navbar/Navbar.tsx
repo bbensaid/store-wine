@@ -53,8 +53,8 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-primary/20 h-16 flex items-center w-full justify-between px-2 sm:px-4 lg:px-6">
 
-      {/* Logo */}
-      <div className="flex items-center">
+      {/* Desktop Logo - hidden on mobile */}
+      <div className="hidden md:flex items-center">
         <div className="border border-primary/60 shadow-lg bg-white px-3 md:px-4 py-2 flex items-center rounded-xl transition-all duration-200 hover:shadow-xl hover:border-primary/80">
           <Link href="/" className="flex items-center">
             <Image
