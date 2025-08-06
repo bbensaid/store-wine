@@ -30,13 +30,19 @@ const cormorant = Cormorant_Garamond({
  * - For layout changes, adjust Tailwind classes on the container divs.
  */
 function Hero() {
-  const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
-  const [showAboutUs, setShowAboutUs] = useState(true);
+  const [showAboutUs, setShowAboutUs] = useState(false); // Default to carousel view
   const [currentSlide, setCurrentSlide] = useState(0);
   const [carouselData, setCarouselData] = useState<CarouselSlide[]>([]);
 
   useEffect(() => {
     loadCarouselData();
+    // Register the function to be called from navbar
+    setShowAboutUsHandler(showAboutUsContent);
+    
+    // Cleanup on unmount
+    return () => {
+      setShowAboutUsHandler(() => {});
+    };
   }, []);
 
   const loadCarouselData = async () => {
@@ -48,56 +54,23 @@ function Hero() {
     }
   };
 
-  const toggleAboutUs = () => {
-    console.log('About Us clicked, setting showAboutUs to true');
+  const showAboutUsContent = () => {
     setShowAboutUs(true);
-    setAutoScrollEnabled(false);
-  };
-
-  const toggleAutoScroll = () => {
-    console.log('Auto Scroll clicked, setting showAboutUs to false');
-    setAutoScrollEnabled(!autoScrollEnabled);
-    setShowAboutUs(false);
   };
 
   const handleSlideChange = (index: number) => {
     setCurrentSlide(index);
-    // Only switch to auto scroll if user explicitly clicks navigation in About Us mode
-    // Don't auto-switch on initial load
   };
-
-  const handleNavigationClick = () => {
-    // If we're in About Us mode and navigation is clicked, start auto scroll mode
-    if (showAboutUs) {
-      console.log('Navigation clicked in About Us mode, switching to auto scroll');
-      setShowAboutUs(false);
-      setAutoScrollEnabled(true);
-    }
-  };
-
-  console.log('Current state - showAboutUs:', showAboutUs, 'autoScrollEnabled:', autoScrollEnabled);
 
   return (
     <div className="relative">
-      {/* ABOUT US, OUR PRODUCTS, and Auto Scroll buttons at the top */}
-      <div className="flex flex-wrap justify-start gap-2 sm:gap-3 md:gap-4 mb-4 mt-2">
-        <Button
-          onClick={toggleAboutUs}
-          className={`${cinzel.className} px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-7 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
-        >
-          About Us
-        </Button>
+      {/* OUR WINES button */}
+      <div className="flex justify-start mb-4 mt-2">
         <Button
           asChild
-          className={`${cinzel.className} px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-7 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
+          className={`${cinzel.className} px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base md:text-lg text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
         >
-          <Link href="/products">Our Products</Link>
-        </Button>
-        <Button
-          onClick={toggleAutoScroll}
-          className={`${cinzel.className} px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-7 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
-        >
-          Auto Scroll
+          <Link href="/products">Our Wines</Link>
         </Button>
       </div>
 
@@ -167,9 +140,7 @@ function Hero() {
         <div className="lg:col-span-5">
           <HeroCarousel 
             onSlideChange={handleSlideChange} 
-            autoScrollEnabled={autoScrollEnabled}
             showAboutUs={showAboutUs}
-            onNavigationClick={handleNavigationClick}
           />
         </div>
       </section>
@@ -177,4 +148,19 @@ function Hero() {
   );
 }
 
-export default Hero;
+// Export the component with a method to show About Us content
+const HeroComponent = Hero;
+export { HeroComponent as default };
+
+// Export a context or function to trigger About Us from navbar
+let showAboutUsGlobal: (() => void) | null = null;
+
+export const setShowAboutUsHandler = (handler: () => void) => {
+  showAboutUsGlobal = handler;
+};
+
+export const triggerShowAboutUs = () => {
+  if (showAboutUsGlobal) {
+    showAboutUsGlobal();
+  }
+};

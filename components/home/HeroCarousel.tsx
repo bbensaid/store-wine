@@ -34,12 +34,10 @@ const PauseIcon = () => (
 
 interface HeroCarouselProps {
   onSlideChange?: (index: number) => void;
-  autoScrollEnabled?: boolean;
   showAboutUs?: boolean;
-  onNavigationClick?: () => void;
 }
 
-function HeroCarousel({ onSlideChange, autoScrollEnabled = false, showAboutUs = false, onNavigationClick }: HeroCarouselProps) {
+function HeroCarousel({ onSlideChange, showAboutUs = false }: HeroCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -64,13 +62,13 @@ function HeroCarousel({ onSlideChange, autoScrollEnabled = false, showAboutUs = 
   };
 
   useEffect(() => {
-    // Only auto-scroll if autoScrollEnabled is true and not paused
-    if (!autoScrollEnabled || paused || carouselData.length === 0) return;
+    // Auto-scroll through carousel images with 4 second intervals
+    if (paused || carouselData.length === 0 || showAboutUs) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % carouselData.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, [autoScrollEnabled, paused, carouselData.length]);
+  }, [paused, carouselData.length, showAboutUs]);
 
   useEffect(() => {
     onSlideChange?.(current);
@@ -79,13 +77,11 @@ function HeroCarousel({ onSlideChange, autoScrollEnabled = false, showAboutUs = 
   const goToNext = () => {
     if (carouselData.length === 0) return;
     setCurrent((prev) => (prev + 1) % carouselData.length);
-    onNavigationClick?.();
   };
 
   const goToPrevious = () => {
     if (carouselData.length === 0) return;
     setCurrent((prev) => (prev - 1 + carouselData.length) % carouselData.length);
-    onNavigationClick?.();
   };
 
   if (!mounted || loading) return null; // Prevent SSR mismatch and show loading

@@ -154,6 +154,10 @@ function Navbar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+            <DropdownMenuItem className="capitalize w-full text-primary" onClick={() => import('../../components/home/Hero').then(module => module.triggerShowAboutUs())}>
+              <LuCircleHelp className="w-5 h-5 mr-2 text-primary" />
+              About Us
+            </DropdownMenuItem>
             <DropdownMenuItem className="capitalize w-full text-primary">
               <LuMail className="w-5 h-5 mr-2 text-primary" />
               Email Support
@@ -297,9 +301,10 @@ function Navbar() {
             </Button>
             <Button
               className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
+              onClick={() => import('../../components/home/Hero').then(module => module.triggerShowAboutUs())}
             >
               <LuCircleHelp className="w-5 h-5 text-primary" />
-              Help
+              About Us
             </Button>
             <Button
               className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
