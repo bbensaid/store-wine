@@ -4,8 +4,9 @@ import { fetchSingleOrder } from "@/utils/actions";
 import { formatCurrency, formatDate } from "@/utils/format";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-async function OrderDetailsPage({ params }: { params: { id: string } }) {
-  const order = await fetchSingleOrder(params.id);
+async function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: orderId } = await params;
+  const order = await fetchSingleOrder(orderId);
   
   if (!order) {
     notFound();

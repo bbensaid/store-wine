@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 
 async function TestAuthPage() {
-  const authResult = auth();
+  const authResult = await auth();
   
   return (
     <div className="p-8">

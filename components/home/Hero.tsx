@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import HeroCarousel from "./HeroCarousel";
 import { Cinzel, Cormorant_Garamond } from "next/font/google";
@@ -109,9 +110,11 @@ function Hero() {
               {/* Logo */}
               <div className="flex items-center gap-4">
                 <Link href="/" className="flex items-center">
-                  <img
+                  <Image
                     src="/images/logo.png"
                     alt="Wine Store Logo"
+                    width={160}
+                    height={160}
                     className="h-40 w-auto max-h-[10rem]"
                   />
                 </Link>

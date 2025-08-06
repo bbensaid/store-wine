@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "../ui/button";
 import Container from "../global/Container";
 import NavSearch from "./NavSearch";
@@ -49,9 +50,11 @@ function Navbar() {
         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-50 pl-2">
           <div className="border border-primary/20 bg-white/90 rounded-xl shadow-sm px-3 py-1 flex items-center min-w-[110px]">
             <Link href="/" className="flex items-center h-full">
-              <img
+              <Image
                 src="/images/logo.png"
                 alt="Wine Store Logo"
+                width={40}
+                height={40}
                 className="h-10 w-auto max-h-[2.5rem]"
               />
               <span
@@ -165,9 +168,11 @@ function Navbar() {
         <div className="flex md:hidden items-center w-full h-16 gap-x-2 px-2">
           <div className="flex items-center min-w-[90px]">
             <Link href="/" className="flex items-center h-full">
-              <img
+              <Image
                 src="/images/logo.png"
                 alt="Wine Store Logo"
+                width={32}
+                height={32}
                 className="h-8 w-auto max-h-[2rem]"
               />
               <span

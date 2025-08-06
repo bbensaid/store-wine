@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { FaStar } from "react-icons/fa";
-import { createReviewAction, updateReviewAction, fetchUserReview } from "@/utils/actions";
+import { createReviewAction, updateReviewAction } from "@/utils/actions";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,7 +24,7 @@ export default function ReviewForm({ wineId }: ReviewFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [existingReview, setExistingReview] = useState<any>(null);
+  const [existingReview, setExistingReview] = useState<{ id: string; rating: number; comment: string; vintage?: string } | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
   if (!isSignedIn) {
@@ -74,12 +74,13 @@ export default function ReviewForm({ wineId }: ReviewFormProps) {
       }
       
       if (result.error) {
-        if (result.existingReview) {
+        if ('existingReview' in result && result.existingReview) {
           // User has existing review, offer to edit
-          setExistingReview(result.existingReview);
-          setRating(result.existingReview.rating);
-          setComment(result.existingReview.comment);
-          setVintage(result.existingReview.vintage || "");
+          const existingReview = result.existingReview as { id: string; rating: number; comment: string; vintage?: string };
+          setExistingReview(existingReview);
+          setRating(existingReview.rating);
+          setComment(existingReview.comment);
+          setVintage(existingReview.vintage || "");
           setIsEditing(true);
           setMessage({ 
             type: 'error', 
@@ -97,7 +98,7 @@ export default function ReviewForm({ wineId }: ReviewFormProps) {
         setIsEditing(false);
         setMessage({ type: 'success', text: result.message || 'Review submitted successfully!' });
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: 'error', text: 'Failed to submit review. Please try again.' });
     } finally {
       setIsSubmitting(false);

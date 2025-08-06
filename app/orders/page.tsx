@@ -16,7 +16,7 @@ import { formatCurrency, formatDate } from "@/utils/format";
 
 function OrdersPage() {
   const router = useRouter();
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<{ id: string; orderTotal: number; tax: number; shipping: number; createdAt: string; email: string; products: { id: string; name: string; image: string; price: number; quantity: number; }[] }[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function OrdersPage() {
                   className="cursor-pointer hover:bg-gray-50"
                   onClick={() => handleRowClick(id)}
                 >
-                  <TableCell>{products}</TableCell>
+                  <TableCell>{products.length} item(s)</TableCell>
                   <TableCell>{formatCurrency(orderTotal)}</TableCell>
                   <TableCell>{formatCurrency(tax)}</TableCell>
                   <TableCell>{formatCurrency(shipping)}</TableCell>

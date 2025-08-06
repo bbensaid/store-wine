@@ -8,7 +8,7 @@ interface ReviewsListProps {
 }
 
 async function ReviewsList({ wineId }: ReviewsListProps) {
-  const reviews = await fetchProductReviews(wineId);
+  const reviews = await fetchProductReviews(wineId.toString());
 
   if (reviews.length === 0) {
     return (

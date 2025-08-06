@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "../ui/button";
 import NavSearch from "./NavSearch";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -56,9 +57,11 @@ function Navbar() {
       <div className="flex items-center">
         <div className="border-2 border-primary/80 shadow-xl bg-white px-2 sm:px-3 py-1 flex items-center min-w-[90px] sm:min-w-[110px] h-8 sm:h-10 rounded-4xl">
           <Link href="/" className="flex items-center h-full">
-            <img
+            <Image
               src="/images/logo.png"
               alt="Wine Store Logo"
+              width={32}
+              height={32}
               className="h-6 sm:h-8 w-auto max-h-[1.5rem] sm:max-h-[2rem]"
             />
             <span
@@ -202,9 +205,11 @@ function Navbar() {
       <div className="flex md:hidden items-center w-full h-16 gap-x-2 px-2">
         <div className="flex items-center min-w-[90px]">
           <Link href="/" className="flex items-center h-full">
-            <img
+            <Image
               src="/images/logo.png"
               alt="Wine Store Logo"
+              width={32}
+              height={32}
               className="h-8 w-auto max-h-[2rem]"
             />
             <span

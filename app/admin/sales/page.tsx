@@ -31,7 +31,6 @@ async function SalesPage() {
         <TableBody>
           {orders.map((order) => {
             const {
-              id,
               products,
               orderTotal,
               tax,

@@ -115,7 +115,7 @@ function ProductsList({
               </Card>
             </Link>
             <div className="absolute top-2 right-8 z-10">
-              <FavoriteToggleButton />
+              <FavoriteToggleButton wineId={productId} />
             </div>
           </article>
         );

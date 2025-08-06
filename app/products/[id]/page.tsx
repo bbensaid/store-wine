@@ -9,8 +9,9 @@ import ReviewForm from "@/components/single-product/ReviewForm";
 import ReviewsList from "@/components/single-product/ReviewsList";
 import { Card } from "@/components/ui/card";
 
-async function SingleProductPage({ params }: { params: { id: string } }) {
-  const product = await fetchSingleProduct(params.id);
+async function SingleProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const product = await fetchSingleProduct(id);
   const { name, images, elaborate, price, harmonize, grapes } = product;
   const imageUrl = images?.[0]?.url || "/images/wines/placeholder.png";
   const dollarsAmount = formatCurrency(price);

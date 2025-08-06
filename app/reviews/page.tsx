@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "@/components/global/Container";
-import { fetchProductReviews } from "@/utils/actions";
+
 import { FaStar } from "react-icons/fa";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";

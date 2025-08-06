@@ -4,7 +4,7 @@ import prisma from "@/utils/db";
 
 export async function GET() {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     
     if (!userId) {
       return NextResponse.json({ numItems: 0 });

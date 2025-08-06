@@ -35,8 +35,6 @@ function SelectProductAmount(
     <>
       <h4 className="mb-2">Amount : </h4>
       <Select
-        id="product-amount"
-        name="product-amount"
         defaultValue={amount.toString()}
         onValueChange={(value) => setAmount(Number(value))}
         disabled={cartItem ? props.isLoading : false}

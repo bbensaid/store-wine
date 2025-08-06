@@ -1,0 +1,5 @@
+[33ma222c55[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m VINEFOX 0.9 before Shopify
+[33m18d80a3[m Hero styling improvements: bolder fonts, thinner borders, better hierarchy
+[33m6182414[m Hero & HeroCarousel Both implemented
+[33m2bb989f[m Stripe payment working - redirect to home page after payment
+[33m199f272[m Cart Done

@@ -1,10 +1,10 @@
 import { fetchOrCreateCart, updateCart } from "@/utils/actions";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+
 
 async function TestCartPage() {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     console.log("Test cart page - userId:", userId);
     
     if (!userId) {

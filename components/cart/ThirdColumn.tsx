@@ -6,8 +6,7 @@ import FormContainer from "../form/FormContainer";
 import { SubmitButton } from "../form/Buttons";
 import { removeCartItemAction, updateCartItemAction } from "@/utils/actions";
 import { toast } from "sonner";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { Button } from "../ui/button";
+
 
 function ThirdColumn({ 
   quantity, 
@@ -34,12 +33,13 @@ function ThirdColumn({
     setIsLoading(false);
   };
 
-  const handleRemove = async (prevState: any, formData: FormData) => {
+  const handleRemove = async (prevState: { message?: string }, formData: FormData) => {
     const result = await removeCartItemAction(prevState, formData);
     if (result.message) {
       onCartUpdate(); // Refresh cart data after removal
     }
-    return result; // Return the result so FormContainer can handle it
+    // Ensure we always return a message for FormContainer
+    return { message: result.message || result.error || "Action completed" };
   };
 
   return (
