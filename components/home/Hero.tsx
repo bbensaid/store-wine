@@ -104,21 +104,9 @@ function Hero() {
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-center">
         {/* Left: Content - always visible, changes based on toggle and carousel */}
         <div className="lg:col-span-7">
-          {/* Logo and Brand Name - only visible in carousel mode */}
+          {/* Brand Name and Slogan - only visible in carousel mode */}
           {!showAboutUs && (
             <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-              {/* Logo */}
-              <div className="flex items-center gap-4">
-                <Link href="/" className="flex items-center">
-                  <Image
-                    src="/images/logo.png"
-                    alt="Wine Store Logo"
-                    width={160}
-                    height={160}
-                    className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto transition-all duration-200"
-                  />
-                </Link>
-              </div>
               {/* Brand Name */}
               <h1
                 className={`${cinzel.className} text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary tracking-[.1em] font-medium transition-all duration-200`}
