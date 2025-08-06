@@ -80,33 +80,33 @@ function Hero() {
   return (
     <div className="relative">
       {/* ABOUT US, OUR PRODUCTS, and Auto Scroll buttons at the top */}
-      <div className="flex justify-start gap-4 mb-4 mt-2">
+      <div className="flex flex-wrap justify-start gap-2 sm:gap-3 md:gap-4 mb-4 mt-2">
         <Button
           onClick={toggleAboutUs}
-          className={`${cinzel.className} px-6 py-6 md:px-8 md:py-7 text-xl sm:text-2xl md:text-3xl text-white tracking-[.1em] font-medium rounded-xl`}
+          className={`${cinzel.className} px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-7 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
         >
           About Us
         </Button>
         <Button
           asChild
-          className={`${cinzel.className} px-6 py-6 md:px-8 md:py-7 text-xl sm:text-2xl md:text-3xl text-white tracking-[.1em] font-medium rounded-xl`}
+          className={`${cinzel.className} px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-7 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
         >
           <Link href="/products">Our Products</Link>
         </Button>
         <Button
           onClick={toggleAutoScroll}
-          className={`${cinzel.className} px-6 py-6 md:px-8 md:py-7 text-xl sm:text-2xl md:text-3xl text-white tracking-[.1em] font-medium rounded-xl`}
+          className={`${cinzel.className} px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-7 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
         >
           Auto Scroll
         </Button>
       </div>
 
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-center">
         {/* Left: Content - always visible, changes based on toggle and carousel */}
         <div className="lg:col-span-7">
           {/* Logo and Brand Name - only visible in carousel mode */}
           {!showAboutUs && (
-            <div className="flex flex-col items-center gap-4 mb-8">
+            <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
               {/* Logo */}
               <div className="flex items-center gap-4">
                 <Link href="/" className="flex items-center">
@@ -115,19 +115,19 @@ function Hero() {
                     alt="Wine Store Logo"
                     width={160}
                     height={160}
-                    className="h-40 w-auto max-h-[10rem]"
+                    className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto transition-all duration-200"
                   />
                 </Link>
               </div>
               {/* Brand Name */}
               <h1
-                className={`${cinzel.className} text-2xl sm:text-3xl md:text-4xl text-primary tracking-[.1em] font-medium`}
+                className={`${cinzel.className} text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary tracking-[.1em] font-medium transition-all duration-200`}
               >
                 VineFox
               </h1>
               {/* Slogan - only in carousel mode */}
               <h2
-                className={`${cormorant.className} text-lg sm:text-xl md:text-2xl text-primary tracking-wide`}
+                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-primary tracking-wide transition-all duration-200`}
               >
                 Discover. Share. Savor the rare.
               </h2>
@@ -136,24 +136,24 @@ function Hero() {
 
           {showAboutUs ? (
             /* About Us content - static Hero content */
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
               {/* Slogan */}
               <h2
-                className={`${cinzel.className} text-2xl sm:text-3xl md:text-4xl text-primary tracking-wide font-black border border-primary px-6 py-3 rounded-xl`}
+                className={`${cinzel.className} text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary tracking-wide font-black border border-primary px-4 sm:px-6 py-2 sm:py-3 rounded-xl transition-all duration-200`}
               >
                 OUR COMMITTMENT
               </h2>
             </div>
           ) : (
             /* Carousel-focused content - syncs with carousel slides */
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-3 sm:gap-4">
               <h2
-                className={`${cinzel.className} text-xl sm:text-2xl md:text-3xl text-primary tracking-[.1em] font-medium transition-all duration-500`}
+                className={`${cinzel.className} text-lg sm:text-xl md:text-2xl lg:text-3xl text-primary tracking-[.1em] font-medium transition-all duration-500`}
               >
                 {carouselData[currentSlide]?.title || "Featured Wines"}
               </h2>
               <h3
-                className={`${cormorant.className} text-lg sm:text-xl md:text-2xl text-primary tracking-wide transition-all duration-500`}
+                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-primary tracking-wide transition-all duration-500`}
               >
                 {carouselData[currentSlide]?.subtitle || "Discover our collection"}
               </h3>
@@ -161,14 +161,14 @@ function Hero() {
           )}
           {/* Body text for hero section - syncs with carousel when in carousel mode */}
           <p
-            className={`${cormorant.className} mt-8 w-full text-lg sm:text-xl md:text-2xl leading-relaxed text-primary transition-all duration-500`}
+            className={`${cormorant.className} mt-6 sm:mt-8 w-full text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed text-primary transition-all duration-500`}
           >
             {showAboutUs
               ? (
                 <>
-                  <span className="block text-center font-black text-lg sm:text-xl md:text-2xl">Best Wine. Best Service. Best Prices.</span>
+                  <span className="block text-center font-black text-base sm:text-lg md:text-xl lg:text-2xl">Best Wine. Best Service. Best Prices.</span>
                   <br />
-                  <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque et voluptas saepe in quae voluptate, laborum maiores possimus illum reprehenderit aut delectus veniam cum perferendis unde sint doloremque non nam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</span>
+                  <span className="text-sm sm:text-base md:text-lg lg:text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque et voluptas saepe in quae voluptate, laborum maiores possimus illum reprehenderit aut delectus veniam cum perferendis unde sint doloremque non nam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</span>
                 </>
               )
               : carouselData[currentSlide]?.description || "Explore our curated selection of exceptional wines."

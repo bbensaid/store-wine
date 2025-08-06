@@ -55,19 +55,19 @@ function Navbar() {
 
       {/* Logo */}
       <div className="flex items-center">
-        <div className="border-2 border-primary/80 shadow-xl bg-white px-2 sm:px-3 py-1 flex items-center min-w-[90px] sm:min-w-[110px] h-8 sm:h-10 rounded-4xl">
-          <Link href="/" className="flex items-center h-full">
+        <div className="border border-primary/60 shadow-lg bg-white px-3 md:px-4 py-2 flex items-center rounded-xl transition-all duration-200 hover:shadow-xl hover:border-primary/80">
+          <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="Wine Store Logo"
               width={32}
               height={32}
-              className="h-6 sm:h-8 w-auto max-h-[1.5rem] sm:max-h-[2rem]"
+              className="h-6 md:h-8 w-auto flex-shrink-0"
             />
             <span
-              className={`${cinzel.className} text-base sm:text-lg font-bold tracking-widest text-primary ml-1 sm:ml-2`}
+              className={`${cinzel.className} text-sm md:text-lg font-bold tracking-widest text-primary ml-2 whitespace-nowrap`}
             >
-              BABYFOX
+              VINEFOX
             </span>
           </Link>
         </div>
@@ -203,17 +203,17 @@ function Navbar() {
 
       {/* Mobile Navbar */}
       <div className="flex md:hidden items-center w-full h-16 gap-x-2 px-2">
-        <div className="flex items-center min-w-[90px]">
-          <Link href="/" className="flex items-center h-full">
+        <div className="flex items-center border border-primary/60 shadow-lg bg-white px-2 py-1 rounded-xl">
+          <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="Wine Store Logo"
-              width={32}
-              height={32}
-              className="h-8 w-auto max-h-[2rem]"
+              width={28}
+              height={28}
+              className="h-6 w-auto flex-shrink-0"
             />
             <span
-              className={`${cinzel.className} text-lg font-semibold tracking-widest text-primary ml-2`}
+              className={`${cinzel.className} text-sm font-bold tracking-widest text-primary ml-1 whitespace-nowrap`}
             >
               VINEFOX
             </span>
