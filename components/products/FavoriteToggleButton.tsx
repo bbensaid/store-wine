@@ -4,12 +4,18 @@ import FavoriteToggleForm from "./FavoriteToggleForm";
 import { CardSignInButton } from "../form/Buttons";
 
 async function FavoriteToggleButton({ wineId }: { wineId: number }) {
-  const user = await currentUser();
-  if (!user) return <CardSignInButton />;
-  
-  const favoriteId = await fetchFavoriteId({ wineId });
+  try {
+    const user = await currentUser();
+    if (!user) return <CardSignInButton />;
+    
+    const favoriteId = await fetchFavoriteId({ wineId });
 
-  return <FavoriteToggleForm favoriteId={favoriteId} wineId={wineId} />;
+    return <FavoriteToggleForm favoriteId={favoriteId} wineId={wineId} />;
+  } catch (error) {
+    console.error("Error in FavoriteToggleButton:", error);
+    // Return sign in button as fallback
+    return <CardSignInButton />;
+  }
 }
 
 export default FavoriteToggleButton;

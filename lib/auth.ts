@@ -6,8 +6,13 @@ export async function getCurrentUser() {
 }
 
 export async function getCurrentUserId() {
-  const clerkUser = await currentUser();
-  return clerkUser?.id;
+  try {
+    const clerkUser = await currentUser();
+    return clerkUser?.id;
+  } catch (error) {
+    console.error("Error getting current user ID:", error);
+    return null;
+  }
 }
 
 export async function ensureAuthenticated() {

@@ -22,10 +22,6 @@ async function SingleProductPage({ params }: { params: Promise<{ id: string }> }
         {/* IMAGE FIRST COL */}
         <div>
           <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-primary/20 p-0 rounded-md">
-            {/* Favorites button positioned outside image */}
-            <div className="absolute top-2 right-2 z-10">
-              <FavoriteToggleButton wineId={product.id} />
-            </div>
             <div className="relative aspect-[2/4] mt-12 mx-12 overflow-hidden">
               <Image
                 src={imageUrl}

@@ -487,19 +487,50 @@ export const fetchSingleProduct = async (productId: string) => {
 
 // Favorites actions (from user's original code)
 export const fetchFavoriteId = async ({ wineId }: { wineId: number }) => {
-  const userId = await getCurrentUserId();
-  if (!userId) return null;
-  
-  const favorite = await prisma.favorite.findFirst({
-    where: {
-      wineId,
-      clerkId: userId,
-    },
-    select: {
-      id: true,
-    },
-  });
-  return favorite?.id || null;
+  try {
+    const userId = await getCurrentUserId();
+    if (!userId) return null;
+    
+    const favorite = await prisma.favorite.findFirst({
+      where: {
+        wineId,
+        clerkId: userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+    return favorite?.id || null;
+  } catch (error) {
+    console.error("Error in fetchFavoriteId:", error);
+    // Return null if there's an error (rate limit, etc.)
+    return null;
+  }
+};
+
+// Optimized version that doesn't make auth calls
+export const fetchFavoriteIdWithUserId = async ({ 
+  wineId, 
+  userId 
+}: { 
+  wineId: number; 
+  userId: string;
+}) => {
+  try {
+    const favorite = await prisma.favorite.findFirst({
+      where: {
+        wineId,
+        clerkId: userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+    return favorite?.id || null;
+  } catch (error) {
+    console.error("Error in fetchFavoriteIdWithUserId:", error);
+    return null;
+  }
 };
 
 export const toggleFavoriteAction = async (prevState: {
