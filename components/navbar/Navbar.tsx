@@ -81,6 +81,7 @@ function Navbar() {
             "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
             (pathname === "/" || pathname === "" ? "bg-gray-200 text-primary border-gray-400" : "")
           }
+          onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
           asChild
         >
           <Link href="/">
@@ -111,19 +112,19 @@ function Navbar() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
             <DropdownMenuItem asChild className="capitalize w-full text-primary">
-              <Link href="/products" className="flex items-center gap-2 text-primary">
+              <Link href="/products" onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())} className="flex items-center gap-2 text-primary">
                 <LuWine className="w-5 h-5 text-primary" />
                 All Wines
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild className="capitalize w-full text-primary">
-              <Link href="/favorites" className="flex items-center gap-2 text-primary">
+              <Link href="/favorites" onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())} className="flex items-center gap-2 text-primary">
                 <LuHeart className="w-5 h-5 text-primary" />
                 Favorites
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild className="capitalize w-full text-primary">
-              <Link href="/reviews" className="flex items-center gap-2 text-primary">
+              <Link href="/reviews" onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())} className="flex items-center gap-2 text-primary">
                 <LuStar className="w-5 h-5 text-primary" />
                 Reviews
               </Link>
@@ -137,6 +138,7 @@ function Navbar() {
               ? "bg-gray-200 text-primary border-gray-400"
               : "")
           }
+          onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
           asChild
         >
           <Link href="/orders">
@@ -176,15 +178,33 @@ function Navbar() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button
-          className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-        >
-          <span className="relative flex items-center mr-1">
-            <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
-          </span>
-          <span className="hidden sm:inline">Mode</span>
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
+            >
+              <span className="relative flex items-center mr-1">
+                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
+              </span>
+              <span className="hidden sm:inline">Mode</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <SunIcon className="w-5 h-5 mr-2 text-primary" />
+              Light Mode
+            </DropdownMenuItem>
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <MoonIcon className="w-5 h-5 mr-2 text-primary" />
+              Dark Mode
+            </DropdownMenuItem>
+            <DropdownMenuItem className="capitalize w-full text-primary">
+              <span className="w-5 h-5 mr-2 text-primary">🌙</span>
+              Auto
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <CartButton />
       </div>
 
@@ -238,6 +258,7 @@ function Navbar() {
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname === "/" ? "bg-gray-200 text-primary border-gray-400" : "")
               }
+              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
               asChild
             >
               <Link href="/">
@@ -250,6 +271,7 @@ function Navbar() {
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/products") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
+              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
               asChild
             >
               <Link href="/products">
@@ -262,6 +284,7 @@ function Navbar() {
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/favorites") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
+              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
               asChild
             >
               <Link href="/favorites">
@@ -274,6 +297,7 @@ function Navbar() {
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/reviews") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
+              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
               asChild
             >
               <Link href="/reviews">
@@ -286,6 +310,7 @@ function Navbar() {
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
                 (pathname.startsWith("/orders") ? "bg-gray-200 text-primary border-gray-400" : "")
               }
+              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
               asChild
             >
               <Link href="/orders">

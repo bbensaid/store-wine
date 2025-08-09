@@ -8,7 +8,7 @@ async function FeaturedProducts() {
   if (products.length === 0) return <EmptyList />;
   return (
     <section className="pt-20">
-      <SectionTitle text="Featured Products" />
+      <SectionTitle text="Featured Wines" />
       <ProductsGridWithAuth products={products} />
     </section>
   );

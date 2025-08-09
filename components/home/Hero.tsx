@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import HeroCarousel from "./HeroCarousel";
 import { Cinzel, Cormorant_Garamond } from "next/font/google";
@@ -32,17 +34,33 @@ function Hero() {
   const [showAboutUs, setShowAboutUs] = useState(false); // Default to carousel view
   const [currentSlide, setCurrentSlide] = useState(0);
   const [carouselData, setCarouselData] = useState<CarouselSlide[]>([]);
+  const pathname = usePathname();
+
+  const showAboutUsContent = useCallback(() => {
+    setShowAboutUs(true);
+  }, []);
+
+  const hideAboutUsContent = useCallback(() => {
+    setShowAboutUs(false);
+  }, []);
 
   useEffect(() => {
     loadCarouselData();
-    // Register the function to be called from navbar
+    // Register the functions to be called from navbar
     setShowAboutUsHandler(showAboutUsContent);
+    setHideAboutUsHandler(hideAboutUsContent);
+    
+    // Reset showAboutUs to false when on home page
+    if (pathname === "/" || pathname === "") {
+      setShowAboutUs(false);
+    }
     
     // Cleanup on unmount
     return () => {
       setShowAboutUsHandler(() => {});
+      setHideAboutUsHandler(() => {});
     };
-  }, []);
+  }, [pathname, showAboutUsContent, hideAboutUsContent]);
 
   const loadCarouselData = async () => {
     try {
@@ -53,47 +71,53 @@ function Hero() {
     }
   };
 
-  const showAboutUsContent = () => {
-    setShowAboutUs(true);
-  };
-
   const handleSlideChange = (index: number) => {
     setCurrentSlide(index);
   };
 
   return (
     <div className="relative">
-      {/* OUR WINES button */}
-      <div className="flex justify-start mb-4 mt-2">
-        <Button
-          asChild
-          className={`${cinzel.className} px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base md:text-lg text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
-        >
-          <Link href="/products">Our Wines</Link>
-        </Button>
-      </div>
+      {/* Brand Name and Slogan - moved to top, only visible in carousel mode */}
+      {!showAboutUs && (
+        <div className="mb-4 mt-2 relative">
+          {/* Logo and Brand Name */}
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <Image
+              src="/images/logo.png"
+              alt="VineFox Logo"
+              width={32}
+              height={32}
+              className="h-6 sm:h-8 md:h-10 w-auto flex-shrink-0"
+            />
+            <h1
+              className={`${cinzel.className} text-base sm:text-lg md:text-xl lg:text-2xl text-primary tracking-[.1em] font-medium transition-all duration-200 mb-0`}
+            >
+              VineFox
+            </h1>
+          </div>
+          
+          {/* Button centered at same height as VINEFOX */}
+          <div className="absolute inset-0 flex justify-center items-center mb-2">
+            <Button
+              asChild
+              className={`${cinzel.className} px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base md:text-lg text-white tracking-[.1em] font-medium rounded-xl transition-all duration-200 whitespace-nowrap`}
+            >
+              <Link href="/products">Our Wines</Link>
+            </Button>
+          </div>
+          
+          {/* Slogan - only in carousel mode */}
+          <h2
+            className={`${cormorant.className} text-xs sm:text-sm md:text-base lg:text-lg text-primary tracking-wide transition-all duration-200 -mt-1 sm:-mt-2`}
+          >
+            Discover. Share. Savor the rare.
+          </h2>
+        </div>
+      )}
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-center">
         {/* Left: Content - always visible, changes based on toggle and carousel */}
         <div className="lg:col-span-7">
-          {/* Brand Name and Slogan - only visible in carousel mode */}
-          {!showAboutUs && (
-            <div className="flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-              {/* Brand Name */}
-              <h1
-                className={`${cinzel.className} text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary tracking-[.1em] font-medium transition-all duration-200`}
-              >
-                VineFox
-              </h1>
-              {/* Slogan - only in carousel mode */}
-              <h2
-                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-primary tracking-wide transition-all duration-200`}
-              >
-                Discover. Share. Savor the rare.
-              </h2>
-            </div>
-          )}
-
           {showAboutUs ? (
             /* About Us content - static Hero content */
             <div className="flex flex-col items-center gap-3 sm:gap-4">
@@ -136,13 +160,13 @@ function Hero() {
           </p>
         </div>
         {/* Right: Hero Carousel - always visible */}
-        <div className="lg:col-span-5">
+      <div className="lg:col-span-5">
           <HeroCarousel 
             onSlideChange={handleSlideChange} 
             showAboutUs={showAboutUs}
           />
-        </div>
-      </section>
+      </div>
+    </section>
     </div>
   );
 }
@@ -153,13 +177,24 @@ export { HeroComponent as default };
 
 // Export a context or function to trigger About Us from navbar
 let showAboutUsGlobal: (() => void) | null = null;
+let hideAboutUsGlobal: (() => void) | null = null;
 
 export const setShowAboutUsHandler = (handler: () => void) => {
   showAboutUsGlobal = handler;
 };
 
+export const setHideAboutUsHandler = (handler: () => void) => {
+  hideAboutUsGlobal = handler;
+};
+
 export const triggerShowAboutUs = () => {
   if (showAboutUsGlobal) {
     showAboutUsGlobal();
+  }
+};
+
+export const triggerHideAboutUs = () => {
+  if (hideAboutUsGlobal) {
+    hideAboutUsGlobal();
   }
 };
