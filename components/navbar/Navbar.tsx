@@ -13,7 +13,6 @@ import {
   LuShield,
   LuMail,
   LuMessageCircle,
-
   LuWine,
   LuHeart,
   LuFileQuestion,
@@ -33,13 +32,9 @@ import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { usePathname } from "next/navigation";
 
 import React, { useState } from "react";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-} from '@clerk/nextjs';
-import UserButtonWrapper from '../auth/UserButtonWrapper';
-import CartButton from './CartButton';
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import UserButtonWrapper from "../auth/UserButtonWrapper";
+import CartButton from "./CartButton";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -52,7 +47,6 @@ function Navbar() {
   const [winesOpen, setWinesOpen] = useState(false);
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-primary/20 h-16 flex items-center w-full justify-between px-2 sm:px-4 lg:px-6">
-
       {/* Desktop Logo - hidden on mobile */}
       <div className="hidden md:flex items-center">
         <div className="border border-primary/60 shadow-lg bg-white px-3 md:px-4 py-2 flex items-center rounded-xl transition-all duration-200 hover:shadow-xl hover:border-primary/80">
@@ -79,9 +73,15 @@ function Navbar() {
         <Button
           className={
             "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-            (pathname === "/" || pathname === "" ? "bg-gray-200 text-primary border-gray-400" : "")
+            (pathname === "/" || pathname === ""
+              ? "bg-gray-200 text-primary border-gray-400"
+              : "")
           }
-          onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+          onClick={() =>
+            import("../../components/home/Hero").then((module) =>
+              module.triggerHideAboutUs()
+            )
+          }
           asChild
         >
           <Link href="/">
@@ -101,7 +101,9 @@ function Navbar() {
             <Button
               className={
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (winesOpen || pathname.startsWith("/products") || pathname.startsWith("/favorites")
+                (winesOpen ||
+                pathname.startsWith("/products") ||
+                pathname.startsWith("/favorites")
                   ? "bg-gray-200 text-primary border-gray-400"
                   : "")
               }
@@ -110,21 +112,57 @@ function Navbar() {
               <span className="hidden sm:inline">Wines</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
-            <DropdownMenuItem asChild className="capitalize w-full text-primary">
-              <Link href="/products" onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())} className="flex items-center gap-2 text-primary">
+          <DropdownMenuContent
+            align="end"
+            className="w-40 bg-white border border-primary/20 text-primary"
+          >
+            <DropdownMenuItem
+              asChild
+              className="capitalize w-full text-primary"
+            >
+              <Link
+                href="/products"
+                onClick={() =>
+                  import("../../components/home/Hero").then((module) =>
+                    module.triggerHideAboutUs()
+                  )
+                }
+                className="flex items-center gap-2 text-primary"
+              >
                 <LuWine className="w-5 h-5 text-primary" />
                 All Wines
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="capitalize w-full text-primary">
-              <Link href="/favorites" onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())} className="flex items-center gap-2 text-primary">
+            <DropdownMenuItem
+              asChild
+              className="capitalize w-full text-primary"
+            >
+              <Link
+                href="/favorites"
+                onClick={() =>
+                  import("../../components/home/Hero").then((module) =>
+                    module.triggerHideAboutUs()
+                  )
+                }
+                className="flex items-center gap-2 text-primary"
+              >
                 <LuHeart className="w-5 h-5 text-primary" />
                 Favorites
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild className="capitalize w-full text-primary">
-              <Link href="/reviews" onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())} className="flex items-center gap-2 text-primary">
+            <DropdownMenuItem
+              asChild
+              className="capitalize w-full text-primary"
+            >
+              <Link
+                href="/reviews"
+                onClick={() =>
+                  import("../../components/home/Hero").then((module) =>
+                    module.triggerHideAboutUs()
+                  )
+                }
+                className="flex items-center gap-2 text-primary"
+              >
                 <LuStar className="w-5 h-5 text-primary" />
                 Reviews
               </Link>
@@ -138,7 +176,11 @@ function Navbar() {
               ? "bg-gray-200 text-primary border-gray-400"
               : "")
           }
-          onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+          onClick={() =>
+            import("../../components/home/Hero").then((module) =>
+              module.triggerHideAboutUs()
+            )
+          }
           asChild
         >
           <Link href="/orders">
@@ -148,15 +190,23 @@ function Navbar() {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 text-primary hidden lg:flex hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-            >
+            <Button className="flex items-center gap-1 sm:gap-2 text-primary hidden lg:flex hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal">
               <LuPhone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span className="hidden xl:inline">Customer Service</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
-            <DropdownMenuItem className="capitalize w-full text-primary" onClick={() => import('../../components/home/Hero').then(module => module.triggerShowAboutUs())}>
+          <DropdownMenuContent
+            align="end"
+            className="w-40 bg-white border border-primary/20 text-primary"
+          >
+            <DropdownMenuItem
+              className="capitalize w-full text-primary"
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerShowAboutUs()
+                )
+              }
+            >
               <LuCircleHelp className="w-5 h-5 mr-2 text-primary" />
               About Us
             </DropdownMenuItem>
@@ -180,9 +230,7 @@ function Navbar() {
         </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-            >
+            <Button className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal">
               <span className="relative flex items-center mr-1">
                 <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
@@ -190,7 +238,10 @@ function Navbar() {
               <span className="hidden sm:inline">Mode</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 bg-white border border-primary/20 text-primary">
+          <DropdownMenuContent
+            align="end"
+            className="w-40 bg-white border border-primary/20 text-primary"
+          >
             <DropdownMenuItem className="capitalize w-full text-primary">
               <SunIcon className="w-5 h-5 mr-2 text-primary" />
               Light Mode
@@ -212,9 +263,7 @@ function Navbar() {
       <div className="hidden md:flex items-center">
         <SignedOut>
           <SignInButton mode="modal">
-            <Button
-              className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal"
-            >
+            <Button className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal">
               <LuUser className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
               <span className="hidden sm:inline">Sign in</span>
             </Button>
@@ -247,7 +296,11 @@ function Navbar() {
         <CartButton />
         <Drawer>
           <DrawerTrigger asChild>
-            <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary" size="icon" aria-label="Open menu">
+            <Button
+              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
+              size="icon"
+              aria-label="Open menu"
+            >
               <LuMenu className="w-6 h-6 text-primary" />
             </Button>
           </DrawerTrigger>
@@ -256,9 +309,15 @@ function Navbar() {
             <Button
               className={
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (pathname === "/" ? "bg-gray-200 text-primary border-gray-400" : "")
+                (pathname === "/"
+                  ? "bg-gray-200 text-primary border-gray-400"
+                  : "")
               }
-              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerHideAboutUs()
+                )
+              }
               asChild
             >
               <Link href="/">
@@ -269,9 +328,15 @@ function Navbar() {
             <Button
               className={
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (pathname.startsWith("/products") ? "bg-gray-200 text-primary border-gray-400" : "")
+                (pathname.startsWith("/products")
+                  ? "bg-gray-200 text-primary border-gray-400"
+                  : "")
               }
-              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerHideAboutUs()
+                )
+              }
               asChild
             >
               <Link href="/products">
@@ -282,9 +347,15 @@ function Navbar() {
             <Button
               className={
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (pathname.startsWith("/favorites") ? "bg-gray-200 text-primary border-gray-400" : "")
+                (pathname.startsWith("/favorites")
+                  ? "bg-gray-200 text-primary border-gray-400"
+                  : "")
               }
-              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerHideAboutUs()
+                )
+              }
               asChild
             >
               <Link href="/favorites">
@@ -295,9 +366,15 @@ function Navbar() {
             <Button
               className={
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (pathname.startsWith("/reviews") ? "bg-gray-200 text-primary border-gray-400" : "")
+                (pathname.startsWith("/reviews")
+                  ? "bg-gray-200 text-primary border-gray-400"
+                  : "")
               }
-              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerHideAboutUs()
+                )
+              }
               asChild
             >
               <Link href="/reviews">
@@ -308,9 +385,15 @@ function Navbar() {
             <Button
               className={
                 "flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary " +
-                (pathname.startsWith("/orders") ? "bg-gray-200 text-primary border-gray-400" : "")
+                (pathname.startsWith("/orders")
+                  ? "bg-gray-200 text-primary border-gray-400"
+                  : "")
               }
-              onClick={() => import('../../components/home/Hero').then(module => module.triggerHideAboutUs())}
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerHideAboutUs()
+                )
+              }
               asChild
             >
               <Link href="/orders">
@@ -318,47 +401,43 @@ function Navbar() {
                 Orders
               </Link>
             </Button>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-            >
+            <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
               <LuPhone className="w-5 h-5 text-primary" />
               Customer Service
             </Button>
             <Button
               className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-              onClick={() => import('../../components/home/Hero').then(module => module.triggerShowAboutUs())}
+              onClick={() =>
+                import("../../components/home/Hero").then((module) =>
+                  module.triggerShowAboutUs()
+                )
+              }
             >
               <LuCircleHelp className="w-5 h-5 text-primary" />
               About Us
             </Button>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-            >
+            <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
               <LuShield className="w-5 h-5 text-primary" />
               Privacy Policy
             </Button>
-            <Button
-              className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-            >
+            <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
               <span className="relative flex items-center mr-1">
                 <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-primary" />
                 <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100 text-primary" />
               </span>
               <span>Mode</span>
             </Button>
-                         <SignedOut>
-               <SignInButton mode="modal">
-                 <Button
-                   className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary"
-                 >
-                   <LuUser className="w-5 h-5 mr-1 text-primary" />
-                   Sign in
-                 </Button>
-               </SignInButton>
-             </SignedOut>
-             <SignedIn>
-               <UserButtonWrapper />
-             </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
+                  <LuUser className="w-5 h-5 mr-1 text-primary" />
+                  Sign in
+                </Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButtonWrapper />
+            </SignedIn>
           </DrawerContent>
         </Drawer>
       </div>
