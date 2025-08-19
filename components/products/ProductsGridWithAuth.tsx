@@ -16,7 +16,7 @@ async function ProductsGridWithAuth({
   const user = await currentUser();
 
   return (
-    <div className="pt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="pt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
       {products.map((product) => {
         const { name, images } = product;
         const productId = product.id;
