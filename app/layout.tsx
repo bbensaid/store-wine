@@ -27,7 +27,7 @@ export default function RootLayout({
               <Suspense>
                 <Navbar />
               </Suspense>
-              <main className="flex-1 pt-6">
+              <main className="flex-1 pt-0">
                 <div className="max-w-[2400px] w-full mx-auto p-4 sm:p-6 lg:p-8">
                   {children}
                 </div>

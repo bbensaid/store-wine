@@ -14,9 +14,9 @@ async function ProductsGridWithAuth({
 }) {
   // Single authentication check for all products
   const user = await currentUser();
-  
+
   return (
-    <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="pt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => {
         const { name, images } = product;
         const productId = product.id;
@@ -28,7 +28,10 @@ async function ProductsGridWithAuth({
               {/* Favorites button positioned outside image */}
               <div className="absolute top-10 right-10 z-10">
                 {user ? (
-                  <FavoriteToggleButtonOptimized wineId={productId} userId={user.id} />
+                  <FavoriteToggleButtonOptimized
+                    wineId={productId}
+                    userId={user.id}
+                  />
                 ) : (
                   <CardSignInButton />
                 )}

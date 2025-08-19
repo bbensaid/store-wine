@@ -15,7 +15,7 @@ function SectionTitle({ text }: { text: string }) {
       >
         {text}
       </h2>
-      <Separator className="mb-8" />
+      <Separator className="mb-0 mt-0" />
     </div>
   );
 }

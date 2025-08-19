@@ -49,12 +49,12 @@ function Hero() {
     // Register the functions to be called from navbar
     setShowAboutUsHandler(showAboutUsContent);
     setHideAboutUsHandler(hideAboutUsContent);
-    
+
     // Reset showAboutUs to false when on home page
     if (pathname === "/" || pathname === "") {
       setShowAboutUs(false);
     }
-    
+
     // Cleanup on unmount
     return () => {
       setShowAboutUsHandler(() => {});
@@ -67,7 +67,7 @@ function Hero() {
       const data = await getCarouselData();
       setCarouselData(data);
     } catch (error) {
-      console.error('Error loading carousel data:', error);
+      console.error("Error loading carousel data:", error);
     }
   };
 
@@ -79,7 +79,7 @@ function Hero() {
     <div className="relative">
       {/* Brand Name and Slogan - moved to top, only visible in carousel mode */}
       {!showAboutUs && (
-        <div className="mb-4 mt-2 relative">
+        <div className="mb-0 mt-0 relative">
           {/* Logo and Brand Name */}
           <div className="flex items-center gap-2 sm:gap-3 mb-2">
             <Image
@@ -95,7 +95,7 @@ function Hero() {
               VineFox
             </h1>
           </div>
-          
+
           {/* Button centered at same height as VINEFOX */}
           <div className="absolute inset-0 flex justify-center items-center mb-2">
             <Button
@@ -105,7 +105,7 @@ function Hero() {
               <Link href="/products">Our Wines</Link>
             </Button>
           </div>
-          
+
           {/* Slogan - only in carousel mode */}
           <h2
             className={`${cormorant.className} text-xs sm:text-sm md:text-base lg:text-lg text-primary tracking-wide transition-all duration-200 -mt-1 sm:-mt-2`}
@@ -139,7 +139,8 @@ function Hero() {
               <h3
                 className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-primary tracking-wide transition-all duration-500`}
               >
-                {carouselData[currentSlide]?.subtitle || "Discover our collection"}
+                {carouselData[currentSlide]?.subtitle ||
+                  "Discover our collection"}
               </h3>
             </div>
           )}
@@ -147,26 +148,35 @@ function Hero() {
           <p
             className={`${cormorant.className} mt-6 sm:mt-8 w-full text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed text-primary transition-all duration-500`}
           >
-            {showAboutUs
-              ? (
-                <>
-                  <span className="block text-center font-black text-base sm:text-lg md:text-xl lg:text-2xl">Best Wine. Best Service. Best Prices.</span>
-                  <br />
-                  <span className="text-sm sm:text-base md:text-lg lg:text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque et voluptas saepe in quae voluptate, laborum maiores possimus illum reprehenderit aut delectus veniam cum perferendis unde sint doloremque non nam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</span>
-                </>
-              )
-              : carouselData[currentSlide]?.description || "Explore our curated selection of exceptional wines."
-            }
+            {showAboutUs ? (
+              <>
+                <span className="block text-center font-black text-base sm:text-lg md:text-xl lg:text-2xl">
+                  Best Wine. Best Service. Best Prices.
+                </span>
+                <br />
+                <span className="text-sm sm:text-base md:text-lg lg:text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Cumque et voluptas saepe in quae voluptate, laborum maiores
+                  possimus illum reprehenderit aut delectus veniam cum
+                  perferendis unde sint doloremque non nam. Sed ut perspiciatis
+                  unde omnis iste natus error sit voluptatem accusantium
+                  doloremque laudantium.
+                </span>
+              </>
+            ) : (
+              carouselData[currentSlide]?.description ||
+              "Explore our curated selection of exceptional wines."
+            )}
           </p>
         </div>
         {/* Right: Hero Carousel - always visible */}
-      <div className="lg:col-span-5">
-          <HeroCarousel 
-            onSlideChange={handleSlideChange} 
+        <div className="lg:col-span-5">
+          <HeroCarousel
+            onSlideChange={handleSlideChange}
             showAboutUs={showAboutUs}
           />
-      </div>
-    </section>
+        </div>
+      </section>
     </div>
   );
 }
