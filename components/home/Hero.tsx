@@ -76,7 +76,8 @@ function Hero() {
   };
 
   return (
-    <div className="relative">
+    // may have to go back to :   <div className="relative"> if this is not working - scaling hero section size down to 80%//
+    <div className="relative transform scale-80 origin-top">
       {/* Brand Name and Slogan - moved to top, only visible in carousel mode */}
       {!showAboutUs && (
         <div className="mb-0 mt-0 relative">
