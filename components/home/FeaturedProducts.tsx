@@ -8,7 +8,7 @@ async function FeaturedProducts() {
   if (products.length === 0) return <EmptyList />;
   return (
     // section with negative margin and may have to be adjusted //
-    <section className="-mt-40">
+    <section className="-mt-16">
       <SectionTitle text="Featured Wines" />
       <ProductsGridWithAuth products={products} />
     </section>

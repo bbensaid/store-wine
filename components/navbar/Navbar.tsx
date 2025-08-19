@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import NavSearch from "./NavSearch";
+
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import {
   LuMenu,
@@ -18,7 +19,6 @@ import {
   LuFileQuestion,
   LuStar,
 } from "react-icons/lu";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 import {
   DropdownMenu,
@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Cinzel } from "next/font/google";
+import { Cinzel, Cormorant_Garamond } from "next/font/google";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { usePathname } from "next/navigation";
 
@@ -42,6 +42,13 @@ const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600"],
+  style: ["italic"],
+});
+
 function Navbar() {
   const pathname = usePathname();
   const [winesOpen, setWinesOpen] = useState(false);
@@ -49,26 +56,40 @@ function Navbar() {
     <nav className="sticky top-0 z-50 bg-white border-b border-primary/20 h-16 flex items-center w-full justify-between px-2 sm:px-4 lg:px-6">
       {/* Desktop Logo - hidden on mobile */}
       <div className="hidden md:flex items-center">
-        <div className="border border-primary/60 shadow-lg bg-white px-3 md:px-4 py-2 flex items-center rounded-xl transition-all duration-200 hover:shadow-xl hover:border-primary/80">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/images/logo.png"
-              alt="Wine Store Logo"
-              width={32}
-              height={32}
-              className="h-6 md:h-8 w-auto flex-shrink-0"
-            />
+        <Link
+          href="/"
+          className="flex items-center px-3 md:px-4 py-2 transition-all duration-200 border border-transparent hover:bg-gray-100 hover:border-primary rounded-lg"
+        >
+          <Image
+            src="/images/logo_transparent.png"
+            alt="Wine Store Logo"
+            width={40}
+            height={40}
+            className="h-8 md:h-10 w-auto flex-shrink-0"
+          />
+          <div className="ml-2 flex flex-col items-center">
             <span
-              className={`${cinzel.className} text-sm md:text-lg font-bold tracking-widest text-primary ml-2 whitespace-nowrap`}
+              className={`${cinzel.className} text-sm md:text-lg font-bold tracking-widest text-primary whitespace-nowrap`}
             >
               VINEFOX
             </span>
-          </Link>
-        </div>
+            {/* Slogan - only in carousel mode */}
+            <h2
+              className={`${cormorant.className} text-xs sm:text-sm md:text-base lg:text-lg text-primary tracking-wide transition-all duration-200 -mt-1 sm:-mt-2`}
+            >
+              Discover. Share. Savor the rare.
+            </h2>
+          </div>
+        </Link>
       </div>
 
       {/* Desktop Center content */}
       <div className="hidden md:flex items-center justify-evenly gap-x-2 sm:gap-x-4 lg:gap-x-6 flex-1 px-2 sm:px-4 lg:px-6">
+        {/* Search */}
+        <div className="bg-white flex-auto min-w-0 max-w-md lg:max-w-lg">
+          <NavSearch className="w-full h-8 sm:h-10 rounded-md border border-primary/20 pl-3 sm:pl-4 text-sm sm:text-base" />
+        </div>
+
         {/* Home button */}
         <Button
           className={
@@ -89,11 +110,6 @@ function Navbar() {
             <span className="hidden sm:inline">Home</span>
           </Link>
         </Button>
-
-        {/* Search */}
-        <div className="bg-white flex-auto min-w-0 max-w-md lg:max-w-lg">
-          <NavSearch className="w-full h-8 sm:h-10 rounded-md border border-primary/20 pl-3 sm:pl-4 text-sm sm:text-base" />
-        </div>
 
         {/* Nav buttons */}
         <DropdownMenu open={winesOpen} onOpenChange={setWinesOpen}>
@@ -225,34 +241,6 @@ function Navbar() {
             <DropdownMenuItem className="capitalize w-full text-primary">
               <LuShield className="w-5 h-5 mr-2 text-primary" />
               Privacy Policy
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal">
-              <span className="relative flex items-center mr-1">
-                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100" />
-              </span>
-              <span className="hidden sm:inline">Mode</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="w-40 bg-white border border-primary/20 text-primary"
-          >
-            <DropdownMenuItem className="capitalize w-full text-primary">
-              <SunIcon className="w-5 h-5 mr-2 text-primary" />
-              Light Mode
-            </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-primary">
-              <MoonIcon className="w-5 h-5 mr-2 text-primary" />
-              Dark Mode
-            </DropdownMenuItem>
-            <DropdownMenuItem className="capitalize w-full text-primary">
-              <span className="w-5 h-5 mr-2 text-primary">🌙</span>
-              Auto
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -420,13 +408,7 @@ function Navbar() {
               <LuShield className="w-5 h-5 text-primary" />
               Privacy Policy
             </Button>
-            <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
-              <span className="relative flex items-center mr-1">
-                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-primary" />
-                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:-rotate-0 dark:scale-100 text-primary" />
-              </span>
-              <span>Mode</span>
-            </Button>
+
             <SignedOut>
               <SignInButton mode="modal">
                 <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
