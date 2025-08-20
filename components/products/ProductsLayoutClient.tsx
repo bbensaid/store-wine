@@ -35,7 +35,14 @@ export default function ProductsLayoutClient({
         }
       });
       params.set("page", "0");
-      router.replace(`${pathname}?${params.toString()}`);
+
+      // If we're on a single product page (has ID in path), redirect to products page
+      if (pathname.includes("/products/") && pathname !== "/products") {
+        router.replace(`/products?${params.toString()}`);
+      } else {
+        // Otherwise stay on current page (products listing)
+        router.replace(`${pathname}?${params.toString()}`);
+      }
     },
     [router, pathname]
   );

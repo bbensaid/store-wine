@@ -1,40 +1,114 @@
 {
+  /**
+   * TYPESCRIPT CONFIGURATION - This configures the TypeScript compiler for the wine store
+   *
+   * WHAT THIS FILE DOES:
+   * - Configures TypeScript compiler settings and behavior
+   * - Sets up module resolution and import/export handling
+   * - Configures path mapping for clean imports
+   * - Sets up JSX handling for React components
+   * - Controls type checking and compilation options
+   *
+   * IMPORTANT FOR BEGINNERS:
+   * - This is the "control center" for TypeScript in your app
+   * - Changes here affect how TypeScript compiles your code
+   * - Path mapping controls how imports are resolved
+   * - Compiler options affect type checking and build behavior
+   * - This file is processed by the TypeScript compiler
+   *
+   * TECHNOLOGIES USED:
+   * - TypeScript (for type safety and compilation)
+   * - Next.js (for framework-specific configuration)
+   * - ES6 modules (for modern JavaScript features)
+   * - JSX (for React component syntax)
+   * - Path mapping (for clean import statements)
+   */
+
+  //
+  // COMPILER OPTIONS
+  //
+  // These options control how TypeScript compiles your code
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "commonjs", // Changed from "esnext" to "commonjs"
-    "moduleResolution": "node", // Changed from "bundler" to "node"
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    //
+    // TARGET AND LIBRARY CONFIGURATION
+    //
+    "target": "ES2017", // JavaScript version to compile to (ES2017 = modern browsers)
+    "lib": ["dom", "dom.iterable", "esnext"], // Available APIs and features
+
+    //
+    // COMPILATION BEHAVIOR
+    //
+    "allowJs": true, // Allow JavaScript files alongside TypeScript files
+    "skipLibCheck": true, // Skip type checking of declaration files (faster builds)
+    "strict": true, // Enable all strict type checking options
+    "noEmit": true, // Don't generate output files (Next.js handles this)
+
+    //
+    // MODULE SYSTEM CONFIGURATION
+    //
+    "esModuleInterop": true, // Enable compatibility with CommonJS modules
+    "module": "commonjs", // Module system to use (changed from "esnext" to "commonjs")
+    "moduleResolution": "node", // How to resolve module imports (changed from "bundler" to "node")
+    "resolveJsonModule": true, // Allow importing JSON files as modules
+    "isolatedModules": true, // Ensure each file can be safely transpiled
+
+    //
+    // JSX AND REACT CONFIGURATION
+    //
+    "jsx": "preserve", // Keep JSX syntax for Next.js to process
+    "incremental": true, // Enable incremental compilation for faster rebuilds
+
+    //
+    // NEXT.JS INTEGRATION
+    //
     "plugins": [
       {
-        "name": "next"
+        "name": "next" // Enable Next.js-specific TypeScript features
       }
     ],
+
+    //
+    // PATH MAPPING CONFIGURATION
+    //
+    // This allows you to use clean import paths like "@/components/Button"
+    // instead of relative paths like "../../../components/Button"
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"] // Map @/ to the root directory for clean imports
     }
   },
+
+  //
+  // FILE INCLUSION AND EXCLUSION
+  //
+  // These settings control which files TypeScript processes
+
+  //
+  // INCLUDE PATTERNS
+  //
+  // Files and directories to include in TypeScript compilation
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "prisma/**/*.ts", // Added prisma directory
-    "components/products/ProductsPageGrid- not usedtsx"
+    "next-env.d.ts", // Next.js type definitions
+    "**/*.ts", // All TypeScript files
+    "**/*.tsx", // All TypeScript React files
+    ".next/types/**/*.ts", // Next.js generated types
+    "prisma/**/*.ts", // Prisma database types and utilities
+    "components/products/ProductsPageGrid- not usedtsx" // Specific component file
   ],
-  "exclude": ["node_modules"],
+
+  //
+  // EXCLUDE PATTERNS
+  //
+  // Files and directories to exclude from TypeScript compilation
+  "exclude": ["node_modules"], // Don't process third-party dependencies
+
+  //
+  // TS-NODE CONFIGURATION
+  //
+  // Configuration for running TypeScript files directly with ts-node
+  // This is useful for development tools and scripts
   "ts-node": {
-    // Added ts-node config
     "compilerOptions": {
-      "module": "commonjs"
+      "module": "commonjs" // Use CommonJS modules for ts-node execution
     }
   }
 }

@@ -9,7 +9,11 @@ import ReviewForm from "@/components/single-product/ReviewForm";
 import ReviewsList from "@/components/single-product/ReviewsList";
 import { Card } from "@/components/ui/card";
 
-async function SingleProductPage({ params }: { params: Promise<{ id: string }> }) {
+async function SingleProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const product = await fetchSingleProduct(id);
   const { name, images, elaborate, price, harmonize, grapes } = product;
@@ -21,13 +25,14 @@ async function SingleProductPage({ params }: { params: Promise<{ id: string }> }
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16 items-start">
         {/* IMAGE FIRST COL */}
         <div>
-          <Card className="max-w-[32rem] w-full h-auto bg-white flex flex-col justify-between relative overflow-hidden border border-primary/20 p-0 rounded-md">
-            <div className="relative aspect-[2/4] mt-12 mx-12 overflow-hidden">
+          <Card className="w-full max-w-md bg-white flex flex-col justify-between relative overflow-hidden border border-primary/20 p-0 rounded-md">
+            <div className="relative w-full h-auto overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={name}
-                fill
-                className="object-cover object-bottom rounded-md"
+                width={400}
+                height={600}
+                className="w-full h-auto object-contain rounded-md"
                 priority
               />
             </div>
@@ -47,7 +52,9 @@ async function SingleProductPage({ params }: { params: Promise<{ id: string }> }
         {/* PRODUCT INFO SECOND COL */}
         <div>
           <div className="flex gap-x-8 items-center">
-            <h1 className="capitalize text-3xl font-bold text-primary">{name}</h1>
+            <h1 className="capitalize text-3xl font-bold text-primary">
+              {name}
+            </h1>
             <FavoriteToggleButton wineId={product.id} />
           </div>
           <ProductRating wineId={product.id} />
@@ -59,7 +66,7 @@ async function SingleProductPage({ params }: { params: Promise<{ id: string }> }
           <AddToCart wineId={product.id.toString()} />
         </div>
       </div>
-      
+
       {/* Reviews Section */}
       <div className="mt-12">
         <ReviewsList wineId={product.id} />

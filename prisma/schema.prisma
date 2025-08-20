@@ -1,123 +1,257 @@
+/**
+ * PRISMA DATABASE SCHEMA - This defines the complete database structure for the wine store
+ * 
+ * WHAT THIS SCHEMA DOES:
+ * - Defines all database tables (models) and their relationships
+ * - Establishes data types, constraints, and validation rules
+ * - Creates foreign key relationships between related tables
+ * - Sets up automatic timestamps and default values
+ * - Configures cascade deletion for data integrity
+ * - Provides the foundation for all database operations
+ * 
+ * IMPORTANT FOR BEGINNERS:
+ * - This is the "blueprint" for your entire database
+ * - Changes here require database migrations to take effect
+ * - Relationships define how data connects across tables
+ * - Field types determine what kind of data can be stored
+ * - This schema is used by Prisma to generate TypeScript types
+ * 
+ * TECHNOLOGIES USED:
+ * - Prisma (for database schema definition and ORM)
+ * - PostgreSQL (as the underlying database system)
+ * - TypeScript (for type generation and validation)
+ * - Database relationships (one-to-many, many-to-many)
+ * - Data constraints and validation rules
+ */
+
+/**
+ * PRISMA GENERATOR CONFIGURATION
+ * 
+ * This tells Prisma to generate a JavaScript client for database operations.
+ * The generated client provides type-safe database queries and mutations.
+ */
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js" // Generate JavaScript/TypeScript client
 }
 
+/**
+ * DATABASE CONNECTION CONFIGURATION
+ * 
+ * This defines how Prisma connects to your PostgreSQL database.
+ * Environment variables are used for security (database credentials).
+ */
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider  = "postgresql" // Database system (PostgreSQL)
+  url       = env("DATABASE_URL") // Main database connection string
+  directUrl = env("DIRECT_URL") // Direct connection for migrations
 }
 
+/**
+ * WINE MODEL - The core product table containing all wine information
+ * 
+ * This is the main table that stores all wine products in the store.
+ * It has relationships with regions, images, reviews, and other entities.
+ * 
+ * BEGINNER TIP: Think of this as the "product catalog" table that
+ * contains all the information about each wine you sell.
+ */
 model Wine {
-  name       String
-  type       String
-  elaborate  String?
-  grapes     String
-  harmonize  String
-  abv        Float
-  body       String
-  acidity    String
-  code       String
-  price      Int         @default(0)
-  regionId   Int
-  clerkId    String?
-  createdAt  DateTime    @default(now())
-  featured   Boolean     @default(false)
-  image      String?
-  updatedAt  DateTime    @updatedAt
-  id         Int         @id @default(autoincrement())
-  cartItems  CartItem[]
-  favorites  Favorite[]
-  images     Image[]
-  orderItems OrderItem[]
-  reviews    Review[]
-  region     Region      @relation("RegionToWine", fields: [regionId], references: [id])
+  // 
+  // BASIC WINE INFORMATION
+  // 
+  name       String // Wine name (e.g., "Château Margaux 2015")
+  type       String // Wine type (e.g., "Red", "White", "Rosé")
+  elaborate  String? // Detailed description (optional)
+  grapes     String // Grape varieties used (e.g., "Cabernet Sauvignon, Merlot")
+  harmonize  String // Food pairing suggestions (e.g., "Red meat, aged cheese")
+  abv        Float // Alcohol by volume percentage (e.g., 13.5)
+  body       String // Wine body (e.g., "Light", "Medium", "Full")
+  acidity    String // Acidity level (e.g., "Low", "Medium", "High")
+  code       String // Product code/SKU for inventory management
+  price      Int         @default(0) // Price in cents (e.g., 2500 = $25.00)
+  
+  // 
+  // RELATIONSHIPS AND REFERENCES
+  // 
+  regionId   Int // Foreign key to Region table
+  clerkId    String? // Optional reference to Clerk user (for user-specific wines)
+  
+  // 
+  // TIMESTAMPS AND METADATA
+  // 
+  createdAt  DateTime    @default(now()) // When the wine was added to the database
+  featured   Boolean     @default(false) // Whether this wine is featured/promoted
+  image      String? // Default image URL (optional, can use images table instead)
+  updatedAt  DateTime    @updatedAt // Automatically updated when wine is modified
+  id         Int         @id @default(autoincrement()) // Unique identifier (auto-incrementing)
+  
+  // 
+  // RELATED DATA RELATIONSHIPS
+  // 
+  cartItems  CartItem[] // All cart items containing this wine
+  favorites  Favorite[] // All users who have favorited this wine
+  images     Image[] // All images associated with this wine
+  orderItems OrderItem[] // All order items containing this wine
+  reviews    Review[] // All reviews for this wine
+  region     Region      @relation("RegionToWine", fields: [regionId], references: [id]) // Wine's region
 }
 
+/**
+ * REGION MODEL - Geographic regions where wines are produced
+ * 
+ * This table stores information about wine regions and countries.
+ * It has a one-to-many relationship with wines (one region can have many wines).
+ * 
+ * BEGINNER TIP: Think of this as the "geography" table that tells you
+ * where each wine comes from (e.g., "Bordeaux, France").
+ */
 model Region {
-  id      Int    @id @default(autoincrement())
-  name    String
-  country String
-  wines   Wine[] @relation("RegionToWine")
+  id      Int    @id @default(autoincrement()) // Unique region identifier
+  name    String // Region name (e.g., "Bordeaux", "Tuscany", "Napa Valley")
+  country String // Country name (e.g., "France", "Italy", "United States")
+  wines   Wine[] @relation("RegionToWine") // All wines from this region
 }
 
+/**
+ * IMAGE MODEL - Multiple images for each wine
+ * 
+ * This table allows wines to have multiple images (product photos, labels, etc.).
+ * It has a many-to-one relationship with wines (many images can belong to one wine).
+ * 
+ * BEGINNER TIP: Think of this as the "photo gallery" table that stores
+ * all the different images for each wine product.
+ */
 model Image {
-  id     Int    @id @default(autoincrement())
-  url    String
-  wineId Int
-  wine   Wine   @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  id     Int    @id @default(autoincrement()) // Unique image identifier
+  url    String // Image URL or file path
+  wineId Int // Foreign key to Wine table
+  wine   Wine   @relation(fields: [wineId], references: [id], onDelete: Cascade) // Associated wine
 }
 
+/**
+ * FAVORITE MODEL - User favorites/wishlist
+ * 
+ * This table tracks which wines users have marked as favorites.
+ * It creates a many-to-many relationship between users and wines.
+ * 
+ * BEGINNER TIP: Think of this as the "wishlist" table that remembers
+ * which wines each user likes and wants to save for later.
+ */
 model Favorite {
-  id        String   @id @default(uuid())
-  clerkId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  wineId    Int
-  wine      Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid()) // Unique favorite identifier (UUID)
+  clerkId   String // Clerk user ID (who favorited the wine)
+  createdAt DateTime @default(now()) // When the wine was favorited
+  updatedAt DateTime @updatedAt // When the favorite was last modified
+  wineId    Int // Foreign key to Wine table
+  wine      Wine   @relation(fields: [wineId], references: [id], onDelete: Cascade) // Favorited wine
 }
 
+/**
+ * REVIEW MODEL - User reviews and ratings for wines
+ * 
+ * This table stores user reviews, ratings, and comments for wines.
+ * It allows users to share their opinions and experiences.
+ * 
+ * BEGINNER TIP: Think of this as the "customer feedback" table that
+ * stores what users think about each wine they've tried.
+ */
 model Review {
-  id             String   @id @default(uuid())
-  clerkId        String
-  rating         Int
-  comment        String
-  authorName     String
-  authorImageUrl String
-  vintage        String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  wineId         Int
-  wine           Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  id             String   @id @default(uuid()) // Unique review identifier (UUID)
+  clerkId        String // Clerk user ID (who wrote the review)
+  rating         Int // Numerical rating (e.g., 1-5 stars)
+  comment        String // Written review text
+  authorName     String // Display name of the reviewer
+  authorImageUrl String // Profile picture URL of the reviewer
+  vintage        String? // Wine vintage/year (optional)
+  createdAt      DateTime @default(now()) // When the review was written
+  updatedAt      DateTime @updatedAt // When the review was last modified
+  wineId         Int // Foreign key to Wine table
+  wine           Wine   @relation(fields: [wineId], references: [id], onDelete: Cascade) // Reviewed wine
 }
 
+/**
+ * CART MODEL - Shopping cart for each user
+ * 
+ * This table represents a user's shopping cart with totals and shipping information.
+ * It has a one-to-many relationship with cart items.
+ * 
+ * BEGINNER TIP: Think of this as the "shopping basket" table that keeps
+ * track of what a user wants to buy and calculates the total cost.
+ */
 model Cart {
-  id             String     @id @default(uuid())
-  clerkId        String
-  numItemsInCart Int        @default(0)
-  cartTotal      Int        @default(0)
-  shipping       Int        @default(5)
-  tax            Int        @default(0)
-  taxRate        Float      @default(0.1)
-  orderTotal     Int        @default(0)
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  cartItems      CartItem[]
+  id             String     @id @default(uuid()) // Unique cart identifier (UUID)
+  clerkId        String // Clerk user ID (who owns the cart)
+  numItemsInCart Int        @default(0) // Total number of items in cart
+  cartTotal      Int        @default(0) // Subtotal in cents (before tax/shipping)
+  shipping       Int        @default(5) // Shipping cost in cents
+  tax            Int        @default(0) // Tax amount in cents
+  taxRate        Float      @default(0.1) // Tax rate (e.g., 0.1 = 10%)
+  orderTotal     Int        @default(0) // Final total in cents (including tax/shipping)
+  createdAt      DateTime   @default(now()) // When the cart was created
+  updatedAt      DateTime   @updatedAt // When the cart was last modified
+  cartItems      CartItem[] // All items in this cart
 }
 
+/**
+ * CART ITEM MODEL - Individual items in a shopping cart
+ * 
+ * This table represents individual wine items in a user's cart.
+ * It connects carts to wines and tracks quantities.
+ * 
+ * BEGINNER TIP: Think of this as the "cart contents" table that shows
+ * exactly which wines and how many of each are in a user's cart.
+ */
 model CartItem {
-  id        String   @id @default(uuid())
-  cartId    String
-  amount    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  wineId    Int
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  wine      Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid()) // Unique cart item identifier (UUID)
+  cartId    String // Foreign key to Cart table
+  amount    Int // Quantity of this wine in the cart
+  createdAt DateTime @default(now()) // When this item was added to cart
+  updatedAt DateTime @updatedAt // When this item was last modified
+  wineId    Int // Foreign key to Wine table
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade) // Parent cart
+  wine      Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade) // Wine in cart
 }
 
+/**
+ * ORDER MODEL - Completed orders/purchases
+ * 
+ * This table stores completed orders after users checkout.
+ * It contains order totals, payment status, and customer information.
+ * 
+ * BEGINNER TIP: Think of this as the "purchase history" table that
+ * records all completed transactions and their details.
+ */
 model Order {
-  id         String      @id @default(uuid())
-  clerkId    String
-  products   Int         @default(0)
-  orderTotal Int         @default(0)
-  tax        Int         @default(0)
-  shipping   Int         @default(0)
-  email      String
-  isPaid     Boolean     @default(false)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  orderItems OrderItem[]
+  id         String      @id @default(uuid()) // Unique order identifier (UUID)
+  clerkId    String // Clerk user ID (who placed the order)
+  products   Int         @default(0) // Total number of products in order
+  orderTotal Int         @default(0) // Total order amount in cents
+  tax        Int         @default(0) // Tax amount in cents
+  shipping   Int         @default(0) // Shipping cost in cents
+  email      String // Customer email for order confirmation
+  isPaid     Boolean     @default(false) // Whether the order has been paid
+  createdAt  DateTime    @default(now()) // When the order was placed
+  updatedAt  DateTime    @updatedAt // When the order was last modified
+  orderItems OrderItem[] // All items in this order
 }
 
+/**
+ * ORDER ITEM MODEL - Individual items in a completed order
+ * 
+ * This table represents individual wine items that were purchased.
+ * It stores the price at time of purchase and quantity ordered.
+ * 
+ * BEGINNER TIP: Think of this as the "order receipt" table that shows
+ * exactly what was purchased, at what price, and in what quantity.
+ */
 model OrderItem {
-  id        String   @id @default(uuid())
-  orderId   String
-  wineId    Int
-  amount    Int
-  price     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  wine      Wine     @relation(fields: [wineId], references: [id])
+  id        String   @id @default(uuid()) // Unique order item identifier (UUID)
+  orderId   String // Foreign key to Order table
+  wineId    Int // Foreign key to Wine table
+  amount    Int // Quantity of this wine ordered
+  price     Int // Price per unit in cents at time of purchase
+  createdAt DateTime @default(now()) // When this order item was created
+  updatedAt DateTime @updatedAt // When this order item was last modified
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade) // Parent order
+  wine      Wine     @relation(fields: [wineId], references: [id]) // Wine that was ordered
 }

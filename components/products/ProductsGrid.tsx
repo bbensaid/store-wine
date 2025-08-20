@@ -4,6 +4,7 @@ import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import { Wine, Image as PrismaImage } from "@prisma/client";
 import { formatCurrency } from "@/utils/format";
+import AddToCart from "../single-product/AddToCart";
 
 async function ProductsGrid({
   products,
@@ -11,7 +12,7 @@ async function ProductsGrid({
   products: (Wine & { images: PrismaImage[] })[];
 }) {
   return (
-    <div className="pt-2 grid gap-y-20 gap-x-12 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]">
+    <div className="pt-4 grid gap-y-20 gap-x-12 grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]">
       {products.map((product) => {
         const { name, images } = product;
         const productId = product.id;
@@ -48,6 +49,10 @@ async function ProductsGrid({
                   </p>
                 </div>
               </Link>
+              {/* Add to Cart Button */}
+              <div className="px-2 pb-3">
+                <AddToCart wineId={productId.toString()} />
+              </div>
             </Card>
           </article>
         );
