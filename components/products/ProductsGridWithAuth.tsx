@@ -282,7 +282,7 @@ async function ProductsGridWithAuth({
                 </div>
               </Link>
               {/* Add to Cart Button */}
-              <div className="px-2 pb-3">
+              <div className="px-2 pb-3 text-center">
                 <AddToCart wineId={productId.toString()} />
               </div>
             </Card>

@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 
 if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY environment variable is not set');
+  throw new Error("STRIPE_SECRET_KEY environment variable is not set");
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -45,14 +45,42 @@ export const POST = async (req: NextRequest) => {
         product_data: {
           name: cartItem.wine.name,
         },
-        unit_amount: cartItem.wine.price * 100, // price in cents
+        unit_amount: cartItem.wine.price, // price is already in cents
       },
     };
   });
+
+  // Add tax and shipping as separate line items
+  if (cart.tax > 0) {
+    line_items.push({
+      quantity: 1,
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: "Tax",
+        },
+        unit_amount: cart.tax, // tax is already in cents
+      },
+    });
+  }
+
+  if (cart.shipping > 0) {
+    line_items.push({
+      quantity: 1,
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: "Shipping",
+        },
+        unit_amount: cart.shipping, // shipping is already in cents
+      },
+    });
+  }
+
   try {
     console.log("Creating Stripe session with line_items:", line_items);
     console.log("Origin:", origin);
-    
+
     const session = await stripe.checkout.sessions.create({
       ui_mode: "embedded",
       metadata: { orderId, cartId },
@@ -71,4 +99,4 @@ export const POST = async (req: NextRequest) => {
       statusText: "Internal Server Error",
     });
   }
-}; 
+};
