@@ -23,6 +23,7 @@ import { Inter } from "next/font/google"; // Google Fonts integration
 import "./globals.css"; // Global CSS file with Tailwind CSS
 import Providers from "./providers"; // Custom provider components (theme, etc.)
 import Navbar from "@/components/navbar/Navbar"; // Navigation bar component
+import WineChatbot from "@/components/chatbot/WineChatbot"; // RAG Chatbot component
 import { Suspense } from "react"; // React component for loading states
 import { ClerkProvider } from "@clerk/nextjs"; // Authentication provider
 
@@ -155,6 +156,9 @@ export default function RootLayout({
               </main>
             </div>
           </Providers>
+
+          {/* RAG Chatbot - Available on all pages */}
+          <WineChatbot />
         </body>
       </html>
     </ClerkProvider>

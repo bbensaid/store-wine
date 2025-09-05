@@ -115,7 +115,7 @@ import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { usePathname } from "next/navigation";
 
 // React hooks for state management
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Clerk authentication components
 // These handle user sign in, sign out, and user state management
@@ -204,6 +204,13 @@ function Navbar() {
   // Control the Wines dropdown menu state
   // false = closed, true = open
   const [winesOpen, setWinesOpen] = useState(false);
+
+  // State to prevent hydration mismatches
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     //
@@ -417,17 +424,21 @@ function Navbar() {
 
       {/* Desktop Authentication */}
       <div className="hidden md:flex items-center">
-        <SignedOut>
-          <SignInButton mode="modal">
-            <Button className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal">
-              <LuUser className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
-              <span className="hidden sm:inline">Sign in</span>
-            </Button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <UserButtonWrapper />
-        </SignedIn>
+        {mounted && (
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button className="flex items-center gap-1 sm:gap-2 text-primary hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base border border-primary/20 bg-white font-normal">
+                <LuUser className="w-4 h-4 sm:w-5 sm:h-5 mr-1 text-primary" />
+                <span className="hidden sm:inline">Sign in</span>
+              </Button>
+            </SignInButton>
+          </SignedOut>
+        )}
+        {mounted && (
+          <SignedIn>
+            <UserButtonWrapper />
+          </SignedIn>
+        )}
       </div>
 
       {/* Mobile Navbar */}
@@ -577,17 +588,21 @@ function Navbar() {
               Privacy Policy
             </Button>
 
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
-                  <LuUser className="w-5 h-5 mr-1 text-primary" />
-                  Sign in
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButtonWrapper />
-            </SignedIn>
+            {mounted && (
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button className="flex items-center gap-1 sm:gap-2 hover:bg-gray-100 hover:text-primary hover:border-primary active:bg-gray-200 active:text-primary active:border-primary text-sm sm:text-base font-normal border border-primary/20 bg-white text-primary">
+                    <LuUser className="w-5 h-5 mr-1 text-primary" />
+                    Sign in
+                  </Button>
+                </SignInButton>
+              </SignedOut>
+            )}
+            {mounted && (
+              <SignedIn>
+                <UserButtonWrapper />
+              </SignedIn>
+            )}
           </DrawerContent>
         </Drawer>
       </div>

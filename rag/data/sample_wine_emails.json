@@ -1,0 +1,72 @@
+[
+  {
+    "id": "email_001",
+    "subject": "Wine Recommendation for Anniversary Dinner",
+    "from": "customer@email.com",
+    "date": "2024-01-15",
+    "full_body": "Hi, I'm celebrating my 10th anniversary next week and need wine recommendations for a romantic dinner. We're having filet mignon and lobster. What wines would pair well? Our budget is around $100-150 total. Thanks!"
+  },
+  {
+    "id": "email_002",
+    "subject": "Order Status Inquiry",
+    "from": "customer@email.com",
+    "date": "2024-01-16",
+    "full_body": "Hi, I placed an order last week (Order #12345) for 6 bottles of Domaine Tempier Bandol Rosé. When will it ship? I need it for a party this weekend. Can you expedite the shipping? Thanks!"
+  },
+  {
+    "id": "email_003",
+    "subject": "Return Policy Question",
+    "from": "customer@email.com",
+    "date": "2024-01-17",
+    "full_body": "I received a bottle of wine that was not what I expected. The label was different from what I ordered online. Can I return it? What's your return policy? The wine was a 2019 Château Margaux that I paid $450 for."
+  },
+  {
+    "id": "email_004",
+    "subject": "Wine Storage Advice",
+    "from": "customer@email.com",
+    "date": "2024-01-18",
+    "full_body": "I just bought a wine cellar and want to know the best way to store my wine collection. I have about 200 bottles including some expensive Bordeaux and Burgundy wines. What temperature and humidity should I maintain? How long can I store them?"
+  },
+  {
+    "id": "email_005",
+    "subject": "Wine Tasting Event Inquiry",
+    "from": "customer@email.com",
+    "date": "2024-01-19",
+    "full_body": "Do you host wine tasting events? I'm interested in learning more about Italian wines, specifically Barolo and Brunello. I have a group of 8 people who would like to attend. What dates do you have available and what's the cost per person?"
+  },
+  {
+    "id": "email_006",
+    "subject": "Shipping to Canada",
+    "from": "customer@email.com",
+    "date": "2024-01-20",
+    "full_body": "I live in Toronto, Canada. Do you ship internationally? I'm interested in ordering some California Cabernet Sauvignons and Oregon Pinot Noirs. What are the shipping costs and delivery times? Are there any restrictions on wine imports to Canada?"
+  },
+  {
+    "id": "email_007",
+    "subject": "Wine Club Membership",
+    "from": "customer@email.com",
+    "date": "2024-01-21",
+    "full_body": "I'm interested in joining your wine club. What are the membership benefits? How often do you send wines? Can I customize the selections based on my preferences? I prefer red wines, especially from France and Italy, and my budget is around $200-300 per shipment."
+  },
+  {
+    "id": "email_008",
+    "subject": "Corporate Wine Gifts",
+    "from": "business@company.com",
+    "date": "2024-01-22",
+    "full_body": "We're looking to purchase wine gifts for our corporate clients. We need 50 gift boxes, each containing 2 bottles of premium wine. Budget is $100-150 per gift box. Can you recommend some options? We need them delivered by next Friday for a corporate event."
+  },
+  {
+    "id": "email_009",
+    "subject": "Wine and Food Pairing Class",
+    "from": "customer@email.com",
+    "date": "2024-01-23",
+    "full_body": "I saw on your website that you offer wine and food pairing classes. I'm a beginner and want to learn the basics. What topics do you cover? Do you provide the food and wine, or do I need to bring anything? What's the cost and how long is the class?"
+  },
+  {
+    "id": "email_010",
+    "subject": "Special Order Request",
+    "from": "customer@email.com",
+    "date": "2024-01-24",
+    "full_body": "I'm looking for a specific vintage of Château d'Yquem 2015. I know it's rare and expensive, but I need it for a special occasion. Do you have it in stock or can you source it? What's the price? I'm willing to pay a premium for this particular vintage."
+  }
+]

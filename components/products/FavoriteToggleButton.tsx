@@ -7,7 +7,7 @@ async function FavoriteToggleButton({ wineId }: { wineId: number }) {
   try {
     const user = await currentUser();
     if (!user) return <CardSignInButton />;
-    
+
     const favoriteId = await fetchFavoriteId({ wineId });
 
     return <FavoriteToggleForm favoriteId={favoriteId} wineId={wineId} />;

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "knowledge_001",
+    "type": "wine_pairing_guide",
+    "content": "Wine Pairing Guide for Filet Mignon: Filet mignon pairs beautifully with full-bodied red wines. Our top recommendations are: 1) Cabernet Sauvignon - The tannins cut through the richness of the meat. Try our 2019 Château Margaux ($450) or 2020 Stag's Leap Cabernet ($85). 2) Merlot - Softer tannins complement the tender meat. Our 2019 Domaine Tempier Bandol ($65) is perfect. 3) Pinot Noir - Lighter option that won't overpower the delicate flavor. The 2021 Oregon Pinot Noir ($45) is excellent. For special occasions like anniversaries, we recommend the Château Margaux. Budget-friendly options include the Oregon Pinot Noir.",
+    "metadata": {
+      "category": "wine_pairing",
+      "food": "filet_mignon",
+      "price_range": "45-450",
+      "occasion": "special_dinner"
+    }
+  },
+  {
+    "id": "knowledge_002",
+    "type": "return_policy",
+    "content": "Return Policy: We offer a 30-day return policy for all wine purchases. If you receive a wine that doesn't match your order or is damaged, please contact us immediately. We will arrange for pickup and provide a full refund or replacement. For expensive wines over $200, we require photos of the issue before processing returns. All returns must be in original condition with unbroken seals. We cannot accept returns for wines that have been opened or consumed. Contact customer service at support@winestore.com or call (555) 123-4567.",
+    "metadata": {
+      "category": "policy",
+      "type": "returns",
+      "timeframe": "30_days",
+      "contact": "support@winestore.com"
+    }
+  },
+  {
+    "id": "knowledge_003",
+    "type": "shipping_info",
+    "content": "Shipping Information: We ship nationwide within 2-3 business days. Standard shipping is $15 for orders under $100, free for orders over $100. Express shipping (1-2 days) is $25. We use temperature-controlled packaging to ensure wine quality. International shipping to Canada is available for $35, delivery takes 5-7 business days. We cannot ship to some states due to alcohol regulations. All shipments require adult signature upon delivery. Tracking information is sent via email once your order ships.",
+    "metadata": {
+      "category": "shipping",
+      "domestic_time": "2-3_days",
+      "international": "canada_available",
+      "free_shipping": "over_100"
+    }
+  },
+  {
+    "id": "knowledge_004",
+    "type": "wine_storage_guide",
+    "content": "Wine Storage Guide: Proper wine storage is essential for maintaining quality. Store wines at 55-65°F with 60-70% humidity. Keep bottles horizontal to keep corks moist. Avoid temperature fluctuations and direct sunlight. For long-term storage (over 1 year), invest in a wine cellar or wine refrigerator. Short-term storage (under 6 months) can be done in a cool, dark closet. Red wines can be stored longer than whites. Most wines are best consumed within 2-3 years of purchase, except for premium Bordeaux and Burgundy which can age 10+ years.",
+    "metadata": {
+      "category": "storage",
+      "temperature": "55-65F",
+      "humidity": "60-70%",
+      "position": "horizontal"
+    }
+  },
+  {
+    "id": "knowledge_005",
+    "type": "wine_tasting_events",
+    "content": "Wine Tasting Events: We host weekly wine tasting events every Friday from 6-8 PM. Cost is $25 per person, includes 6 wine samples and light appetizers. Private tastings available for groups of 8-20 people at $35 per person. We offer themed tastings: Italian wines (Barolo, Brunello), French wines (Bordeaux, Burgundy), and New World wines (California, Oregon). All tastings include educational content about wine regions, grape varieties, and food pairing. Reservations required - call (555) 123-4567 or book online at winestore.com/events.",
+    "metadata": {
+      "category": "events",
+      "schedule": "friday_6-8pm",
+      "cost": "25_per_person",
+      "private": "8-20_people"
+    }
+  },
+  {
+    "id": "knowledge_006",
+    "type": "wine_club_benefits",
+    "content": "Wine Club Membership: Join our exclusive wine club for $200-300 per shipment, delivered every 3 months. Benefits include: 20% discount on all wines, free shipping, exclusive access to limited releases, personalized recommendations based on your preferences, and invitations to private tasting events. You can customize your shipments by wine type (red, white, mixed), region (France, Italy, California), or price range. Cancel anytime with 30 days notice. First-time members get a welcome gift of 2 premium wine glasses.",
+    "metadata": {
+      "category": "membership",
+      "cost": "200-300_per_shipment",
+      "frequency": "quarterly",
+      "discount": "20%"
+    }
+  },
+  {
+    "id": "knowledge_007",
+    "type": "seafood_wine_pairings",
+    "content": "Wine Pairings for Seafood: Seafood pairs best with crisp, acidic wines. For lobster: Chardonnay or Champagne. For salmon: Pinot Noir or Sauvignon Blanc. For oysters: Muscadet or Chablis. For shrimp: Riesling or Pinot Grigio. For crab: Chardonnay or Chenin Blanc. Our top recommendations: 2020 Domaine Tempier Bandol Rosé ($65) for salmon, 2019 Chablis ($45) for oysters, and 2021 Oregon Pinot Noir ($45) for grilled fish. Avoid heavy reds with delicate seafood - they will overpower the flavors.",
+    "metadata": {
+      "category": "wine_pairing",
+      "food": "seafood",
+      "wine_types": "crisp_acidic",
+      "avoid": "heavy_reds"
+    }
+  },
+  {
+    "id": "knowledge_008",
+    "type": "corporate_gifts",
+    "content": "Corporate Wine Gifts: We offer custom corporate gift packages starting at $100 per box. Each gift box contains 2 premium wines, elegant packaging, and personalized message. Popular options: Executive Collection ($150) - 1 Bordeaux + 1 Champagne, California Dream ($120) - 2 Napa Valley wines, Italian Romance ($130) - 1 Barolo + 1 Chianti. We can customize labels with your company logo. Minimum order 25 boxes, delivery within 5 business days. Volume discounts available for orders over 100 boxes. Contact our corporate sales team at corporate@winestore.com.",
+    "metadata": {
+      "category": "corporate",
+      "starting_price": "100_per_box",
+      "minimum_order": "25_boxes",
+      "contact": "corporate@winestore.com"
+    }
+  },
+  {
+    "id": "knowledge_009",
+    "type": "wine_education_classes",
+    "content": "Wine Education Classes: Learn about wine in our hands-on classes. Wine 101 (2 hours, $50) covers basics: tasting techniques, grape varieties, and regions. Food & Wine Pairing (3 hours, $75) teaches perfect pairings with hands-on tasting. Advanced Sommelier Prep (6 hours, $150) for serious wine enthusiasts. All classes include wine samples, educational materials, and light food. Classes held Saturdays 2-4 PM, maximum 12 students. Private classes available for groups. Book online at winestore.com/classes or call (555) 123-4567.",
+    "metadata": {
+      "category": "education",
+      "classes": "wine_101_pairing_sommelier",
+      "schedule": "saturday_2-4pm",
+      "max_students": "12"
+    }
+  },
+  {
+    "id": "knowledge_010",
+    "type": "premium_wine_collection",
+    "content": "Premium Wine Collection: Our rare and expensive wines include: 2019 Château Margaux ($450) - Classic Bordeaux, perfect for special occasions. 2015 Château d'Yquem ($800) - Premier dessert wine, extremely rare. 2020 Domaine de la Romanée-Conti ($1200) - World's most expensive wine. 2018 Screaming Eagle Cabernet ($2500) - Cult California wine. These wines require special handling and are stored in our climate-controlled cellar. We recommend consulting with our sommelier before purchasing. All premium wines come with certificates of authenticity and can be shipped in special protective packaging.",
+    "metadata": {
+      "category": "premium_wines",
+      "price_range": "450-2500",
+      "special_handling": "required",
+      "certificates": "included"
+    }
+  }
+]
