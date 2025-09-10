@@ -1,4 +1,4 @@
-Isn't #!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 SUPABASE DATA INTEGRATION: Connect RAG with your actual Supabase database
 This integrates your real wine products, reviews, and business data
