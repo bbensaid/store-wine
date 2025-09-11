@@ -40,24 +40,31 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class WineRAGSystem:
-    def __init__(self, db_path: str = "./qdrant_db", model_name: str = "llama3.2:latest"):
+    def __init__(
+        self,
+        db_path: str = "./qdrant_db",
+        llm_model_name: str = "llama3.2:latest",
+        embedding_model_name: str = "nomic-embed-text",
+    ):
         """
         Initialize the RAG system
         
         Args:
             db_path: Path to Qdrant database
-            model_name: Ollama model to use for embeddings and generation
+            llm_model_name: Ollama model to use for generation
+            embedding_model_name: Ollama embedding model to use for vectorization
         """
         self.db_path = db_path
-        self.model_name = model_name
+        self.llm_model_name = llm_model_name
+        self.embedding_model_name = embedding_model_name
         
         # Initialize Qdrant client
         self.client = QdrantClient(path=db_path)
         self.collection_name = "wine_knowledge"
         
-        # Initialize Ollama components
-        self.llm = OllamaLLM(model=model_name)
-        self.embeddings = OllamaEmbeddings(model=model_name)
+        # Initialize Ollama components (use a dedicated embedding model)
+        self.llm = OllamaLLM(model=llm_model_name)
+        self.embeddings = OllamaEmbeddings(model=embedding_model_name)
         
         # Text splitter for chunking documents
         self.text_splitter = RecursiveCharacterTextSplitter(
@@ -72,7 +79,9 @@ class WineRAGSystem:
         # Initialize collection if it doesn't exist
         self._initialize_collection()
         
-        logger.info(f"RAG System initialized with model: {model_name}")
+        logger.info(
+            f"RAG System initialized with LLM: {llm_model_name} | Embeddings: {embedding_model_name}"
+        )
     
     def _get_embedding_dimensions(self) -> int:
         """Get the embedding dimensions for the current model"""
