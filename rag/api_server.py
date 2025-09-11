@@ -69,8 +69,7 @@ async def root():
     return {
         "message": "Wine Store RAG API is running",
         "status": "healthy",
-        "model": rag_system.llm_model_name,
-        "embedding_model": rag_system.embedding_model_name,
+        "model": rag_system.model_name
     }
 
 # Chat endpoint
@@ -170,8 +169,7 @@ async def get_status():
         
         return {
             "status": "healthy",
-            "model": rag_system.llm_model_name,
-            "embedding_model": rag_system.embedding_model_name,
+            "model": rag_system.model_name,
             "knowledge_base_documents": len(test_results),
             "vector_database": "connected",
             "rag_system": "active"
