@@ -16,7 +16,8 @@ export interface RAGSearchResult {
   content: string;
   metadata: {
     type: string;
-    [key: string]: any;
+    //[key: string]: any;
+    [key: string]: string;
   };
   score: number;
 }
